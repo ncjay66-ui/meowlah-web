@@ -121,19 +121,22 @@ export default function ScorePage() {
 
       {/* Mode Toggle */}
       <div className="flex gap-2 mb-5 p-1 bg-gray-100 rounded-xl">
-        x(['text', 'manual'] as const).map(m => (
-          <button
-            key={m}
-            onClick={() => { setMode(m); setResult(null); setError(null); }}
-            className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
-              mode === m ? 'bg-white shadow text-orange-500' : 'text-gray-500 hover:text-gray-700'
-            }`}
-          >
-            {m === 'text'
-              ? (lang === 'zh' ? '📋 粘贴成分' : '📋 Paste Ingredients')
-              : (lang === 'zh' ? '🔢 手动输入营养值' : '🔢 Enter Nutrition Values')}
-          </button>
-        ))}
+        {(['text', 'manual'] as Array<'text' | 'manual'>).map(m => {
+          const mLabel = m === 'text'
+            ? (lang === 'zh' ? '\uD83D\uDCCB 粘贴成分' : '📋 Paste Ingredients')
+            : (lang === 'zh' ? '\uD83D\uDD22 手动输入营养值' : '🔢 Enter Nutrition Values');
+          return (
+            <button
+              key={m}
+              onClick={() => { setMode(m); setResult(null); setError(null); }}
+              className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all ${
+                mode === m ? 'bg-white shadow text-orange-500' : 'text-gray-500 hover:text-gray-700'
+              }`}
+            >
+              {mLabel}
+            </button>
+          );
+        })}
       </div>
 
       {/* Input Card */}
