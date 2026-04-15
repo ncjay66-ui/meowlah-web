@@ -7,6 +7,7 @@ export interface Product {
   brand: string; category: Category; weight_g: number | null;
   is_halal: boolean; is_local_brand: boolean; country_origin: string | null;
   image_url: string | null; shopee_url: string | null; lazada_url: string | null;
+  affiliate_shopee: string | null; affiliate_lazada: string | null;
   grade: string | null; final_score: number | null; price_myr: number | null; price_per_protein_g: number | null;
   // v2.1 双轨评价
   food_purpose: 'complete' | 'complementary' | null;

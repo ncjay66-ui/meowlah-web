@@ -368,8 +368,8 @@ export default function ProductDetailView({ product }: Props) {
 
             {/* Buy buttons */}
             <div className="flex gap-2">
-              {product.shopee_url ? (
-                <a href={product.shopee_url} target="_blank" rel="noopener noreferrer"
+              {(product.affiliate_shopee || product.shopee_url) ? (
+                <a href={product.affiliate_shopee || product.shopee_url!} target="_blank" rel="noopener noreferrer"
                   className="flex-1 bg-[#EE4D2D] text-white text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5">
                   🛍️ Shopee
                 </a>
