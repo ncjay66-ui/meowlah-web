@@ -8,6 +8,16 @@ const CAT_EMOJI: Record<string, string> = {
   wet: '🐟', dry: '🌾', freeze_dried: '❄️', treat: '🍬', supplement: '💊',
 };
 
+// Grade badge colours — consistent with page.tsx GRADE_CHIP
+const GRADE_BG: Record<string, string> = {
+  S: '#7c3aed',  // violet-600
+  A: '#10b981',  // emerald-500
+  B: '#84cc16',  // lime-500
+  C: '#eab308',  // yellow-500
+  D: '#f97316',  // orange-500
+  F: '#ef4444',  // red-500
+};
+
 function isPlaceholder(url: string | null | undefined) {
   if (!url) return true;
   return url.includes('placehold.co') || url.includes('via.placeholder');
@@ -46,6 +56,8 @@ export default function ProductCard({ product, rank }: Props) {
     'bg-gray-400 text-white',    // 2
     'bg-orange-600 text-white',  // 3
   ];
+
+  const gradeBg = product.grade ? GRADE_BG[product.grade] : null;
 
   return (
     <Link href={`/products/${product.id}`} className="block group">
@@ -86,6 +98,16 @@ export default function ProductCard({ product, rank }: Props) {
           {product.is_halal && (
             <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-emerald-500 shadow-sm" title="Halal" />
           )}
+
+          {/* Grade badge — bottom-right */}
+          {gradeBg && (
+            <span
+              className="absolute bottom-2 right-2 text-[11px] font-bold px-2 py-0.5 rounded-full leading-none text-white shadow-sm"
+              style={{ backgroundColor: gradeBg }}
+            >
+              {product.grade}
+            </span>
+          )}
         </div>
 
         {/* ── Info ── */}
@@ -114,9 +136,18 @@ export default function ProductCard({ product, rank }: Props) {
             )}
           </div>
 
-          {/* Halal label + MY tag — only show if relevant */}
+          {/* Cost per 100g — value density indicator */}
+          {product.price_myr && product.weight_g ? (
+            <p className="text-[10px] text-gray-400 mt-0.5">
+              RM {((Number(product.price_myr) / product.weight_g) * 100).toFixed(2)}/100g
+            </p>
+          ) : (
+            <p className="text-[10px] text-transparent mt-0.5">—</p>
+          )}
+
+          {/* Halal label + MY tag */}
           {(product.is_halal || product.is_local_brand) && (
-            <div className="flex gap-1.5 mt-2">
+            <div className="flex gap-1.5 mt-1.5">
               {product.is_halal && (
                 <span className="text-[9px] font-semibold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-full">{tr('tag.halal')}</span>
               )}

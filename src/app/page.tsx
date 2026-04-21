@@ -23,6 +23,29 @@ const SORT_OPTIONS: { value: SortBy; icon: string }[] = [
   { value: 'value_asc',  icon: '🧬' },
 ];
 
+// Skeleton card that matches the real ProductCard layout
+function SkeletonCard() {
+  return (
+    <div className="bg-white rounded-2xl overflow-hidden animate-pulse" style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
+      {/* Image area */}
+      <div className="relative aspect-square bg-gray-100">
+        <div className="absolute bottom-2 right-2 w-6 h-4 bg-gray-200 rounded-full" />
+      </div>
+      {/* Info area */}
+      <div className="px-3 pt-2.5 pb-3">
+        <div className="h-2 bg-gray-100 rounded-full w-14 mb-1.5" />
+        <div className="h-3 bg-gray-100 rounded-full w-full mb-1" />
+        <div className="h-3 bg-gray-100 rounded-full w-4/5 mb-3" />
+        <div className="flex items-center justify-between">
+          <div className="h-4 bg-gray-100 rounded-full w-16" />
+          <div className="h-2.5 bg-gray-100 rounded-full w-8" />
+        </div>
+        <div className="h-2.5 bg-gray-100 rounded-full w-20 mt-1" />
+      </div>
+    </div>
+  );
+}
+
 export default function HomePage() {
   const [products, setProducts]   = useState<Product[]>([]);
   const [total, setTotal]         = useState(0);
@@ -80,6 +103,9 @@ export default function HomePage() {
 
   const toggleFilterPanel = () => setShowFilters(f => !f);
 
+  // Count active non-sort filters for badge
+  const activeFilterCount = (halalOnly ? 1 : 0) + (localOnly ? 1 : 0) + (grade ? 1 : 0);
+
   return (
     <div className="max-w-4xl mx-auto pb-24">
 
@@ -105,7 +131,7 @@ export default function HomePage() {
       <div className="px-4 sm:px-6">
 
         {/* ── Filter / Sort toolbar ── */}
-        <div className="flex items-center gap-2 py-3 flex-wrap">
+        <div className="flex items-center gap-2 py-3">
 
           {/* Halal toggle */}
           <button
@@ -127,10 +153,10 @@ export default function HomePage() {
             🇲🇾 {lang === 'zh' ? '本地' : lang === 'bm' ? 'Tempatan' : 'Local'}
           </button>
 
-          {/* Filter expand button */}
+          {/* Filter expand button — shows active count badge */}
           <button
             onClick={toggleFilterPanel}
-            className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-[12px] font-semibold transition-all shrink-0 ${
+            className={`relative flex items-center gap-1 px-3 py-1.5 rounded-full text-[12px] font-semibold transition-all shrink-0 ${
               showFilters || grade
                 ? 'bg-indigo-500 text-white'
                 : 'bg-white text-gray-500 border border-gray-200 hover:border-gray-300'
@@ -161,10 +187,9 @@ export default function HomePage() {
           </span>
         </div>
 
-        {/* ── Expandable grade + sort filter panel ── */}
+        {/* ── Desktop inline filter panel ── */}
         {showFilters && (
-          <div className="bg-gray-50 rounded-2xl p-4 mb-3 space-y-3">
-
+          <div className="hidden sm:block bg-gray-50 rounded-2xl p-4 mb-3 space-y-3">
             {/* Grade chips */}
             <div>
               <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2">
@@ -186,7 +211,6 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-
             {/* Sort full list */}
             <div>
               <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2">
@@ -211,6 +235,77 @@ export default function HomePage() {
           </div>
         )}
 
+        {/* ── Mobile bottom sheet filter panel ── */}
+        {showFilters && (
+          <>
+            {/* Backdrop */}
+            <div
+              className="sm:hidden fixed inset-0 bg-black/40 z-50"
+              onClick={() => setShowFilters(false)}
+            />
+            {/* Sheet — sits above BottomNav (h-14) */}
+            <div className="sm:hidden fixed bottom-14 left-0 right-0 z-50 bg-white rounded-t-2xl shadow-2xl">
+              <div className="px-4 pt-3 pb-6">
+                {/* Drag handle */}
+                <div className="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-4" />
+
+                {/* Grade */}
+                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                  {tr('filter.grade')}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {GRADE_OPTIONS.map(g => (
+                    <button
+                      key={g}
+                      onClick={() => handleGrade(g)}
+                      className={`px-3 py-1.5 rounded-full text-[13px] font-bold transition-all ${
+                        grade === g
+                          ? g === '' ? 'bg-gray-700 text-white' : GRADE_CHIP[g]
+                          : 'bg-gray-100 text-gray-600'
+                      }`}
+                    >
+                      {g === '' ? tr('filter.allGrades') : g}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Sort */}
+                <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                  {tr('sort.label')}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-5">
+                  {(['score_desc', 'score_asc', 'price_asc', 'price_desc', 'value_asc'] as SortBy[]).map(opt => (
+                    <button
+                      key={opt}
+                      onClick={() => { handleSort(opt); setShowFilters(false); }}
+                      className={`px-3 py-2 rounded-full text-[13px] font-medium transition-all ${
+                        sortBy === opt
+                          ? 'bg-orange-500 text-white'
+                          : 'bg-gray-100 text-gray-600'
+                      }`}
+                    >
+                      {tr(`sort.${opt}` as Parameters<typeof tr>[0])}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Done */}
+                <button
+                  onClick={() => setShowFilters(false)}
+                  className="w-full py-3 bg-orange-500 text-white rounded-full text-[14px] font-semibold"
+                >
+                  {tr('filter.done')}
+                  {activeFilterCount > 0 && (
+                    <span className="ml-1.5 bg-white/30 text-white text-[11px] font-bold px-1.5 py-0.5 rounded-full">
+                      {activeFilterCount}
+                    </span>
+                  )}
+                </button>
+              </div>
+            </div>
+          </>
+        )}
+
         {/* Search label */}
         {search && (
           <p className="text-[13px] text-gray-400 mb-3">
@@ -226,17 +321,7 @@ export default function HomePage() {
         {/* ── Product grid ── */}
         {loading ? (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="bg-white rounded-2xl overflow-hidden animate-pulse">
-                <div className="aspect-square bg-gray-100" />
-                <div className="p-3 space-y-2.5">
-                  <div className="h-2 bg-gray-100 rounded-full w-12" />
-                  <div className="h-3 bg-gray-100 rounded-full w-full" />
-                  <div className="h-3 bg-gray-100 rounded-full w-4/5" />
-                  <div className="h-4 bg-gray-100 rounded-full w-16 mt-1" />
-                </div>
-              </div>
-            ))}
+            {Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)}
           </div>
         ) : products.length === 0 ? (
           <div className="flex flex-col items-center py-20 gap-3">
@@ -268,7 +353,6 @@ export default function HomePage() {
             {/* Page numbers */}
             <div className="flex items-center gap-1">
               {Array.from({ length: Math.min(totalPages, 7) }, (_, i) => {
-                // Smart window: always show first, last, and pages around current
                 let pageNum: number | null;
                 if (totalPages <= 7) {
                   pageNum = i + 1;

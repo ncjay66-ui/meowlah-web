@@ -59,6 +59,7 @@ const T: Record<string, Record<Lang, string>> = {
   // Grade filter
   'filter.grade':      { en: 'Grade',           zh: '评级',      bm: 'Gred'                },
   'filter.allGrades':  { en: 'All',             zh: '全部',      bm: 'Semua'               },
+  'filter.done':       { en: 'Done',            zh: '完成',      bm: 'Selesai'             },
   // Pagination
   'page.prev':         { en: 'Prev',            zh: '上页',      bm: 'Sebelum'             },
   'page.next':         { en: 'Next',            zh: '下页',      bm: 'Seterusnya'          },
