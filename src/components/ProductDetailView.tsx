@@ -366,6 +366,11 @@ export default function ProductDetailView({ product }: Props) {
               </div>
             )}
 
+            {/* Price disclaimer */}
+            <p className="text-[11px] text-gray-400 -mt-1">
+              * 价格仅供参考，实际价格以 Shopee 为准
+            </p>
+
             {/* Buy buttons */}
             <div className="flex gap-2">
               {(product.affiliate_shopee || product.shopee_url) ? (
