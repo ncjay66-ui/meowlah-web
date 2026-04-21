@@ -378,14 +378,14 @@ export default function ProductDetailView({ product }: Props) {
                   🛍️ Shopee
                 </div>
               )}
-              {product.lazada_url ? (
-                <a href={product.lazada_url} target="_blank" rel="noopener noreferrer"
+              {(product.affiliate_lazada || product.lazada_url) ? (
+                <a href={product.affiliate_lazada || product.lazada_url!} target="_blank" rel="noopener noreferrer"
                   className="flex-1 bg-[#0F146D] text-white text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5">
                   🏪 Lazada
                 </a>
               ) : (
                 <div className="flex-1 bg-gray-100 text-gray-300 text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center flex items-center justify-center gap-1.5 cursor-not-allowed">
-                  🏪 Lazada
+                  🏪 Lazada (N/A)
                 </div>
               )}
             </div>
