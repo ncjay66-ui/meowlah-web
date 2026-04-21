@@ -131,9 +131,9 @@ const T: Record<string, Record<Lang, string>> = {
   },
   // Ingredient legend
   'detail.priceDisclaimer': {
-    en: '* Price is indicative. Actual price may vary on Shopee.',
-    zh: '* 价格仅供参考，实际价格以 Shopee 为准。',
-    bm: '* Harga adalah anggaran. Harga sebenar mungkin berbeza di Shopee.',
+    en: '* Price is indicative. Actual price may vary on Shopee & Lazada.',
+    zh: '* 价格仅供参考，实际价格以 Shopee 及 Lazada 为准。',
+    bm: '* Harga adalah anggaran. Harga sebenar mungkin berbeza di Shopee & Lazada.',
   },
   'detail.goodProtein': { en: 'Quality animal protein', zh: '优质动物蛋白', bm: 'Protein haiwan berkualiti' },
   'detail.flaggedLabel':{ en: 'Flagged ingredient',     zh: '标记成分',    bm: 'Bahan bermasalah'          },
