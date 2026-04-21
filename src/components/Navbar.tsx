@@ -5,8 +5,8 @@ import { useLang, useTrans } from '@/lib/language';
 
 const LANGS = [
   { code: 'en' as const, label: 'EN' },
-  { code: 'zh' as const, label: 'ZH' },
   { code: 'bm' as const, label: 'BM' },
+  { code: 'zh' as const, label: 'ZH' },
 ];
 
 export default function Navbar() {
@@ -48,7 +48,7 @@ export default function Navbar() {
         </div>
 
         {/* Lang switcher */}
-        <div className="hidden sm:flex items-center bg-gray-100 rounded-full p-0.5">
+        <div className="flex items-center bg-gray-100 rounded-full p-0.5 shrink-0">
           {LANGS.map((l) => (
             <button
               key={l.code}

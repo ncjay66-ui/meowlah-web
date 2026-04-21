@@ -129,6 +129,11 @@ const T: Record<string, Record<Lang, string>> = {
     bm: '* Setiap dimensi dinilai /100. Skor akhir ialah purata berwajaran.',
   },
   // Ingredient legend
+  'detail.priceDisclaimer': {
+    en: '* Price is indicative. Actual price may vary on Shopee.',
+    zh: '* 价格仅供参考，实际价格以 Shopee 为准。',
+    bm: '* Harga adalah anggaran. Harga sebenar mungkin berbeza di Shopee.',
+  },
   'detail.goodProtein': { en: 'Quality animal protein', zh: '优质动物蛋白', bm: 'Protein haiwan berkualiti' },
   'detail.flaggedLabel':{ en: 'Flagged ingredient',     zh: '标记成分',    bm: 'Bahan bermasalah'          },
   // Recommendation card

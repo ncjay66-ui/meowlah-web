@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ProductDetail, CATEGORY_COLORS } from '@/lib/api';
 import { useLang, useTrans, getCategoryLabel, getDimLabel, Lang } from '@/lib/language';
 
@@ -236,6 +236,8 @@ export default function ProductDetailView({ product }: Props) {
   const [imgError, setImgError] = useState(false);
   const [resolvedImg, setResolvedImg] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
+  const [showStickyBuy, setShowStickyBuy] = useState(false);
+  const buyRef = useRef<HTMLDivElement>(null);
   const displayName = product.name_en;
 
   useEffect(() => {
@@ -250,6 +252,18 @@ export default function ProductDetailView({ product }: Props) {
       .catch(() => { if (alive) setFetching(false); });
     return () => { alive = false; };
   }, [product.id, product.brand, product.name_en, product.image_url]); // eslint-disable-line
+
+  // Show sticky buy bar when original buttons scroll out of view
+  useEffect(() => {
+    const el = buyRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowStickyBuy(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const src = (!isPlaceholder(product.image_url) && !imgError)
     ? product.image_url
@@ -368,11 +382,11 @@ export default function ProductDetailView({ product }: Props) {
 
             {/* Price disclaimer */}
             <p className="text-[11px] text-gray-400 -mt-1">
-              * 价格仅供参考，实际价格以 Shopee 为准
+              {tr('detail.priceDisclaimer')}
             </p>
 
             {/* Buy buttons */}
-            <div className="flex gap-2">
+            <div className="flex gap-2" ref={buyRef}>
               {(product.affiliate_shopee || product.shopee_url) ? (
                 <a href={product.affiliate_shopee || product.shopee_url!} target="_blank" rel="noopener noreferrer"
                   className="flex-1 bg-[#EE4D2D] text-white text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5">
@@ -648,6 +662,32 @@ export default function ProductDetailView({ product }: Props) {
               </div>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* ── Sticky buy bar (mobile only, appears when buttons scroll out of view) ── */}
+      {showStickyBuy && (
+        <div className="sm:hidden fixed bottom-14 left-0 right-0 z-40 bg-white/95 backdrop-blur-sm border-t border-gray-100 px-4 py-2.5 flex gap-2 shadow-lg">
+          {(product.affiliate_shopee || product.shopee_url) ? (
+            <a href={product.affiliate_shopee || product.shopee_url!} target="_blank" rel="noopener noreferrer"
+              className="flex-1 bg-[#EE4D2D] text-white text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5">
+              🛍️ Shopee
+            </a>
+          ) : (
+            <div className="flex-1 bg-gray-100 text-gray-300 text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center flex items-center justify-center cursor-not-allowed">
+              🛍️ Shopee
+            </div>
+          )}
+          {(product.affiliate_lazada || product.lazada_url) ? (
+            <a href={product.affiliate_lazada || product.lazada_url!} target="_blank" rel="noopener noreferrer"
+              className="flex-1 bg-[#0F146D] text-white text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5">
+              🏪 Lazada
+            </a>
+          ) : (
+            <div className="flex-1 bg-gray-100 text-gray-300 text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center flex items-center justify-center cursor-not-allowed">
+              🏪 Lazada
+            </div>
+          )}
         </div>
       )}
 
