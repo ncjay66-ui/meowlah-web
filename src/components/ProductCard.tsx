@@ -28,15 +28,17 @@ interface Props { product: Product; rank?: number; }
 export default function ProductCard({ product, rank }: Props) {
   const tr = useTrans();
   const [imgError, setImgError] = useState(false);
+  const [useProxy, setUseProxy] = useState(false);
   const [resolvedImg, setResolvedImg] = useState<string | null>(null);
   const [fetching, setFetching] = useState(false);
   // Product names always stay in English
   const displayName = product.name_en;
 
   useEffect(() => {
-    // Fetch fallback if: (a) image_url is placeholder/null, OR (b) primary image failed
+    // Fetch DDG fallback only after proxy also fails OR image_url is placeholder/null
     if (resolvedImg !== null) return;
     if (!isPlaceholder(product.image_url) && !imgError) return;
+    if (!isPlaceholder(product.image_url) && imgError && !useProxy) return; // proxy attempt pending
     let alive = true;
     setFetching(true);
     const brand = encodeURIComponent(product.brand || '');
@@ -46,10 +48,19 @@ export default function ProductCard({ product, rank }: Props) {
       .then(d => { if (alive) { setResolvedImg(d.url || ''); setFetching(false); } })
       .catch(() => { if (alive) setFetching(false); });
     return () => { alive = false; };
-  }, [product.id, product.brand, product.name_en, product.image_url, imgError]); // eslint-disable-line
+  }, [product.id, product.brand, product.name_en, product.image_url, imgError, useProxy]); // eslint-disable-line
 
-  const src = (!isPlaceholder(product.image_url) && !imgError)
-    ? product.image_url
+  // Build the src to display:
+  // 1. Primary image_url (direct)
+  // 2. Primary image_url via proxy (if direct failed)
+  // 3. DDG resolved image (if proxy also failed or image was placeholder)
+  const primaryUrl = !isPlaceholder(product.image_url) ? product.image_url : null;
+  const proxyUrl = primaryUrl ? `/api/proxy-image?url=${encodeURIComponent(primaryUrl)}` : null;
+
+  const src = primaryUrl && !imgError
+    ? primaryUrl
+    : useProxy && proxyUrl && !imgError
+    ? proxyUrl
     : (resolvedImg || null);
 
   const top3 = rank && rank <= 3;
@@ -74,7 +85,16 @@ export default function ProductCard({ product, rank }: Props) {
               src={src}
               alt={displayName}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              onError={() => { setImgError(true); setResolvedImg(null); }}
+              onError={() => {
+                if (!useProxy && primaryUrl && !src?.includes('/api/proxy-image')) {
+                  // Step 1: direct load failed → try via proxy
+                  setUseProxy(true);
+                } else {
+                  // Step 2: proxy also failed → fall through to DDG search
+                  setImgError(true);
+                  setResolvedImg(null);
+                }
+              }}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
