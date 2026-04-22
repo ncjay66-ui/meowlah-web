@@ -331,7 +331,15 @@ export default function HomePage() {
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {products.map((product, i) => (
+            {[...products]
+              .sort((a, b) => {
+                // Primary: score descending (preserve API order)
+                const scoreDiff = (b.final_score ?? 0) - (a.final_score ?? 0);
+                if (scoreDiff !== 0) return scoreDiff;
+                // Secondary: products with images come first
+                return (b.image_url ? 1 : 0) - (a.image_url ? 1 : 0);
+              })
+              .map((product, i) => (
               <ProductCard key={product.id} product={product} rank={(page - 1) * PAGE_SIZE + i + 1} />
             ))}
           </div>
