@@ -21,7 +21,9 @@ const ADMIN_KEY   = 'meowlah-admin-secret-2024';
 const PAGE_SIZE   = 100;
 const DELAY_MS    = parseInt(process.env.DELAY_MS  ?? '2000');
 const DRY_RUN     = process.env.DRY_RUN === '1';
-const TARGET      = process.env.TARGET ?? 'both';   // 'price' | 'weight' | 'both'
+// NOTE: Lazada & Shopee prices are JavaScript-rendered — static HTML scraping
+// will NOT find prices. Set TARGET=weight to skip price attempts entirely.
+const TARGET      = process.env.TARGET ?? 'weight';  // 'price' | 'weight' | 'both'
 const BRAND_FILTER = (process.env.BRAND ?? '').toLowerCase();
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
@@ -49,26 +51,32 @@ async function fetchHtml(url) {
 /** Extract weight from a plain text string (product name or HTML) */
 function extractWeightFromText(text) {
   if (!text) return null;
-  // Patterns: "400g", "1.5kg", "1 kg", "400 g" — avoid matching years (2024) or prices
-  const patterns = [
-    /\b(\d+(?:\.\d+)?)\s*kg\b/i,                         // 1.5kg, 1 kg
-    /\b([1-9]\d{2,4})\s*g\b/i,                           // 400g, 1500g (3-4 digits only, avoids "8g" single-serve)
-    /(?:net\s+)?weight\s*:?\s*(\d+(?:\.\d+)?)\s*(kg|g)/i,
-    /"weight"\s*:\s*"(\d+(?:\.\d+)?)\s*(kg|g)"/i,
-  ];
-  for (const pat of patterns) {
-    const m = text.match(pat);
-    if (!m) continue;
-    if (m[2]) { // has unit group
-      const val = parseFloat(m[1]);
-      return m[2].toLowerCase() === 'kg' ? Math.round(val * 1000) : (val > 0 && val < 50000 ? Math.round(val) : null);
-    }
-    // First two patterns: determine unit from pattern
-    const val = parseFloat(m[1]);
-    const isKg = pat.source.includes('kg');
-    if (isKg) return Math.round(val * 1000);
-    if (val > 0 && val < 50000) return Math.round(val);
+
+  // kg patterns first (1kg, 1.5 kg, 1.5kg)
+  const kgMatch = text.match(/\b(\d+(?:\.\d+)?)\s*kg\b/i);
+  if (kgMatch) {
+    const val = parseFloat(kgMatch[1]);
+    if (val > 0 && val < 100) return Math.round(val * 1000);
   }
+
+  // g patterns — allow 2+ digit values (50g pouches, 70g, 85g, 100g, 400g, 1500g)
+  // Avoid matching standalone numbers that look like years (2024, 2025, 2026) or IDs
+  const gMatches = [...text.matchAll(/\b(\d{2,5})\s*g(?:rams?)?\b/gi)];
+  for (const m of gMatches) {
+    const val = parseInt(m[1]);
+    // Skip if it looks like a year or unreasonable weight
+    if (val >= 2020 && val <= 2030) continue;   // years
+    if (val < 20 || val > 30000) continue;       // too small or too large
+    return val;
+  }
+
+  // Explicit weight label: "Weight: 400g" or "Net Weight 1.5kg"
+  const labelMatch = text.match(/(?:net\s+)?weight\s*:?\s*(\d+(?:\.\d+)?)\s*(kg|g)/i);
+  if (labelMatch) {
+    const val = parseFloat(labelMatch[1]);
+    return labelMatch[2].toLowerCase() === 'kg' ? Math.round(val * 1000) : Math.round(val);
+  }
+
   return null;
 }
 
