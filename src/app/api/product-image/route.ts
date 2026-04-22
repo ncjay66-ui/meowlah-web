@@ -38,7 +38,27 @@ async function getDdgVqd(query: string): Promise<string | null> {
   }
 }
 
-/** Step 2: fetch DDG image results JSON and return first image URL */
+/** Check that a URL actually serves an image (HEAD request, with spoofed headers) */
+async function isImageAccessible(url: string): Promise<boolean> {
+  try {
+    const r = await fetch(url, {
+      method: 'HEAD',
+      headers: {
+        ...COMMON_HEADERS,
+        'Accept': 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+        'Referer': new URL(url).origin + '/',
+      },
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!r.ok) return false;
+    const ct = r.headers.get('content-type') ?? '';
+    return ct.startsWith('image/');
+  } catch {
+    return false;
+  }
+}
+
+/** Step 2: fetch DDG image results JSON and return first *accessible* image URL */
 async function ddgImageSearch(query: string): Promise<string | null> {
   const vqd = await getDdgVqd(query);
   if (!vqd) return null;
@@ -66,15 +86,16 @@ async function ddgImageSearch(query: string): Promise<string | null> {
     if (!r.ok) return null;
     const data = await r.json() as any;
     const results: any[] = data.results || [];
-    for (const item of results) {
-      const img: string = item.image;
-      // Prefer known product CDNs; skip tiny thumbnails
-      if (img && img.startsWith('https://') && item.width >= 200) {
-        return img;
-      }
+
+    // Try up to 8 candidates — pick the first one that actually loads
+    const candidates = results
+      .filter((item: any) => item.image?.startsWith('https://') && item.width >= 100)
+      .slice(0, 8);
+
+    for (const item of candidates) {
+      const accessible = await isImageAccessible(item.image);
+      if (accessible) return item.image;
     }
-    // Fall back to first result regardless of size
-    if (results[0]?.image) return results[0].image;
   } catch { /* timeout or parse error */ }
   return null;
 }

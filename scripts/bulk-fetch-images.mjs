@@ -42,6 +42,23 @@ async function getDdgVqd(query) {
   }
 }
 
+/** Verify a URL actually returns an image (not a 403 or HTML page) */
+async function isImageAccessible(url) {
+  try {
+    const r = await fetch(url, {
+      method: 'HEAD',
+      headers: {
+        'User-Agent': UA,
+        'Accept': 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+        'Referer': new URL(url).origin + '/',
+      },
+      signal: AbortSignal.timeout(5000),
+    });
+    if (!r.ok) return false;
+    return (r.headers.get('content-type') ?? '').startsWith('image/');
+  } catch { return false; }
+}
+
 async function ddgImageSearch(query) {
   const vqd = await getDdgVqd(query);
   if (!vqd) return null;
@@ -60,11 +77,12 @@ async function ddgImageSearch(query) {
     if (!r.ok) return null;
     const data = await r.json();
     const results = data.results ?? [];
-    // Prefer wider images from known CDNs
-    for (const item of results) {
-      if (item.image?.startsWith('https://') && item.width >= 200) return item.image;
+    // Try up to 8 candidates, pick first that actually loads
+    const candidates = results.filter(i => i.image?.startsWith('https://') && i.width >= 100).slice(0, 8);
+    for (const item of candidates) {
+      if (await isImageAccessible(item.image)) return item.image;
     }
-    return results[0]?.image ?? null;
+    return null;
   } catch {
     return null;
   }
