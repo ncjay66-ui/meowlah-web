@@ -20,6 +20,7 @@ const GRADE_BG: Record<string, string> = {
 
 function isPlaceholder(url: string | null | undefined) {
   if (!url) return true;
+  if (url.startsWith('data:')) return true; // base64 embedded — treat as missing
   return url.includes('placehold.co') || url.includes('via.placeholder');
 }
 
