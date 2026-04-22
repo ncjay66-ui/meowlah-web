@@ -46,71 +46,115 @@ async function fetchHtml(url) {
   } catch { return null; }
 }
 
+/** Extract weight from a plain text string (product name or HTML) */
+function extractWeightFromText(text) {
+  if (!text) return null;
+  // Patterns: "400g", "1.5kg", "1 kg", "400 g" — avoid matching years (2024) or prices
+  const patterns = [
+    /\b(\d+(?:\.\d+)?)\s*kg\b/i,                         // 1.5kg, 1 kg
+    /\b([1-9]\d{2,4})\s*g\b/i,                           // 400g, 1500g (3-4 digits only, avoids "8g" single-serve)
+    /(?:net\s+)?weight\s*:?\s*(\d+(?:\.\d+)?)\s*(kg|g)/i,
+    /"weight"\s*:\s*"(\d+(?:\.\d+)?)\s*(kg|g)"/i,
+  ];
+  for (const pat of patterns) {
+    const m = text.match(pat);
+    if (!m) continue;
+    if (m[2]) { // has unit group
+      const val = parseFloat(m[1]);
+      return m[2].toLowerCase() === 'kg' ? Math.round(val * 1000) : (val > 0 && val < 50000 ? Math.round(val) : null);
+    }
+    // First two patterns: determine unit from pattern
+    const val = parseFloat(m[1]);
+    const isKg = pat.source.includes('kg');
+    if (isKg) return Math.round(val * 1000);
+    if (val > 0 && val < 50000) return Math.round(val);
+  }
+  return null;
+}
+
 /** Extract price (MYR) from Lazada product page HTML */
 function extractLazadaPrice(html) {
-  // JSON-LD first (most reliable)
-  const ldMatch = html.match(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi);
-  if (ldMatch) {
-    for (const block of ldMatch) {
-      try {
-        const json = JSON.parse(block.replace(/<\/?script[^>]*>/gi, ''));
-        const price = json?.offers?.price ?? json?.price;
-        if (price && Number(price) > 0) return Number(price);
-      } catch {}
+  // 1. JSON-LD structured data
+  const ldBlocks = html.match(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi) ?? [];
+  for (const block of ldBlocks) {
+    try {
+      const json = JSON.parse(block.replace(/<\/?script[^>]*>/gi, ''));
+      const price = json?.offers?.price ?? json?.price ?? json?.offers?.[0]?.price;
+      if (price && Number(price) > 0) return Number(price);
+    } catch {}
+  }
+
+  // 2. Lazada embeds pageData as a window variable in SSR HTML
+  const pageDataMatch = html.match(/window\.__pageData\s*=\s*({[\s\S]*?});\s*(?:window|<\/script>)/);
+  if (pageDataMatch) {
+    try {
+      const d = JSON.parse(pageDataMatch[1]);
+      const price = d?.mods?.listingInfo?.price ?? d?.price;
+      if (price && Number(price) > 0) return Number(price);
+    } catch {}
+  }
+
+  // 3. Lazada price in script tags as "price":"XX.XX" or "salePrice":"XX.XX"
+  const patterns = [
+    /"salePrice"\s*:\s*"?([\d.]+)"?/,
+    /"originalPrice"\s*:\s*"?([\d.]+)"?/,
+    /"price"\s*:\s*"?([\d.]+)"?/,
+    /data-price="([\d.]+)"/,
+    /"sellingPrice"\s*:\s*([\d.]+)/,
+    /class="[^"]*price[^"]*"[^>]*>\s*(?:RM\s*)?([\d,]+\.?\d*)/i,
+  ];
+  for (const pat of patterns) {
+    const m = html.match(pat);
+    if (m) {
+      const val = parseFloat(m[1].replace(',', ''));
+      if (val > 0 && val < 100000) return val;
     }
   }
-  // Meta tag fallback
-  const metaPrice = html.match(/["']price["']\s*:\s*["']?([\d.]+)["']?/i);
-  if (metaPrice) return Number(metaPrice[1]);
-  // Open graph
-  const ogPrice = html.match(/product:price:amount["'][^>]*content="([\d.]+)"/i);
-  if (ogPrice) return Number(ogPrice[1]);
+
+  // 4. Open Graph
+  const og = html.match(/product:price:amount['"]\s*content="([\d.]+)"/i);
+  if (og) return Number(og[1]);
+
   return null;
 }
 
 /** Extract weight (grams) from Lazada product page HTML */
 function extractLazadaWeight(html) {
-  // Look for weight patterns: "200g", "500 g", "1kg", "1.5 kg"
-  const patterns = [
-    /(?:net\s+)?weight\s*:?\s*([\d.]+)\s*(kg|g)\b/i,
-    /\b([\d.]+)\s*(kg|g)\s*(?:net|pack|bag|pouch|can|tin|box)?(?:\s*x\s*\d+)?\b/,
-    /"weight"\s*:\s*"([\d.]+)\s*(kg|g)"/i,
-  ];
-  for (const pat of patterns) {
-    const m = html.match(pat);
-    if (m) {
-      const val = parseFloat(m[1]);
-      const unit = m[2].toLowerCase();
-      if (unit === 'kg') return Math.round(val * 1000);
-      if (unit === 'g' && val > 0 && val < 50000) return Math.round(val);
-    }
-  }
-  return null;
+  return extractWeightFromText(html);
 }
 
 /** Extract price from Shopee product page HTML */
 function extractShopeePrice(html) {
-  // Shopee embeds price in window.__INITIAL_STATE__
-  const stateMatch = html.match(/window\.__INITIAL_STATE__\s*=\s*(\{[\s\S]*?\});?\s*<\/script>/);
+  // 1. window.__INITIAL_STATE__ (server-rendered)
+  const stateMatch = html.match(/window\.__INITIAL_STATE__\s*=\s*(\{[\s\S]*?\});\s*<\/script>/);
   if (stateMatch) {
     try {
       const state = JSON.parse(stateMatch[1]);
-      const price = state?.pageData?.product?.price;
-      if (price) return price / 100000; // Shopee prices are in cent units
+      const price = state?.pageData?.product?.price ?? state?.data?.price;
+      if (price) return price / 100000;
     } catch {}
   }
-  // Fallback: meta og:price
-  const m = html.match(/product:price:amount["'][^>]*content="([\d.]+)"/i);
+  // 2. JSON-LD
+  const ldBlocks = html.match(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi) ?? [];
+  for (const block of ldBlocks) {
+    try {
+      const json = JSON.parse(block.replace(/<\/?script[^>]*>/gi, ''));
+      const price = json?.offers?.price ?? json?.price;
+      if (price && Number(price) > 0) return Number(price);
+    } catch {}
+  }
+  // 3. og:price
+  const m = html.match(/product:price:amount['"]\s*content="([\d.]+)"/i);
   if (m) return Number(m[1]);
   return null;
 }
 
 /** Extract weight from Shopee product page */
 function extractShopeeWeight(html) {
-  return extractLazadaWeight(html); // same patterns work
+  return extractWeightFromText(html);
 }
 
-/** Try to get price + weight from product URLs */
+/** Try to get price + weight from product URLs, with name fallback for weight */
 async function scrapeProduct(product) {
   const results = { price: null, weight: null, source: null };
 
@@ -122,19 +166,30 @@ async function scrapeProduct(product) {
       results.price  = extractLazadaPrice(html);
       results.weight = extractLazadaWeight(html);
       results.source = 'lazada';
-      if (results.price || results.weight) return results;
     }
     await sleep(500);
   }
 
-  // Fall back to Shopee
-  const shopeeUrl = product.shopee_url || product.affiliate_shopee;
-  if (shopeeUrl) {
-    const html = await fetchHtml(shopeeUrl);
-    if (html) {
-      results.price  = extractShopeePrice(html);
-      results.weight = extractShopeeWeight(html);
-      results.source = 'shopee';
+  // Fall back to Shopee if still missing data
+  if (!results.price || !results.weight) {
+    const shopeeUrl = product.shopee_url || product.affiliate_shopee;
+    if (shopeeUrl) {
+      const html = await fetchHtml(shopeeUrl);
+      if (html) {
+        if (!results.price)  results.price  = extractShopeePrice(html);
+        if (!results.weight) results.weight = extractShopeeWeight(html);
+        if (!results.source) results.source = 'shopee';
+        else if (results.price || results.weight) results.source = 'lazada+shopee';
+      }
+    }
+  }
+
+  // Last resort: extract weight from product name
+  if (!results.weight) {
+    const nameWeight = extractWeightFromText(product.name_en ?? '');
+    if (nameWeight) {
+      results.weight = nameWeight;
+      results.source = (results.source ? results.source + '+name' : 'name');
     }
   }
 
