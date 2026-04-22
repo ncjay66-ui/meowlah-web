@@ -241,7 +241,8 @@ export default function ProductDetailView({ product }: Props) {
   const displayName = product.name_en;
 
   useEffect(() => {
-    if (!isPlaceholder(product.image_url) || resolvedImg !== null) return;
+    if (resolvedImg !== null) return;
+    if (!isPlaceholder(product.image_url) && !imgError) return;
     let alive = true;
     setFetching(true);
     const brand = encodeURIComponent(product.brand || '');
@@ -251,7 +252,7 @@ export default function ProductDetailView({ product }: Props) {
       .then(d => { if (alive) { setResolvedImg(d.url || ''); setFetching(false); } })
       .catch(() => { if (alive) setFetching(false); });
     return () => { alive = false; };
-  }, [product.id, product.brand, product.name_en, product.image_url]); // eslint-disable-line
+  }, [product.id, product.brand, product.name_en, product.image_url, imgError]); // eslint-disable-line
 
   // Show sticky buy bar when original buttons scroll out of view
   useEffect(() => {
@@ -267,7 +268,7 @@ export default function ProductDetailView({ product }: Props) {
 
   const src = (!isPlaceholder(product.image_url) && !imgError)
     ? product.image_url
-    : (resolvedImg && !imgError ? resolvedImg : null);
+    : (resolvedImg || null);
 
   const { score, nutrition } = product;
   const gradeStyle = score?.grade ? (GRADE_STYLES[score.grade] ?? GRADE_STYLES['C']) : null;
