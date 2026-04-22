@@ -44,7 +44,8 @@ export default function ProductCard({ product, rank }: Props) {
     setFetching(true);
     const brand = encodeURIComponent(product.brand || '');
     const name  = encodeURIComponent(product.name_en || '');
-    fetch(`/api/product-image?brand=${brand}&name=${name}`)
+    const id    = encodeURIComponent(product.id || '');
+    fetch(`/api/product-image?brand=${brand}&name=${name}&id=${id}`)
       .then(r => r.json())
       .then(d => { if (alive) { setResolvedImg(d.url || ''); setFetching(false); } })
       .catch(() => { if (alive) setFetching(false); });

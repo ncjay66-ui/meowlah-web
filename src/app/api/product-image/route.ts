@@ -1,10 +1,15 @@
 /**
- * GET /api/product-image?brand=X&name=Y
+ * GET /api/product-image?brand=X&name=Y&id=PRODUCT_ID
  * Server-side image lookup with 1-hour cache.
  * Uses DuckDuckGo image search (no login required, no bot-wall).
+ * When an image is found AND id is provided, saves it back to Railway DB
+ * so subsequent loads are instant (no DDG call needed).
  * Runs on the Next.js server (local machine) — full internet, no CORS issues.
  */
 import { NextRequest, NextResponse } from 'next/server';
+
+const RAILWAY_URL = 'https://meowlah-production.up.railway.app';
+const ADMIN_KEY = 'meowlah-admin-secret-2024';
 
 // In-process cache: key → { url, at }
 const cache = new Map<string, { url: string; at: number }>();
@@ -74,9 +79,27 @@ async function ddgImageSearch(query: string): Promise<string | null> {
   return null;
 }
 
+/** Save image URL back to Railway so subsequent loads skip DDG entirely */
+async function saveImageToDb(productId: string, imageUrl: string): Promise<void> {
+  try {
+    await fetch(`${RAILWAY_URL}/products/${productId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Key': ADMIN_KEY,
+      },
+      body: JSON.stringify({ image_url: imageUrl }),
+      signal: AbortSignal.timeout(5000),
+    });
+  } catch {
+    // fire-and-forget — don't fail the response if DB write fails
+  }
+}
+
 export async function GET(req: NextRequest) {
   const brand = req.nextUrl.searchParams.get('brand') || '';
   const name  = req.nextUrl.searchParams.get('name')  || '';
+  const id    = req.nextUrl.searchParams.get('id')    || '';
   const debug = req.nextUrl.searchParams.get('debug') === '1';
   if (!brand && !name) return NextResponse.json({ url: null });
 
@@ -94,6 +117,10 @@ export async function GET(req: NextRequest) {
 
   if (imgUrl) {
     cache.set(key, { url: imgUrl, at: Date.now() });
+    // Permanently save to DB so future page loads skip DDG entirely
+    if (id) {
+      saveImageToDb(id, imgUrl); // fire-and-forget
+    }
     return NextResponse.json({ url: imgUrl });
   }
 
