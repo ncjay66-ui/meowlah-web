@@ -169,7 +169,7 @@ async function findImage(brand, name) {
 // ── Railway helpers ───────────────────────────────────────────────────────────
 
 async function fetchPage(page) {
-  const r = await fetch(`${RAILWAY_URL}/products?limit=${PAGE_SIZE}&page=${page}&active_only=true`, {
+  const r = await fetch(`${RAILWAY_URL}/products?page_size=${PAGE_SIZE}&page=${page}&active_only=true`, {
     headers: { 'X-Admin-Key': ADMIN_KEY }, signal: AbortSignal.timeout(15000),
   });
   if (!r.ok) throw new Error(`page ${page} → ${r.status}`);
@@ -206,13 +206,15 @@ async function main() {
   while (page <= totalPages) {
     if (ONLY_PAGE && page !== ONLY_PAGE) {
       const data = await fetchPage(page);
-      totalPages = Math.ceil((data.total ?? 0) / PAGE_SIZE);
+      const actualSize = data.page_size ?? PAGE_SIZE;
+    totalPages = Math.ceil((data.total ?? 0) / actualSize);
       page++;
       continue;
     }
 
     const data = await fetchPage(page);
-    totalPages = Math.ceil((data.total ?? 0) / PAGE_SIZE);
+    const actualSize = data.page_size ?? PAGE_SIZE;
+    totalPages = Math.ceil((data.total ?? 0) / actualSize);
 
     for (const p of data.items ?? []) {
       if (BRAND_FILTER && (p.brand ?? '').toLowerCase() !== BRAND_FILTER) continue;

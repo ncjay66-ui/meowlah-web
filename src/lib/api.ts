@@ -62,7 +62,7 @@ export interface ProductFilters {
 }
 
 export async function getProducts(filters: ProductFilters = {}): Promise<ProductListResponse> {
-  const params = new URLSearchParams();
+  const params = new URLSearchParams({ active_only: 'true' });
   Object.entries(filters).forEach(([key, value]) => { if (value !== undefined && value !== null && value !== '') params.set(key, String(value)); });
   const res = await fetch(`${API_URL}/products?${params}`, { cache: 'no-store' });
   if (!res.ok) throw new Error('Failed to fetch products');
@@ -70,7 +70,7 @@ export async function getProducts(filters: ProductFilters = {}): Promise<Product
 }
 
 export async function searchProducts(query: string, filters: ProductFilters = {}): Promise<ProductListResponse> {
-  const params = new URLSearchParams({ q: query });
+  const params = new URLSearchParams({ q: query, active_only: 'true' });
   Object.entries(filters).forEach(([key, value]) => { if (value !== undefined && value !== null && value !== '') params.set(key, String(value)); });
   const res = await fetch(`${API_URL}/products/search?${params}`, { cache: 'no-store' });
   if (!res.ok) throw new Error('Failed to search products');

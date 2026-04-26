@@ -121,7 +121,7 @@ async function ddgImageSearch(query) {
 // ── Railway helpers ──────────────────────────────────────────────────────────
 
 async function fetchPage(page) {
-  const url = `${RAILWAY_URL}/products?limit=${PAGE_SIZE}&page=${page}&active_only=true`;
+  const url = `${RAILWAY_URL}/products?page_size=${PAGE_SIZE}&page=${page}&active_only=true`;
   const r = await fetch(url, { headers: { 'X-Admin-Key': ADMIN_KEY }, signal: AbortSignal.timeout(15000) });
   if (!r.ok) throw new Error(`GET /products page ${page} → ${r.status}`);
   return r.json();
@@ -161,7 +161,8 @@ async function main() {
       continue;
     }
 
-    totalPages = Math.ceil((data.total ?? 0) / PAGE_SIZE);
+    const actualSize = data.page_size ?? PAGE_SIZE;
+    totalPages = Math.ceil((data.total ?? 0) / actualSize);
     const items = data.items ?? [];
 
     for (const p of items) {
