@@ -59,6 +59,33 @@ async function isImageAccessible(url) {
   } catch { return false; }
 }
 
+// Keywords that indicate an image result is pet/food related
+const PET_KEYWORDS = [
+  'cat', 'pet', 'food', 'feline', 'kitten', 'feed', 'treat', 'nutrition',
+  'makanan', 'kucing', 'paw', 'meow', 'shop', 'store', 'lazada', 'shopee',
+  'amazon', 'chewy', 'petco', 'petsmart', 'zooplus', 'kohepets', 'petsmore',
+];
+
+const NON_PET_DOMAINS = [
+  'motocross', 'moto', 'bike', 'sport', 'news', 'nytimes', 'bbc', 'cnn',
+  'facebook', 'twitter', 'instagram', 'youtube', 'tiktok', 'reddit',
+];
+
+/** Returns true if a DDG result looks like it's actually about pet food */
+function isRelevantResult(item) {
+  const combined = [
+    item.title ?? '',
+    item.url ?? '',
+    item.source ?? '',
+  ].join(' ').toLowerCase();
+
+  // Reject if source domain looks non-pet
+  if (NON_PET_DOMAINS.some(kw => combined.includes(kw))) return false;
+
+  // Accept if any pet keyword found
+  return PET_KEYWORDS.some(kw => combined.includes(kw));
+}
+
 async function ddgImageSearch(query) {
   const vqd = await getDdgVqd(query);
   if (!vqd) return null;
@@ -77,8 +104,11 @@ async function ddgImageSearch(query) {
     if (!r.ok) return null;
     const data = await r.json();
     const results = data.results ?? [];
-    // Try up to 8 candidates, pick first that actually loads
-    const candidates = results.filter(i => i.image?.startsWith('https://') && i.width >= 100).slice(0, 8);
+    // Filter: must look pet-related AND have a valid image URL
+    const candidates = results
+      .filter(i => i.image?.startsWith('https://') && i.width >= 100)
+      .filter(isRelevantResult)
+      .slice(0, 10);
     for (const item of candidates) {
       if (await isImageAccessible(item.image)) return item.image;
     }
@@ -155,13 +185,29 @@ async function main() {
   // Step 2: DDG search + save for each
   let saved = 0, failed = 0, notFound = 0;
 
+  const LOCAL_BRANDS = new Set([
+    'cindy', "cindy's recipe", 'prodiet', 'powercat', 'sniffly', 'my pets home',
+    'icats', 'love around', 'partner', 'trial', 'kit cat', 'petcubes',
+    'nutripe', 'absolute holistic', 'catz finefood',
+  ]);
+
   for (let i = 0; i < missing.length; i++) {
     const { id, brand, name } = missing[i];
-    const query = `${brand} ${name} cat food`.trim();
+    const isLocal = LOCAL_BRANDS.has((brand ?? '').toLowerCase().trim());
+    const baseQuery = `${brand} ${name} cat food`.trim();
+    const queries = [
+      baseQuery,
+      isLocal ? `${brand} cat food Malaysia` : `${brand} cat food`,
+    ];
 
     process.stdout.write(`\r  [${i + 1}/${missing.length}] ${brand} ${name.substring(0, 30).padEnd(30)} `);
 
-    const imgUrl = await ddgImageSearch(query);
+    let imgUrl = null;
+    for (const q of queries) {
+      imgUrl = await ddgImageSearch(q);
+      if (imgUrl) break;
+      await sleep(500);
+    }
 
     if (!imgUrl) {
       notFound++;
