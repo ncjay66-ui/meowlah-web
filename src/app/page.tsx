@@ -1,5 +1,6 @@
 'use client';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, Suspense } from 'react';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { getProducts, searchProducts, Product, Category, SortBy } from '@/lib/api';
 import ProductCard from '@/components/ProductCard';
 import { useTrans, useLang, getCategoryLabel } from '@/lib/language';
@@ -46,30 +47,74 @@ function SkeletonCard() {
   );
 }
 
+// Wrap in Suspense so useSearchParams works correctly during prerendering
 export default function HomePage() {
-  const [products, setProducts]   = useState<Product[]>([]);
-  const [total, setTotal]         = useState(0);
-  const [loading, setLoading]     = useState(true);
-  const [category, setCategory]   = useState('');
-  const [halalOnly, setHalalOnly] = useState(false);
-  const [localOnly, setLocalOnly] = useState(false);
-  const [grade, setGrade]         = useState('');
-  const [sortBy, setSortBy]       = useState<SortBy>('score_desc');
-  const [page, setPage]           = useState(1);
+  return (
+    <Suspense>
+      <HomePageContent />
+    </Suspense>
+  );
+}
+
+function HomePageContent() {
+  const router     = useRouter();
+  const pathname   = usePathname();
+  const searchParams = useSearchParams();
+
+  // ── All filter/page state lives in the URL ────────────────────────────────
+  const page      = parseInt(searchParams.get('page') ?? '1');
+  const category  = searchParams.get('category') ?? '';
+  const grade     = searchParams.get('grade') ?? '';
+  const sortBy    = (searchParams.get('sort') ?? 'score_desc') as SortBy;
+  const halalOnly = searchParams.get('halal') === '1';
+  const localOnly = searchParams.get('local') === '1';
+  const search    = searchParams.get('q') ?? '';
+
+  // ── Local UI state only (not worth a URL param) ───────────────────────────
+  const [products, setProducts]       = useState<Product[]>([]);
+  const [total, setTotal]             = useState(0);
+  const [loading, setLoading]         = useState(true);
   const [showFilters, setShowFilters] = useState(false);
 
   const tr = useTrans();
   const { lang } = useLang();
 
-  const [search] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return new URLSearchParams(window.location.search).get('q') ?? '';
-    }
-    return '';
-  });
-
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
 
+  // ── URL builder ───────────────────────────────────────────────────────────
+  const buildUrl = useCallback((updates: Record<string, string | null>) => {
+    const params = new URLSearchParams(searchParams.toString());
+    for (const [key, val] of Object.entries(updates)) {
+      if (val === null || val === '') params.delete(key);
+      else params.set(key, val);
+    }
+    // Remove defaults to keep URLs clean
+    if (params.get('page') === '1') params.delete('page');
+    if (params.get('sort') === 'score_desc') params.delete('sort');
+    const qs = params.toString();
+    return qs ? `${pathname}?${qs}` : pathname;
+  }, [searchParams, pathname]);
+
+  // ── Navigation helpers ────────────────────────────────────────────────────
+  // Page changes → push (creates history entry so back button works)
+  const goToPage = useCallback((n: number) => {
+    router.push(buildUrl({ page: String(n) }), { scroll: true });
+  }, [buildUrl, router]);
+
+  // Filter changes → replace (no history spam, resets to page 1)
+  const updateFilters = useCallback((updates: Record<string, string | null>) => {
+    router.replace(buildUrl({ ...updates, page: null }), { scroll: false });
+  }, [buildUrl, router]);
+
+  const handleCategory = (val: string) => updateFilters({ category: val || null });
+  const handleGrade    = (val: string) => updateFilters({ grade: val || null });
+  const handleSort     = (val: SortBy) => updateFilters({ sort: val === 'score_desc' ? null : val });
+  const handleHalal    = () => updateFilters({ halal: halalOnly ? null : '1' });
+  const handleLocal    = () => updateFilters({ local: localOnly ? null : '1' });
+
+  const toggleFilterPanel = () => setShowFilters(f => !f);
+
+  // ── Fetch whenever URL params change ─────────────────────────────────────
   const fetchProducts = useCallback(async () => {
     setLoading(true);
     try {
@@ -93,15 +138,6 @@ export default function HomePage() {
   }, [category, halalOnly, localOnly, grade, sortBy, page, search]);
 
   useEffect(() => { fetchProducts(); }, [fetchProducts]);
-
-  // Reset to page 1 whenever filters or sort changes
-  const handleCategory = (val: string) => { setCategory(val); setPage(1); };
-  const handleGrade    = (val: string) => { setGrade(val);    setPage(1); };
-  const handleSort     = (val: SortBy) => { setSortBy(val);  setPage(1); };
-  const handleHalal    = () => { setHalalOnly(h => !h); setPage(1); };
-  const handleLocal    = () => { setLocalOnly(l => !l); setPage(1); };
-
-  const toggleFilterPanel = () => setShowFilters(f => !f);
 
   // Count active non-sort filters for badge
   const activeFilterCount = (halalOnly ? 1 : 0) + (localOnly ? 1 : 0) + (grade ? 1 : 0);
@@ -351,7 +387,7 @@ export default function HomePage() {
 
             {/* Prev */}
             <button
-              onClick={() => setPage(p => Math.max(1, p - 1))}
+              onClick={() => goToPage(Math.max(1, page - 1))}
               disabled={page === 1}
               className="flex items-center gap-1 px-4 py-2 rounded-full text-[13px] font-semibold transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-white border border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
             >
@@ -384,7 +420,7 @@ export default function HomePage() {
                 return (
                   <button
                     key={i}
-                    onClick={() => setPage(pageNum!)}
+                    onClick={() => goToPage(pageNum!)}
                     className={`w-8 h-8 rounded-full text-[13px] font-semibold transition-all ${
                       page === pageNum
                         ? 'bg-orange-500 text-white shadow-sm'
@@ -399,7 +435,7 @@ export default function HomePage() {
 
             {/* Next */}
             <button
-              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+              onClick={() => goToPage(Math.min(totalPages, page + 1))}
               disabled={page === totalPages}
               className="flex items-center gap-1 px-4 py-2 rounded-full text-[13px] font-semibold transition-all disabled:opacity-30 disabled:cursor-not-allowed bg-white border border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50"
             >
