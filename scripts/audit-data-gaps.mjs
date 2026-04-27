@@ -70,6 +70,17 @@ async function rescoreProduct(id) {
 
 // ── Image helpers ─────────────────────────────────────────────────────────────
 
+// CDN domains that block server-side proxy fetches — never save these as image_url
+const CDN_BLOCKED_PATTERNS = [
+  'susercontent.com', 'shopee.com.my', 'shopeemobile.com',
+  'lazcdn.com', 'slatic.net', 'alicdn.com', 'lzd-img',
+];
+function isCdnBlocked(url) {
+  if (!url) return false;
+  const lower = url.toLowerCase();
+  return CDN_BLOCKED_PATTERNS.some(p => lower.includes(p));
+}
+
 function isPlaceholder(url) {
   if (!url) return true;
   if (url.startsWith('data:')) return true;
@@ -129,6 +140,7 @@ async function ddgImageSearch(query) {
     if (!r.ok) return null;
     const candidates = ((await r.json()).results ?? [])
       .filter(i => i.image?.startsWith('https://') && i.width >= 100)
+      .filter(i => !isCdnBlocked(i.image))   // reject Shopee/Lazada CDN
       .filter(isRelevantResult)
       .slice(0, 10);
     for (const item of candidates) {

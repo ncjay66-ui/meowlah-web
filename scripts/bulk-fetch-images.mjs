@@ -59,6 +59,16 @@ async function isImageAccessible(url) {
   } catch { return false; }
 }
 
+// CDN domains that block server-side proxy fetches — never save these as image_url
+const CDN_BLOCKED_PATTERNS = [
+  'susercontent.com', 'shopee.com.my', 'shopeemobile.com',
+  'lazcdn.com', 'slatic.net', 'alicdn.com', 'lzd-img',
+];
+function isCdnBlocked(url) {
+  if (!url) return false;
+  return CDN_BLOCKED_PATTERNS.some(p => url.toLowerCase().includes(p));
+}
+
 // Keywords that indicate an image result is pet/food related
 const PET_KEYWORDS = [
   'cat', 'pet', 'food', 'feline', 'kitten', 'feed', 'treat', 'nutrition',
@@ -107,6 +117,7 @@ async function ddgImageSearch(query) {
     // Filter: must look pet-related AND have a valid image URL
     const candidates = results
       .filter(i => i.image?.startsWith('https://') && i.width >= 100)
+      .filter(i => !isCdnBlocked(i.image))   // reject Shopee/Lazada CDN
       .filter(isRelevantResult)
       .slice(0, 10);
     for (const item of candidates) {

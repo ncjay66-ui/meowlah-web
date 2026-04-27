@@ -121,6 +121,7 @@ async function ddgImageSearch(query) {
     const results = (await r.json()).results ?? [];
     const candidates = results
       .filter(i => i.image?.startsWith('https://') && i.width >= 100)
+      .filter(i => !isCdnBlocked(i.image))   // ← reject Shopee/Lazada CDN URLs
       .filter(isRelevantResult)
       .slice(0, 10);
     for (const item of candidates) {

@@ -1,0 +1,644 @@
+[
+  {
+    "id": "0ad244a5-3850-4856-b51f-5eb78a4b00fb",
+    "brand": "PetCubes",
+    "name_en": "PetCubes Gently Cooked Chicken Cat Food 400g",
+    "weight_g": 400
+  },
+  {
+    "id": "5b155f0b-5052-4e43-82e5-d4944433a17a",
+    "brand": "PetCubes",
+    "name_en": "PetCubes Gently Cooked Duck Cat Food 400g",
+    "weight_g": 400
+  },
+  {
+    "id": "965ce78b-03ab-43be-b6b4-bf530592e806",
+    "brand": "Animonda",
+    "name_en": "Animonda Carny Adult Chicken & Shrimp Wet Cat Food",
+    "weight_g": 200
+  },
+  {
+    "id": "a21bd6e0-c15c-45fa-8092-1f2a7742d211",
+    "brand": "Cosma",
+    "name_en": "Cosma Nature Chicken Wet Cat Food",
+    "weight_g": 200
+  },
+  {
+    "id": "a3903673-69c1-439a-9d5f-4388066dfa10",
+    "brand": "Inaba",
+    "name_en": "Inaba Ciao Chicken & Tuna in Broth Wet Cat Food",
+    "weight_g": 80
+  },
+  {
+    "id": "a3903673-69c1-439a-9d5f-4388066dfa10",
+    "brand": "Inaba",
+    "name_en": "Inaba Ciao Chicken & Tuna in Broth Wet Cat Food",
+    "weight_g": 80
+  },
+  {
+    "id": "c57126d0-f8d9-46e5-ad8a-4b7a7fcfe32a",
+    "brand": "Cindy's Recipe",
+    "name_en": "Cindy's Recipe Tuna & Salmon in Broth",
+    "weight_g": 80
+  },
+  {
+    "id": "0aa64fb5-dc64-46d9-ba29-9124e857efc0",
+    "brand": "MAC's",
+    "name_en": "MAC's Cat Pure Salmon & Tuna Wet Cat Food",
+    "weight_g": 200
+  },
+  {
+    "id": "51306cec-8c9e-4142-ad9c-ae93c2badb2c",
+    "brand": "Natures Menu",
+    "name_en": "Natures Menu Country Hunter Chicken & Duck Wet Cat Food",
+    "weight_g": 70
+  },
+  {
+    "id": "a044a2c7-3783-4b06-84a5-3f18299545c8",
+    "brand": "Cat's Love",
+    "name_en": "Cat's Love Pure Salmon Wet Cat Food",
+    "weight_g": 200
+  },
+  {
+    "id": "69e50421-c78d-43e6-9b73-c9ed613c9098",
+    "brand": "MAC's",
+    "name_en": "MAC's Cat Poultry & Salmon Wet Cat Food",
+    "weight_g": 200
+  },
+  {
+    "id": "0241e41a-0a95-4304-af68-9232c3a406ab",
+    "brand": "Rawz",
+    "name_en": "Rawz 96% Salmon & Salmon Liver Wet Cat Food",
+    "weight_g": 155
+  },
+  {
+    "id": "7fb4bec3-84f6-4a15-a48e-e053ceac18bd",
+    "brand": "Nutro",
+    "name_en": "Nutro Perfect Portions Adult Salmon Wet Cat Food",
+    "weight_g": 75
+  },
+  {
+    "id": "dbeba690-3d41-4733-8e3a-b380d181549a",
+    "brand": "Crave",
+    "name_en": "Crave High Protein Chicken Adult Wet Cat Food",
+    "weight_g": 85
+  },
+  {
+    "id": "562f4986-e6a2-47b7-b958-4e0c6b9e8964",
+    "brand": "Lily's Kitchen",
+    "name_en": "Lily's Kitchen Chicken & Duck Pate Wet Cat Food",
+    "weight_g": 85
+  },
+  {
+    "id": "9032e5ed-0430-4bf3-bae9-902a87a9d852",
+    "brand": "Rawz",
+    "name_en": "Rawz 96% Chicken & Chicken Liver Wet Cat Food",
+    "weight_g": 155
+  },
+  {
+    "id": "4ea7233d-cd14-4b18-9b8f-cdc652e05e90",
+    "brand": "Kit Cat",
+    "name_en": "Kit Cat Chicken & Tuna Mousse in Gravy",
+    "weight_g": 80
+  },
+  {
+    "id": "b8f7d2b5-7f44-49ac-a8ab-c5e6fa0afe00",
+    "brand": "Kit Cat",
+    "name_en": "Kit Cat Ocean Fish & Salmon in Jelly",
+    "weight_g": 80
+  },
+  {
+    "id": "4ea7233d-cd14-4b18-9b8f-cdc652e05e90",
+    "brand": "Kit Cat",
+    "name_en": "Kit Cat Chicken & Tuna Mousse in Gravy",
+    "weight_g": 80
+  },
+  {
+    "id": "644ba2bf-250a-45bf-89a0-945b62f7b126",
+    "brand": "Natures Menu",
+    "name_en": "Natures Menu Raw Nuggets Chicken & Turkey Frozen Cat Food",
+    "weight_g": 500
+  },
+  {
+    "id": "9feb4640-0435-4642-9adb-058c03b9f522",
+    "brand": "Urbanwolf",
+    "name_en": "Urbanwolf Adventures Dry Cat Food 2KG/ 6.8KG",
+    "weight_g": 2000
+  },
+  {
+    "id": "1a371a40-c01a-48e2-bc89-d3c2d3358ceb",
+    "brand": "Nulo",
+    "name_en": "Nulo Freestyle Minced Salmon & Tuna in Broth Wet Cat Food",
+    "weight_g": 78
+  },
+  {
+    "id": "1aacef54-08f1-4ce0-8be3-8121c8a2ff24",
+    "brand": "Applaws",
+    "name_en": "Applaws Adult Dry Cat Food Chicken",
+    "weight_g": 1500
+  },
+  {
+    "id": "45ad9848-ff5e-4c4e-ba7b-ffe0bea2da27",
+    "brand": "Gracefull",
+    "name_en": "Gracefull Adult Wet Cat Food Tuna & Salmon",
+    "weight_g": 85
+  },
+  {
+    "id": "5fb89e8b-4471-4298-8139-0adf9ad3a1f8",
+    "brand": "Bozita",
+    "name_en": "Bozita Chunks in Jelly Salmon Wet Cat Food",
+    "weight_g": 85
+  },
+  {
+    "id": "1cb97cf8-7ffb-4e54-a328-5f6ad079937c",
+    "brand": "Bozita",
+    "name_en": "Bozita Chunks in Gravy Chicken Wet Cat Food",
+    "weight_g": 85
+  },
+  {
+    "id": "5a5ec890-7e99-4268-bf73-462cefbf7b14",
+    "brand": "NEKKO",
+    "name_en": "NEKKO Tuna in Gravy Cat Pouch 70g ( 8 Flavour To Choose )/Cat Wet Food/Makanan Basah Kucing/猫食鲜包",
+    "weight_g": 3000
+  },
+  {
+    "id": "6902a1a1-fc1e-4a6b-8bbe-6e56d6c540a1",
+    "brand": "Lily's Kitchen",
+    "name_en": "Lily's Kitchen Poached Salmon & Trout in Broth Wet Cat Food",
+    "weight_g": 85
+  },
+  {
+    "id": "37482e02-70d8-4016-98eb-fb17bfc2599f",
+    "brand": "Gracefull",
+    "name_en": "Gracefull Adult Wet Cat Food Tuna in Broth",
+    "weight_g": 85
+  },
+  {
+    "id": "fbba2ea3-f94e-4f21-bb4f-ff8979346224",
+    "brand": "OzPro",
+    "name_en": "OzPro Kitten Dry Cat Food Chicken",
+    "weight_g": 1500
+  },
+  {
+    "id": "464e2b03-d3fa-4878-b064-079b8ea68ade",
+    "brand": "Harper & Bone",
+    "name_en": "Harper & Bone Kitten Dry Food Chicken & Tuna",
+    "weight_g": 1500
+  },
+  {
+    "id": "8c9056fe-5d40-4cc1-9af1-f4fa6614ec1b",
+    "brand": "Harper & Bone",
+    "name_en": "Harper & Bone Adult Cat Dry Food Chicken",
+    "weight_g": 1500
+  },
+  {
+    "id": "8f6531c9-c54e-40aa-b4c4-993fc557a891",
+    "brand": "Rawz",
+    "name_en": "Rawz Natural Chicken & Herring Dry Cat Food",
+    "weight_g": 1700
+  },
+  {
+    "id": "ee67cd04-1414-4151-b07f-9ad0956b3362",
+    "brand": "Evolve",
+    "name_en": "Evolve Grain-Free Salmon Dry Cat Food",
+    "weight_g": 2720
+  },
+  {
+    "id": "fbba2ea3-f94e-4f21-bb4f-ff8979346224",
+    "brand": "OzPro",
+    "name_en": "OzPro Kitten Dry Cat Food Chicken",
+    "weight_g": 1500
+  },
+  {
+    "id": "750ac1b0-4db6-4527-a5b6-447e294b6074",
+    "brand": "Unknown",
+    "name_en": "1 BOX 12 PCS Snappy Tom Pouch Cat Food Makanan Kucing Basah 85G - Beef / Lamb / Chicken / Pilchard & Snapper / Tuna & Shrimp / Tuna",
+    "weight_g": 85
+  },
+  {
+    "id": "1d5d9216-21b7-471f-859e-673e34d334c9",
+    "brand": "Catsome",
+    "name_en": "Catsome Grain Free Nature & Nutrition Gravy Type Cat Canned Food 80g",
+    "weight_g": 80
+  },
+  {
+    "id": "c58fa1d0-84f3-4626-855d-456476b8246a",
+    "brand": "PawmisedLand",
+    "name_en": "PawmisedLand Catty Munchies - Chicken Freeze Dried Pet Food 125g Premium Treats Pet Food Cat Food Makanan Kucing",
+    "weight_g": 125
+  },
+  {
+    "id": "d5b6919a-6629-45a7-bc0a-e950772d4382",
+    "brand": "Misha",
+    "name_en": "MISHA Dry Cat Food 8kg + 2kg",
+    "weight_g": 8000
+  },
+  {
+    "id": "123f300c-63f1-416a-be00-c7fc3343a849",
+    "brand": "KUCINGJER",
+    "name_en": "KUCINGJER WONO 400G Grain Free True Meat All Life Stages & Breeds Cat Can Food Cat Wet Food Makanan Kucing Basah 猫罐",
+    "weight_g": 400
+  },
+  {
+    "id": "123f300c-63f1-416a-be00-c7fc3343a849",
+    "brand": "KUCINGJER",
+    "name_en": "KUCINGJER WONO 400G Grain Free True Meat All Life Stages & Breeds Cat Can Food Cat Wet Food Makanan Kucing Basah 猫罐",
+    "weight_g": 400
+  },
+  {
+    "id": "c5b60d98-383b-4641-8cae-d5b581943a4f",
+    "brand": "Unknown",
+    "name_en": "Cat Wet Food Pouch set 50g –20 pcs Nutritious Main Meal Wet Cat Food set Delicious & Easy-to-Serve 猫湿粮 猫咪主食包",
+    "weight_g": 50
+  },
+  {
+    "id": "d5b6919a-6629-45a7-bc0a-e950772d4382",
+    "brand": "Misha",
+    "name_en": "MISHA Dry Cat Food 8kg + 2kg",
+    "weight_g": 8000
+  },
+  {
+    "id": "652393df-804c-4f4e-9ccc-8cfe8a9e20bc",
+    "brand": "KUCINTA",
+    "name_en": "[Stock Ready] 🚀Kucinta Cat Wet Food Canned 400g Premium Nutrition 6 Flavors [Ready Stock]",
+    "weight_g": 400
+  },
+  {
+    "id": "240c4ec8-e980-4d7e-b5c4-440abfce204d",
+    "brand": "Nutritail🧡",
+    "name_en": "Nutritail🧡 400G Cat Canned Food Wet Food Kucing Makanan Shredded Chicken Soup Kitten Adult Cat Nutrition Smooth Hair",
+    "weight_g": 400
+  },
+  {
+    "id": "d7086e13-4c81-415f-955f-4d8863efbbe5",
+    "brand": "Bright",
+    "name_en": "【官方授权】Bright 布兰德 Cat Freeze-Dried High Purity Fish Oil Omega-3 High Protein Food 34g/180g*1 布兰德全价主食高纯超低腥蛋黄夹心鱼油冻干",
+    "weight_g": 34
+  },
+  {
+    "id": "1d5d9216-21b7-471f-859e-673e34d334c9",
+    "brand": "Catsome",
+    "name_en": "Catsome Grain Free Nature & Nutrition Gravy Type Cat Canned Food 80g",
+    "weight_g": 80
+  },
+  {
+    "id": "886c72aa-300e-4443-b82c-cbb7de9572e0",
+    "brand": "ALPHA",
+    "name_en": "ALPHA PETS Malaysia Rich Choice 200g Premium Wet Cat Food Grain Free High Protein Skin Coat Digestive Kitten Adult Cat Food",
+    "weight_g": 200
+  },
+  {
+    "id": "c5b60d98-383b-4641-8cae-d5b581943a4f",
+    "brand": "Unknown",
+    "name_en": "Cat Wet Food Pouch set 50g –20 pcs Nutritious Main Meal Wet Cat Food set Delicious & Easy-to-Serve 猫湿粮 猫咪主食包",
+    "weight_g": 50
+  },
+  {
+    "id": "9f86b574-8fdb-4c16-a79a-5e78207f71f9",
+    "brand": "Unknown",
+    "name_en": "【Buy 2 Free Gift】Uncle Tails Cat Food 35% protein  Wet Food Cat Wet Pouch 50g Makanan Kucing Basah",
+    "weight_g": null
+  },
+  {
+    "id": "d7086e13-4c81-415f-955f-4d8863efbbe5",
+    "brand": "Bright",
+    "name_en": "【官方授权】Bright 布兰德 Cat Freeze-Dried High Purity Fish Oil Omega-3 High Protein Food 34g/180g*1 布兰德全价主食高纯超低腥蛋黄夹心鱼油冻干",
+    "weight_g": 34
+  },
+  {
+    "id": "123f300c-63f1-416a-be00-c7fc3343a849",
+    "brand": "KUCINGJER",
+    "name_en": "KUCINGJER WONO 400G Grain Free True Meat All Life Stages & Breeds Cat Can Food Cat Wet Food Makanan Kucing Basah 猫罐",
+    "weight_g": 400
+  },
+  {
+    "id": "886c72aa-300e-4443-b82c-cbb7de9572e0",
+    "brand": "ALPHA",
+    "name_en": "ALPHA PETS Malaysia Rich Choice 200g Premium Wet Cat Food Grain Free High Protein Skin Coat Digestive Kitten Adult Cat Food",
+    "weight_g": 200
+  },
+  {
+    "id": "bda7c4d9-23f9-45f8-8b8e-fce56a4d05ae",
+    "brand": "Wcat",
+    "name_en": "Wcat | Dried Chicken Breast Cat Snack Freeze Dried Training Reward Pure Chicken Bits",
+    "weight_g": 2500
+  },
+  {
+    "id": "e322aaea-8c58-467c-8b4c-40f9a2e121ed",
+    "brand": "PAWFIT",
+    "name_en": "PAWFIT Catty Flossy Chicken Catgrass Functional Freeze Dried Kibble Topper Cat Treats Flossy",
+    "weight_g": null
+  },
+  {
+    "id": "8fb7de76-fdfc-44df-bb67-b0d4bce7addb",
+    "brand": "ALPHA",
+    "name_en": "ALPHA PETS Kucinta 400G Canned Food (Wet Cat Food)",
+    "weight_g": 400
+  },
+  {
+    "id": "c5b60d98-383b-4641-8cae-d5b581943a4f",
+    "brand": "Unknown",
+    "name_en": "Cat Wet Food Pouch set 50g –20 pcs Nutritious Main Meal Wet Cat Food set Delicious & Easy-to-Serve 猫湿粮 猫咪主食包",
+    "weight_g": 50
+  },
+  {
+    "id": "c58fa1d0-84f3-4626-855d-456476b8246a",
+    "brand": "PawmisedLand",
+    "name_en": "PawmisedLand Catty Munchies - Chicken Freeze Dried Pet Food 125g Premium Treats Pet Food Cat Food Makanan Kucing",
+    "weight_g": 125
+  },
+  {
+    "id": "886c72aa-300e-4443-b82c-cbb7de9572e0",
+    "brand": "ALPHA",
+    "name_en": "ALPHA PETS Malaysia Rich Choice 200g Premium Wet Cat Food Grain Free High Protein Skin Coat Digestive Kitten Adult Cat Food",
+    "weight_g": 200
+  },
+  {
+    "id": "123f300c-63f1-416a-be00-c7fc3343a849",
+    "brand": "KUCINGJER",
+    "name_en": "KUCINGJER WONO 400G Grain Free True Meat All Life Stages & Breeds Cat Can Food Cat Wet Food Makanan Kucing Basah 猫罐",
+    "weight_g": 400
+  },
+  {
+    "id": "bda7c4d9-23f9-45f8-8b8e-fce56a4d05ae",
+    "brand": "Wcat",
+    "name_en": "Wcat | Dried Chicken Breast Cat Snack Freeze Dried Training Reward Pure Chicken Bits",
+    "weight_g": 2500
+  },
+  {
+    "id": "a007b786-db81-4d77-997a-cfed35a9169e",
+    "brand": "XUESHANZHIXING|Freeze-dried",
+    "name_en": "XUESHANZHIXING|Freeze-dried cat treats chicken pieces pet snacks chicken breast nutritious and nourishing",
+    "weight_g": null
+  },
+  {
+    "id": "b03fa24e-3b71-4bc7-90a0-25c0846eaf74",
+    "brand": "PetClear🐱Chicken",
+    "name_en": "PetClear🐱Chicken cat grass sticks 60Pieces/Bucket freeze dried chicken catsnack makanan kucing pet food/貓咪零食猫草冻干磨牙棒零食",
+    "weight_g": 500
+  },
+  {
+    "id": "5aadd9f4-2f31-420f-80cc-cf0c5ba2c524",
+    "brand": "Flinnie",
+    "name_en": "Flinnie Premium Pouch Cat Wet Food for adult cat & kitten Makanan Basah Kucing 85g 猫咪湿粮包零食",
+    "weight_g": 3000
+  },
+  {
+    "id": "c58fa1d0-84f3-4626-855d-456476b8246a",
+    "brand": "PawmisedLand",
+    "name_en": "PawmisedLand Catty Munchies - Chicken Freeze Dried Pet Food 125g Premium Treats Pet Food Cat Food Makanan Kucing",
+    "weight_g": 125
+  },
+  {
+    "id": "1de291b6-f94b-4bdc-8fc7-517338cb65eb",
+    "brand": "Moochie",
+    "name_en": "Moochie Cat Pouch 70g/85g - Pate Tuna/ Meaty Adult Tuna Kanikama/ Meaty Senior Tuna Bonito",
+    "weight_g": null
+  },
+  {
+    "id": "1f9891c3-1106-49c0-bdfa-5aa4800bcf8f",
+    "brand": "7o",
+    "name_en": "7o | Chicken Breast and Fish Oil Wet Cat Food Can",
+    "weight_g": null
+  },
+  {
+    "id": "f136b6e8-d2b7-40ff-aab5-4f623acd82de",
+    "brand": "MOOCHIE",
+    "name_en": "MOOCHIE Cat Wet Food Pouch 70G",
+    "weight_g": 70
+  },
+  {
+    "id": "886c72aa-300e-4443-b82c-cbb7de9572e0",
+    "brand": "ALPHA",
+    "name_en": "ALPHA PETS Malaysia Rich Choice 200g Premium Wet Cat Food Grain Free High Protein Skin Coat Digestive Kitten Adult Cat Food",
+    "weight_g": 200
+  },
+  {
+    "id": "8dc5d513-8c69-480b-a05a-45f560b715f6",
+    "brand": "AIDEM",
+    "name_en": "AIDEM | Nutritious Complete Freeze-Dried Cat Food 10 lbs",
+    "weight_g": 5000
+  },
+  {
+    "id": "bda7c4d9-23f9-45f8-8b8e-fce56a4d05ae",
+    "brand": "Wcat",
+    "name_en": "Wcat | Dried Chicken Breast Cat Snack Freeze Dried Training Reward Pure Chicken Bits",
+    "weight_g": 2500
+  },
+  {
+    "id": "d5b6919a-6629-45a7-bc0a-e950772d4382",
+    "brand": "Misha",
+    "name_en": "MISHA Dry Cat Food 8kg + 2kg",
+    "weight_g": 8000
+  },
+  {
+    "id": "85254b5e-a2fa-4307-844e-5b1e39d65a29",
+    "brand": "PetCoCo",
+    "name_en": "PetCoCo 🐾 Sniffly Grain Free Cat Can Food Cat Wet Food Real Meat Chicken / Tuna 400g",
+    "weight_g": null
+  },
+  {
+    "id": "1538ccdd-5701-4f2c-868a-7595e65463a1",
+    "brand": "Health+",
+    "name_en": "Health+ | Low Fat No Grain Cat Canned Wet Food",
+    "weight_g": 85
+  },
+  {
+    "id": "4d79467d-5da8-464e-8bec-0bf5cbcc4808",
+    "brand": "Belif",
+    "name_en": "Belif Grain Free Cat Canned Food 400g",
+    "weight_g": 400
+  },
+  {
+    "id": "886c72aa-300e-4443-b82c-cbb7de9572e0",
+    "brand": "ALPHA",
+    "name_en": "ALPHA PETS Malaysia Rich Choice 200g Premium Wet Cat Food Grain Free High Protein Skin Coat Digestive Kitten Adult Cat Food",
+    "weight_g": 200
+  },
+  {
+    "id": "c58fa1d0-84f3-4626-855d-456476b8246a",
+    "brand": "PawmisedLand",
+    "name_en": "PawmisedLand Catty Munchies - Chicken Freeze Dried Pet Food 125g Premium Treats Pet Food Cat Food Makanan Kucing",
+    "weight_g": 125
+  },
+  {
+    "id": "e322aaea-8c58-467c-8b4c-40f9a2e121ed",
+    "brand": "PAWFIT",
+    "name_en": "PAWFIT Catty Flossy Chicken Catgrass Functional Freeze Dried Kibble Topper Cat Treats Flossy",
+    "weight_g": null
+  },
+  {
+    "id": "1d5d9216-21b7-471f-859e-673e34d334c9",
+    "brand": "Catsome",
+    "name_en": "Catsome Grain Free Nature & Nutrition Gravy Type Cat Canned Food 80g",
+    "weight_g": 80
+  },
+  {
+    "id": "ee87f822-f456-4f24-af59-9e7d92ef98cd",
+    "brand": "Furlove",
+    "name_en": "Furlove cat food wet food Cat Wet Pouch 80g Pouch Cat Food Makanan Kucing Basah(Cat Wet food) Cat food 猫咪湿粮包零食",
+    "weight_g": 80
+  },
+  {
+    "id": "c5b60d98-383b-4641-8cae-d5b581943a4f",
+    "brand": "Unknown",
+    "name_en": "Cat Wet Food Pouch set 50g –20 pcs Nutritious Main Meal Wet Cat Food set Delicious & Easy-to-Serve 猫湿粮 猫咪主食包",
+    "weight_g": 50
+  },
+  {
+    "id": "bda7c4d9-23f9-45f8-8b8e-fce56a4d05ae",
+    "brand": "Wcat",
+    "name_en": "Wcat | Dried Chicken Breast Cat Snack Freeze Dried Training Reward Pure Chicken Bits",
+    "weight_g": 2500
+  },
+  {
+    "id": "6ebcb7cb-1153-4338-ac42-0cd42db52c09",
+    "brand": "Misha",
+    "name_en": "Misha MeOw MeOw High Protein Cat Food 1.4KG – Quality Nutrition for All Breeds ( 3 flavors)",
+    "weight_g": null
+  },
+  {
+    "id": "d0d857a7-106c-4678-a533-122d3257617c",
+    "brand": "WANPY",
+    "name_en": "WANPY CANNED CHUNKS IN GRAVY & MEAT LOAF / WET FOOD / CAT FOOD 375G",
+    "weight_g": null
+  },
+  {
+    "id": "8ffe9ad3-aafc-4d0f-b3c0-75a913954d02",
+    "brand": "EXP:FEB",
+    "name_en": "(EXP:FEB 2027)membekukan Makanan haiwan Salmon yang kering Freeze Dried Salmon Pet Food Makanan ringan kering beku Kucing 宠物三文鱼冻干 狗狗猫咪零食 Pet Snack Salmon 500g",
+    "weight_g": null
+  },
+  {
+    "id": "d84c27f9-e07b-4e5e-8e37-8308504bb4b0",
+    "brand": "Unknown",
+    "name_en": "pet ROYAL CANIN Mother and Babycat Ultra Soft Mousse 195gram WET FOOD EXP 0325",
+    "weight_g": 195
+  },
+  {
+    "id": "bda7c4d9-23f9-45f8-8b8e-fce56a4d05ae",
+    "brand": "Wcat",
+    "name_en": "Wcat | Dried Chicken Breast Cat Snack Freeze Dried Training Reward Pure Chicken Bits",
+    "weight_g": 2500
+  },
+  {
+    "id": "d864291b-047c-41dc-a1eb-fe180686511d",
+    "brand": "Weruva",
+    "name_en": "Weruva Cat Minced Meat Canned Food 85 Gram SMALL SIZE CAN FOOD MAKANAN KUCING HIGH NUTRITION CAN CAT FOOD",
+    "weight_g": 85
+  },
+  {
+    "id": "aabcbeba-4da5-42a7-86cc-a4575f42ea00",
+    "brand": "Eukanuba",
+    "name_en": "Eukanuba Kitten Dry Cat Food Chicken",
+    "weight_g": 2000
+  },
+  {
+    "id": "f3357af2-e349-49da-9c59-239cdba85bda",
+    "brand": "Snappy Tom",
+    "name_en": "Snappy Tom Gourmers Cat Pouch Food 70g",
+    "weight_g": 70
+  },
+  {
+    "id": "b777dcb9-975c-479e-a024-271df8c7adb6",
+    "brand": "Snappy Tom",
+    "name_en": "SNAPPY TOM Salmon with Chicken 1.5KG Dry Cat Food",
+    "weight_g": 5000
+  },
+  {
+    "id": "ca84c353-4226-49e4-96b7-854a04d347a0",
+    "brand": "Snappy Tom",
+    "name_en": "SNAPPY TOM Gourmers 70G Wet Cat Food",
+    "weight_g": 70
+  },
+  {
+    "id": "00335bb7-6610-4cd4-8653-66f1b3ceaea8",
+    "brand": "2026",
+    "name_en": "2026 SALES OMI Petshop 500g/pack Booster Gemuk Chicken Booster Cat Food Freeze Dried Chicken Cube Kucing Gemuk Pet Snack Cat Food",
+    "weight_g": 500
+  },
+  {
+    "id": "6e533a81-76fe-4c54-93ce-c26078f5a6a0",
+    "brand": "Wanpy",
+    "name_en": "Wanpy Creamy Cat Functional Stick 70g - Skin Coat/ Urinary/ Joint Support/ Kidney/ Digestive",
+    "weight_g": 70
+  },
+  {
+    "id": "86dbf03a-0089-4d45-a8c1-1f174beb3919",
+    "brand": "Wanpy",
+    "name_en": "Wanpy Grain-Free Cat Food Chicken Tuna Salmon – High Protein, Healthy Skin & Digestion (500g / 1.5kg)",
+    "weight_g": 1500
+  },
+  {
+    "id": "3b9b7584-ef02-483c-8f83-05b80e100ad0",
+    "brand": "Nau!",
+    "name_en": "Nau! Finest Selection Adult Cat Chicken & Rice",
+    "weight_g": 1500
+  },
+  {
+    "id": "303c5fe2-1be4-4d27-a480-3e69fddd273e",
+    "brand": "OzPro",
+    "name_en": "OzPro Adult Dry Cat Food Chicken & Salmon",
+    "weight_g": 1500
+  },
+  {
+    "id": "261c3628-04e2-4af6-97b7-ace7ab38911d",
+    "brand": "Nurture Pro",
+    "name_en": "Nurture Pro Nourish Life Kitten Chicken Dry Cat Food",
+    "weight_g": 1800
+  },
+  {
+    "id": "91e1001e-6439-4b72-8245-2dce913cd403",
+    "brand": "Earthborn Holistic",
+    "name_en": "Earthborn Holistic Primitive Feline Grain-Free Dry Cat Food",
+    "weight_g": 2270
+  },
+  {
+    "id": "44932c68-41f0-4522-b354-334043114d0b",
+    "brand": "Merrick",
+    "name_en": "Merrick Purrfect Bistro Grain-Free Real Chicken Dry Cat Food",
+    "weight_g": 1814
+  },
+  {
+    "id": "d8c78fee-697a-4abc-9042-544c29035140",
+    "brand": "Merrick",
+    "name_en": "Merrick Purrfect Bistro Salmon & Sweet Potato Wet Cat Food",
+    "weight_g": 156
+  },
+  {
+    "id": "af92e449-4d43-45fb-a9d1-3ac5015bb089",
+    "brand": "Friskies",
+    "name_en": "Friskies Pate Ocean Whitefish & Tuna Wet Cat Food",
+    "weight_g": 156
+  },
+  {
+    "id": "4f5b0070-9905-4625-aaa4-0c99d18e4cbd",
+    "brand": "Nutrience",
+    "name_en": "Nutrience SubZero Canadian Pacific Multi-Protein Dry Cat Food",
+    "weight_g": 5000
+  },
+  {
+    "id": "04314b6e-0203-4af4-9e88-4a1b462a3744",
+    "brand": "Purizon",
+    "name_en": "Purizon Adult Chicken & Fish Grain-Free Dry Cat Food",
+    "weight_g": 2000
+  },
+  {
+    "id": "8e7d1128-0170-4958-b475-cea68780c767",
+    "brand": "Merrick",
+    "name_en": "Merrick Purrfect Bistro Grain-Free Real Salmon Dry Cat Food",
+    "weight_g": 1814
+  },
+  {
+    "id": "393c59cd-6845-4caa-b618-aeca41a84440",
+    "brand": "Nulo",
+    "name_en": "Nulo Freestyle Adult Salmon & Lentils Dry Cat Food",
+    "weight_g": 2270
+  },
+  {
+    "id": "f7227e6c-3ac1-435e-84f7-38c940c138e9",
+    "brand": "Blue Buffalo",
+    "name_en": "Blue Buffalo Wilderness Chicken Dry Cat Food",
+    "weight_g": 1360
+  }
+]

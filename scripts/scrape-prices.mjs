@@ -207,7 +207,7 @@ async function scrapeProduct(product) {
 // ── Railway helpers ──────────────────────────────────────────────────────────
 
 async function fetchPage(page) {
-  const r = await fetch(`${RAILWAY_URL}/products?limit=${PAGE_SIZE}&page=${page}&active_only=true`, {
+  const r = await fetch(`${RAILWAY_URL}/products?page_size=${PAGE_SIZE}&page=${page}&active_only=true`, {
     headers: { 'X-Admin-Key': ADMIN_KEY }, signal: AbortSignal.timeout(15000),
   });
   if (!r.ok) throw new Error(`GET /products page ${page} → ${r.status}`);

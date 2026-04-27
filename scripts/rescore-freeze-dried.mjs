@@ -18,7 +18,7 @@ async function main() {
 
   // Fetch all freeze_dried products
   const r = await fetch(
-    `${RAILWAY_URL}/products?category=freeze_dried&active_only=true&limit=${PAGE_SIZE}`,
+    `${RAILWAY_URL}/products?category=freeze_dried&active_only=true&page_size=${PAGE_SIZE}`,
     { headers: { 'X-Admin-Key': ADMIN_KEY }, signal: AbortSignal.timeout(15000) }
   );
   const data = await r.json();
