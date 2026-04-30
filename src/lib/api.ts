@@ -77,9 +77,18 @@ export async function searchProducts(query: string, filters: ProductFilters = {}
   return res.json();
 }
 
+export class ApiNotFoundError extends Error { constructor() { super('not_found'); } }
+export class ApiUnavailableError extends Error { constructor() { super('unavailable'); } }
+
 export async function getProduct(id: string): Promise<ProductDetail> {
-  const res = await fetch(`${API_URL}/products/${id}`, { cache: 'no-store' });
-  if (!res.ok) throw new Error('Product not found');
+  let res: Response;
+  try {
+    res = await fetch(`${API_URL}/products/${id}`, { cache: 'no-store', signal: AbortSignal.timeout(8000) });
+  } catch {
+    throw new ApiUnavailableError();
+  }
+  if (res.status === 404) throw new ApiNotFoundError();
+  if (!res.ok) throw new ApiUnavailableError();
   return res.json();
 }
 
