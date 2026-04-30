@@ -1,7 +1,9 @@
 'use client';
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 export type Lang = 'en' | 'zh' | 'bm';
+
+const STORAGE_KEY = 'ml_lang'; // same key as community.html
 
 const LangContext = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({
   lang: 'en',
@@ -9,7 +11,24 @@ const LangContext = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>('en');
+  const [lang, setLangState] = useState<Lang>('en');
+
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === 'zh' || stored === 'bm' || stored === 'en') {
+      setLangState(stored);
+    } else {
+      const nav = (navigator.language || '').toLowerCase();
+      if (nav.startsWith('zh')) setLangState('zh');
+      else if (nav.startsWith('ms') || nav.startsWith('bm')) setLangState('bm');
+    }
+  }, []);
+
+  const setLang = (l: Lang) => {
+    setLangState(l);
+    localStorage.setItem(STORAGE_KEY, l);
+  };
+
   return <LangContext.Provider value={{ lang, setLang }}>{children}</LangContext.Provider>;
 }
 
@@ -27,17 +46,11 @@ export function pickName(en: string, zh: string | null, bm: string | null, lang:
 // ── Translations ────────────────────────────────────────────────────────────
 
 const T: Record<string, Record<Lang, string>> = {
-  // Search / Navbar
-  'nav.searchPlaceholder': {
-    en: 'Search cat food or brand…',
-    zh: '搜索猫粮或品牌…',
-    bm: 'Cari makanan kucing atau jenama…',
-  },
   // Bottom Nav
-  'nav.home':       { en: 'Home',       zh: '首页',   bm: 'Utama'    },
-  'nav.categories': { en: 'Categories', zh: '分类',   bm: 'Kategori' },
-  'nav.aiScore':    { en: 'AI Score',   zh: 'AI评分', bm: 'Skor AI'  },
-  'nav.community':  { en: 'Community',  zh: '社区',   bm: 'Komuniti' },
+  'nav.home':       { en: 'Home',     zh: '首页',   bm: 'Utama'    },
+  'nav.products':   { en: 'Products', zh: '产品',   bm: 'Produk'   },
+  'nav.cats':       { en: 'Cats',     zh: '猫咪',   bm: 'Kucing'   },
+  'nav.me':         { en: 'Me',       zh: '我',     bm: 'Saya'     },
   // Category tabs
   'cat.all':          { en: 'All',          zh: '全部', bm: 'Semua'           },
   'cat.wet':          { en: 'Wet Food',     zh: '湿粮', bm: 'Makanan Basah'   },
@@ -45,38 +58,6 @@ const T: Record<string, Record<Lang, string>> = {
   'cat.freeze_dried': { en: 'Freeze-Dried', zh: '冻干', bm: 'Beku Kering'     },
   'cat.treat':        { en: 'Treats',       zh: '零食', bm: 'Makanan Ringan'  },
   'cat.supplement':   { en: 'Supplement',   zh: '保健品',bm: 'Suplemen'       },
-  // Filters / labels
-  'filter.halalOnly':  { en: 'Halal Only',       zh: '仅清真',    bm: 'Halal Sahaja'       },
-  'filter.localBrand': { en: '🇲🇾 Local Brand',   zh: '🇲🇾 本地品牌', bm: '🇲🇾 Jenama Tempatan' },
-  'filter.products':   { en: 'products',          zh: '件产品',    bm: 'produk'             },
-  // Sort options
-  'sort.label':        { en: 'Sort',            zh: '排序',      bm: 'Susun'               },
-  'sort.score_desc':   { en: '🏆 Best Score',   zh: '🏆 最高评分', bm: '🏆 Skor Terbaik'    },
-  'sort.score_asc':    { en: '📉 Lowest Score', zh: '📉 最低评分', bm: '📉 Skor Terendah'   },
-  'sort.price_asc':    { en: '💰 Cheapest',     zh: '💰 最便宜',   bm: '💰 Paling Murah'    },
-  'sort.price_desc':   { en: '💎 Most Expensive',zh: '💎 最贵',    bm: '💎 Paling Mahal'    },
-  'sort.value_asc':    { en: '🧬 Best Value',   zh: '🧬 最高性价比', bm: '🧬 Nilai Terbaik'  },
-  // Grade filter
-  'filter.grade':      { en: 'Grade',           zh: '评级',      bm: 'Gred'                },
-  'filter.allGrades':  { en: 'All',             zh: '全部',      bm: 'Semua'               },
-  'filter.done':       { en: 'Done',            zh: '完成',      bm: 'Selesai'             },
-  // Pagination
-  'page.prev':         { en: 'Prev',            zh: '上页',      bm: 'Sebelum'             },
-  'page.next':         { en: 'Next',            zh: '下页',      bm: 'Seterusnya'          },
-  'page.of':           { en: 'of',              zh: '共',        bm: 'daripada'            },
-  'page.pages':        { en: 'pages',           zh: '页',        bm: 'halaman'             },
-  // Home page
-  'home.topPicks':    { en: 'Top Picks',    zh: '精选推荐',         bm: 'Pilihan Terbaik'          },
-  'home.searchResults':{ en: 'Search Results', zh: '搜索结果',       bm: 'Hasil Carian'             },
-  'home.noProducts':  { en: 'No products found', zh: '未找到产品',   bm: 'Tiada produk dijumpai'    },
-  'home.tryFilter':   {
-    en: 'Try a different filter or search term',
-    zh: '换个过滤或搜索词试试',
-    bm: 'Cuba penapis atau kata carian lain',
-  },
-  // Product card tags
-  'tag.halal':    { en: 'Halal',    zh: '清真',    bm: 'Halal'       },
-  'tag.myBrand':  { en: 'MY Brand', zh: '本地品牌', bm: 'Jenama MY'  },
   // Product detail — info
   'detail.weight': { en: 'Weight', zh: '重量', bm: 'Berat' },
   'detail.origin': { en: 'Origin', zh: '产地', bm: 'Asal'  },
@@ -129,7 +110,6 @@ const T: Record<string, Record<Lang, string>> = {
     zh: '* 各维度满分100分，综合分为加权平均值。',
     bm: '* Setiap dimensi dinilai /100. Skor akhir ialah purata berwajaran.',
   },
-  // Ingredient legend
   'detail.priceDisclaimer': {
     en: '* Price is indicative. Actual price may vary on Shopee & Lazada.',
     zh: '* 价格仅供参考，实际价格以 Shopee 及 Lazada 为准。',
@@ -137,7 +117,6 @@ const T: Record<string, Record<Lang, string>> = {
   },
   'detail.goodProtein': { en: 'Quality animal protein', zh: '优质动物蛋白', bm: 'Protein haiwan berkualiti' },
   'detail.flaggedLabel':{ en: 'Flagged ingredient',     zh: '标记成分',    bm: 'Bahan bermasalah'          },
-  // Recommendation card
   'detail.summary':     { en: 'MeowLah Verdict', zh: 'MeowLah 总结', bm: 'Rumusan MeowLah' },
   'detail.summaryPros': { en: 'Strengths',        zh: '优点',         bm: 'Kelebihan'       },
   'detail.summaryCons': { en: 'Weaknesses',       zh: '缺点',         bm: 'Kelemahan'       },
