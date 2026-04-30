@@ -141,11 +141,48 @@ function similarity(a, b) {
   return inter / (wa.size + wb.size - inter);
 }
 
-const DUPE_THRESHOLD = 0.75;  // ≥75% word overlap → probable duplicate
+/**
+ * Words that, when present in one product name but absent in the other,
+ * signal these are genuinely different products rather than duplicates.
+ * This prevents mis-flagging different flavours / life stages as duplicates.
+ */
+const DIFFERENTIATING_TERMS = new Set([
+  // proteins / seafood
+  'salmon', 'chicken', 'tuna', 'beef', 'lamb', 'duck', 'turkey',
+  'shrimp', 'prawn', 'pork', 'rabbit', 'venison', 'cod', 'mackerel',
+  'sardine', 'anchovy', 'crab', 'scallop', 'octopus', 'herring', 'trout',
+  'tilapia', 'snapper', 'catfish', 'whitebait', 'yellowfin',
+  // life stages / formula variants
+  'kitten', 'senior', 'junior',
+  // health / diet variants
+  'urinary', 'renal', 'hepatic', 'diabetic', 'dental', 'gastrointestinal',
+  'hairball', 'indoor', 'outdoor', 'sterilised', 'neutered', 'lite', 'light',
+  'persian', 'siamese', 'maine', 'ragdoll', 'bengal', 'british',
+  // product line / quality tier
+  'plus', 'ultra', 'naturelle', 'holistic', 'organic', 'grain',
+  // ingredients that create distinct flavour profiles
+  'rice', 'milk', 'egg', 'liver', 'heart', 'kidney', 'lung',
+  'spinach', 'pumpkin', 'carrot', 'broccoli', 'apple', 'blueberry',
+]);
+
+/**
+ * Returns true if the two normalised names differ by at least one
+ * DIFFERENTIATING_TERM — meaning they are likely different products.
+ */
+function hasDifferentiatingDifference(normA, normB) {
+  const wA = new Set(normA.split(' ').filter(Boolean));
+  const wB = new Set(normB.split(' ').filter(Boolean));
+  for (const w of wA) if (!wB.has(w) && DIFFERENTIATING_TERMS.has(w)) return true;
+  for (const w of wB) if (!wA.has(w) && DIFFERENTIATING_TERMS.has(w)) return true;
+  return false;
+}
+
+const DUPE_THRESHOLD = 0.75;  // ≥75% word overlap → candidate duplicate
 
 /**
  * Group products into duplicate clusters.
  * Within each brand, compare every pair of (normalised) names.
+ * Products that differ by a DIFFERENTIATING_TERM are never grouped.
  */
 function findDuplicateClusters(products) {
   // Group by brand (case-insensitive)
@@ -168,7 +205,7 @@ function findDuplicateClusters(products) {
       const ni = normaliseName(group[i].name_en);
       for (let j = i + 1; j < n; j++) {
         const nj = normaliseName(group[j].name_en);
-        if (similarity(ni, nj) >= DUPE_THRESHOLD) {
+        if (similarity(ni, nj) >= DUPE_THRESHOLD && !hasDifferentiatingDifference(ni, nj)) {
           adj[i].add(j);
           adj[j].add(i);
         }
