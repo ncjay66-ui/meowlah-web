@@ -19,9 +19,11 @@ export default function Navbar() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center gap-3">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0 mr-1">
+        <Link href="/" className="flex items-center gap-1.5 shrink-0 mr-1">
           <span className="text-xl leading-none">🐾</span>
-          <span className="text-[16px] font-bold text-gray-900 tracking-tight">MeowLah</span>
+          <span className="text-[17px] font-black tracking-tight leading-none">
+            <span style={{ color: '#FF6B35' }}>Meow</span><span className="text-gray-900">Lah</span>
+          </span>
         </Link>
 
         {/* Search bar */}
