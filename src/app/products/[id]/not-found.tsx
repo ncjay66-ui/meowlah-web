@@ -1,17 +1,10 @@
 import Link from 'next/link';
+import BackButton from '@/components/BackButton';
 
 export default function ProductNotFound() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-5 pb-28">
-      <Link
-        href="/"
-        className="inline-flex items-center gap-1.5 text-[13px] text-gray-400 hover:text-gray-700 mb-5 transition-colors"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
-        </svg>
-        Back
-      </Link>
+      <BackButton />
 
       <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
         <span className="text-5xl">🐾</span>
