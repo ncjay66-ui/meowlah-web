@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import './globals.css';
+import './shopping.css';
 import Navbar from '@/components/Navbar';
 import BottomNav from '@/components/BottomNav';
 import { LanguageProvider } from '@/lib/language';

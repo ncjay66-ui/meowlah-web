@@ -46,6 +46,10 @@ export function pickName(en: string, zh: string | null, bm: string | null, lang:
 // ── Translations ────────────────────────────────────────────────────────────
 
 const T: Record<string, Record<Lang, string>> = {
+  'cat.toys': {en:'Cat toys',zh:'猫玩具',bm:'Mainan kucing'},
+  'cat.litter': {en:'Cat litter',zh:'猫砂',bm:'Pasir kucing'},
+  'cat.litter_box': {en:'Litter boxes',zh:'猫砂盆',bm:'Tandas kucing'},
+  'cat.scratchers': {en:'Scratchers',zh:'猫抓板',bm:'Papan cakar'},
   // Bottom Nav
   'nav.home':       { en: 'Home',     zh: '首页',   bm: 'Utama'    },
   'nav.products':   { en: 'Products', zh: '产品',   bm: 'Produk'   },

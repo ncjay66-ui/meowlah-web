@@ -1,0 +1,24 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const ts=require('typescript');
+function load(file){const module={exports:{}};const code=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;new Function('module','exports','require',code)(module,module.exports,require);return module.exports;}
+const s=load('src/lib/shopping.ts');
+const p={affiliate_shopee:'https://shopee.com.my/search?keyword=food&mmp_pid=keep',shopee_url:null,affiliate_lazada:'https://s.lazada.com.my/s.AAqGX',lazada_url:null};
+assert.equal(s.merchantLink(p,'shopee').kind,'search');
+assert.equal(s.merchantLink(p,'shopee').url,p.affiliate_shopee);
+assert.equal(s.merchantLink(p,'lazada').kind,'unverified');
+assert.equal(s.merchantLink({...p,affiliate_shopee:'javascript:alert(1)'},'shopee'),null);
+assert.equal(s.merchantLink({...p,affiliate_shopee:'https://shopee.com.my.evil.test/x'},'shopee'),null);
+assert.equal(s.merchantLink({...p,affiliate_shopee:'https://shopee.com.my/item-i.123.456'},'shopee').kind,'product');
+const prices=[{platform:'shopee',price_myr:1,scraped_at:'2025-01-01',in_stock:true},{platform:'shopee',price_myr:15,scraped_at:'2026-01-01',in_stock:true},{platform:'lazada',price_myr:2,scraped_at:'2026-01-02',in_stock:false}];
+assert.equal(s.referencePrice({prices}),15);
+assert.equal(s.referencePrice({prices,price_myr:13.5}),13.5);
+assert.equal(s.referencePrice({prices:[]}),null);
+assert.equal(s.money(null),'—');
+assert.equal(s.purpose({food_purpose:null},'en'),'Feeding purpose unconfirmed');
+const posted=[];const dispatched=[];global.window={dispatchEvent:event=>dispatched.push(event)};global.CustomEvent=class{constructor(type,options){this.type=type;this.detail=options.detail;}};global.fetch=(...args)=>{posted.push(args);return Promise.resolve({ok:true});};
+s.recordShoppingEvent('affiliate_click','5639b7fa-f2cc-45f3-8f29-afed7e0a9fe0','shopee','search');
+s.recordShoppingEvent('affiliate_click','my-catit-wellness','shopee','product');
+const api=load('src/lib/api.ts');
+global.fetch=async()=>({ok:true,json:async()=>({count:4,items:[{id:'expensive',price_myr:20,final_score:100,category:'wet'},{id:'cheap',price_myr:5,final_score:40,category:'wet'},{id:'missing',price_myr:null,final_score:80,category:'wet'},{id:'dry',price_myr:1,final_score:99,category:'dry'}]})});
+(async()=>{await Promise.resolve();assert.equal(posted.length,2);assert.equal(posted[0][0].endsWith('/affiliate/click'),true);assert.deepEqual(JSON.parse(posted[0][1].body),{product_id:'5639b7fa-f2cc-45f3-8f29-afed7e0a9fe0',platform:'shopee',source:'products_detail'});assert.deepEqual(JSON.parse(posted[1][1].body),{catalogue_id:'my-catit-wellness',platform:'shopee'});assert.equal(dispatched.length,2);const a=await api.searchProducts('test',{sort_by:'price_asc',category:'wet',page_size:1,page:1});assert.equal(a.items[0].id,'cheap');assert.equal(a.total,3);assert.equal(a.searchLimited,true);const b=await api.searchProducts('test',{sort_by:'price_asc',category:'wet',page_size:1,page:2});assert.equal(b.items[0].id,'expensive');const c=await api.searchProducts('test',{max_price:10,category:'wet'});assert.deepEqual(c.items.map(p=>p.id),['cheap']);global.fetch=async()=>({ok:false});await assert.rejects(()=>api.getProducts());console.log('PASS: affiliate click reports cover database and curated MY product IDs; attribution, merchant links, price history, missing data, search sorting/filtering/pagination, request errors.');})().catch(e=>{console.error(e);process.exitCode=1});

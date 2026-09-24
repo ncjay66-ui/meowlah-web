@@ -1,6 +1,9 @@
-import { getProduct, ApiNotFoundError, ApiUnavailableError } from '@/lib/api';
+import { getProduct, ApiNotFoundError } from '@/lib/api';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { malaysiaProducts } from '@/lib/malaysia';
+import { catalogueProducts, isCatSupply } from '@/lib/catalogue';
+import CatSupplyDetail from '@/components/CatSupplyDetail';
 import ProductDetailView from '@/components/ProductDetailView';
 import BackButton from '@/components/BackButton';
 
@@ -9,7 +12,12 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
   let product;
   try {
-    product = await getProduct(id);
+    const summary = catalogueProducts.find(p => p.id === id);
+    product = malaysiaProducts.find(p => p.id === id) ?? await getProduct(id).catch(err => {
+      if (!summary || err instanceof ApiNotFoundError) throw err;
+      return {...summary,nutrition:null,score:null,prices:[],halal_cert_no:null};
+    });
+    if (summary) product = {...product,...summary};
   } catch (err) {
     if (err instanceof ApiNotFoundError) {
       // Product genuinely doesn't exist → true 404
@@ -17,7 +25,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     }
     // Backend is down / timeout / server error → friendly error page
     return (
-      <div className="max-w-3xl mx-auto px-4 py-5 pb-28">
+      <div className="shop-detail max-w-3xl mx-auto px-4 py-5 pb-28">
         <BackButton />
         <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
           <span className="text-5xl">🐾</span>
@@ -31,7 +39,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           >
             Try again
           </Link>
-          <Link href="/" className="text-[13px] text-gray-400 hover:text-gray-600 transition-colors">
+          <Link href="/products" className="text-[13px] text-gray-400 hover:text-gray-600 transition-colors">
             ← Back to all products
           </Link>
         </div>
@@ -40,9 +48,9 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-5 pb-28">
+    <div className="shop-detail max-w-3xl mx-auto px-4 py-5 pb-28">
       <BackButton />
-      <ProductDetailView product={product} />
+      {isCatSupply(product) ? <CatSupplyDetail product={product} /> : <ProductDetailView product={product} />}
     </div>
   );
 }

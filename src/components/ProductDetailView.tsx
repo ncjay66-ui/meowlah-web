@@ -1,5 +1,9 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
+import BuyingOptions from './BuyingOptions';
+import MarketEvidence from './MarketEvidence';
+import ShoppingImage from './ShoppingImage';
+import { referencePrice, purpose, words } from '@/lib/shopping';
 import { ProductDetail, CATEGORY_COLORS } from '@/lib/api';
 import { useLang, useTrans, getCategoryLabel, getDimLabel, Lang } from '@/lib/language';
 
@@ -24,12 +28,6 @@ const GOOD_PROTEINS = [
   'squid', 'octopus', 'scallop', 'prawn', 'tilapia', 'snapper', 'seabass',
   'catfish', 'meat',
 ];
-
-function isPlaceholder(url: string | null | undefined) {
-  if (!url) return true;
-  if (url.startsWith('data:')) return true; // base64 embedded — treat as missing
-  return url.includes('placehold.co') || url.includes('via.placeholder');
-}
 
 function PawIcon({ filled }: { filled: boolean }) {
   return (
@@ -175,58 +173,6 @@ function HighlightIngredients({ raw, flagged }: { raw: string; flagged: string[]
 
 // ── Recommendation Card (MeowLah 总结) ────────────────────────────────────
 
-function buildRec(product: ProductDetail, lang: Lang) {
-  const nutr = product.nutrition;
-  const score = product.score;
-  const grade = score?.grade ?? 'C';
-  const isWet = (nutr?.moisture_pct ?? 0) > 25;
-  const protein = nutr?.protein_pct ?? 0;
-  const moisture = nutr?.moisture_pct ?? 0;
-  const carbDm = nutr?.carb_pct_calc ?? null;
-  const flagged = nutr?.flagged_ingredients ?? [];
-
-  const pros: string[] = [];
-  const cons: string[] = [];
-  const uses: string[] = [];
-
-  // Pros
-  if (product.is_halal) pros.push(lang === 'zh' ? '✅ 清真认证' : lang === 'bm' ? '✅ Pensijilan Halal' : '✅ Halal certified');
-  if (isWet && moisture >= 75) pros.push(lang === 'zh' ? '✅ 高水分，有助猫咪补水' : lang === 'bm' ? '✅ Kelembapan tinggi, bantu kucing minum lebih' : '✅ High moisture — great for hydration');
-  if (grade === 'S' || grade === 'A') pros.push(lang === 'zh' ? '✅ 营养评分优秀' : lang === 'bm' ? '✅ Skor nutrisi cemerlang' : '✅ Excellent nutrition score');
-  if (grade === 'B') pros.push(lang === 'zh' ? '✅ 整体营养不错' : lang === 'bm' ? '✅ Nutrisi keseluruhan baik' : '✅ Good overall nutrition');
-  if (carbDm !== null && carbDm < 15) pros.push(lang === 'zh' ? '✅ 碳水含量低，适合猫咪' : lang === 'bm' ? '✅ Karbohidrat rendah, sesuai untuk kucing' : '✅ Low carbohydrates — cats are obligate carnivores');
-  if (product.is_local_brand) pros.push(lang === 'zh' ? '✅ 本地品牌，新鲜度更有保障' : lang === 'bm' ? '✅ Jenama tempatan, lebih segar' : '✅ Local brand — fresher supply chain');
-
-  // Cons
-  if (isWet && protein < 6)
-    cons.push(lang === 'zh' ? '❌ 蛋白质偏低，不宜作主食' : lang === 'bm' ? '❌ Protein rendah, tidak sesuai sebagai makanan utama' : '❌ Low protein — not suitable as main meal');
-  if (!isWet && protein < 25)
-    cons.push(lang === 'zh' ? '❌ 蛋白质偏低' : lang === 'bm' ? '❌ Protein rendah' : '❌ Low protein content');
-  if (carbDm !== null && carbDm > 30)
-    cons.push(lang === 'zh' ? '❌ 碳水偏高（干物质），注意控糖' : lang === 'bm' ? '❌ Karbohidrat tinggi (basis DM)' : '❌ High carbohydrates (DM) — watch out for diabetes risk');
-  if (flagged.length > 0)
-    cons.push(lang === 'zh' ? `❌ 含 ${flagged.length} 种标记成分（如 ${flagged.slice(0, 2).join('、')}）` : lang === 'bm' ? `❌ Mengandungi ${flagged.length} bahan bermasalah` : `❌ Contains ${flagged.length} flagged ingredient${flagged.length > 1 ? 's' : ''} (e.g. ${flagged.slice(0, 2).join(', ')})`);
-  if (grade === 'D' || grade === 'F')
-    cons.push(lang === 'zh' ? '❌ 综合评分偏低，不建议长期作为主食' : lang === 'bm' ? '❌ Skor keseluruhan rendah, tidak disyorkan sebagai makanan utama' : '❌ Low score — not recommended as primary food');
-
-  // Use cases
-  if (isWet && moisture >= 80)
-    uses.push(lang === 'zh' ? '💧 补水神器，适合挑食猫咪' : lang === 'bm' ? '💧 Bagus untuk hidrasi kucing cerewet' : '💧 Great for hydration & picky eaters');
-  if (product.category === 'treat')
-    uses.push(lang === 'zh' ? '🎁 作为零食奖励使用' : lang === 'bm' ? '🎁 Guna sebagai hadiah' : '🎁 Use as an occasional treat/reward');
-  if ((grade === 'A' || grade === 'S') && protein >= (isWet ? 9 : 35))
-    uses.push(lang === 'zh' ? '🍽️ 可作日常主食' : lang === 'bm' ? '🍽️ Sesuai sebagai makanan utama harian' : '🍽️ Suitable as daily main meal');
-  if (grade === 'C' || grade === 'D' || grade === 'F')
-    uses.push(lang === 'zh' ? '🔄 建议搭配高蛋白主食混喂' : lang === 'bm' ? '🔄 Disyorkan campur dengan makanan berkualiti tinggi' : '🔄 Mix with higher-protein food for balance');
-
-  // Ensure at least one entry per section
-  if (pros.length === 0) pros.push(lang === 'zh' ? '— 暂无突出优点' : lang === 'bm' ? '— Tiada kelebihan ketara' : '— No standout strengths found');
-  if (cons.length === 0) cons.push(lang === 'zh' ? '— 暂无明显缺点' : lang === 'bm' ? '— Tiada kelemahan ketara' : '— No major downsides found');
-  if (uses.length === 0) uses.push(lang === 'zh' ? '🐱 偶尔作为辅食' : lang === 'bm' ? '🐱 Kadang-kadang sebagai makanan tambahan' : '🐱 Occasional supplementary food');
-
-  return { pros, cons, uses };
-}
-
 // ── Main component ────────────────────────────────────────────────────────────
 
 interface Props { product: ProductDetail; }
@@ -234,27 +180,9 @@ interface Props { product: ProductDetail; }
 export default function ProductDetailView({ product }: Props) {
   const { lang } = useLang();
   const tr = useTrans();
-  const [imgError, setImgError] = useState(false);
-  const [resolvedImg, setResolvedImg] = useState<string | null>(null);
-  const [fetching, setFetching] = useState(false);
   const [showStickyBuy, setShowStickyBuy] = useState(false);
   const buyRef = useRef<HTMLDivElement>(null);
   const displayName = product.name_en;
-
-  useEffect(() => {
-    if (resolvedImg !== null) return;
-    if (!isPlaceholder(product.image_url) && !imgError) return;
-    let alive = true;
-    setFetching(true);
-    const brand = encodeURIComponent(product.brand || '');
-    const name  = encodeURIComponent(product.name_en || '');
-    const id    = encodeURIComponent(product.id || '');
-    fetch(`/api/product-image?brand=${brand}&name=${name}&id=${id}`)
-      .then(r => r.json())
-      .then(d => { if (alive) { setResolvedImg(d.url || ''); setFetching(false); } })
-      .catch(() => { if (alive) setFetching(false); });
-    return () => { alive = false; };
-  }, [product.id, product.brand, product.name_en, product.image_url, imgError]); // eslint-disable-line
 
   // Show sticky buy bar when original buttons scroll out of view
   useEffect(() => {
@@ -268,20 +196,12 @@ export default function ProductDetailView({ product }: Props) {
     return () => observer.disconnect();
   }, []);
 
-  const primaryUrl = !isPlaceholder(product.image_url) ? product.image_url : null;
-  const proxyUrl = primaryUrl ? `/api/proxy-image?url=${encodeURIComponent(primaryUrl)}` : null;
-  const src = proxyUrl && !imgError
-    ? proxyUrl
-    : (resolvedImg || null);
-
   const { score, nutrition } = product;
   const gradeStyle = score?.grade ? (GRADE_STYLES[score.grade] ?? GRADE_STYLES['C']) : null;
   const paws = score ? scoreToPaws(score.final_score) : 0;
 
-  const bestPrice = product.prices?.length
-    ? product.prices.reduce((best, p) => p.price_myr < best.price_myr ? p : best, product.prices[0])
-    : null;
-  const displayPrice = bestPrice?.price_myr ?? product.price_myr;
+  const displayPrice = referencePrice(product);
+  const w = (en: string, zh: string, bm: string) => words(lang, en, zh, bm);
 
   const isWet = (nutrition?.moisture_pct ?? 0) > 25;
 
@@ -295,7 +215,7 @@ export default function ProductDetailView({ product }: Props) {
   const cHint = carbDm != null ? carbHint(carbDm, lang) : null;
 
   // Recommendation
-  const rec = buildRec(product, lang);
+
 
   return (
     <div className="space-y-3">
@@ -305,26 +225,8 @@ export default function ProductDetailView({ product }: Props) {
         <div className="grid md:grid-cols-2">
 
           {/* Image */}
-          <div className="relative bg-gray-50 flex items-center justify-center min-h-64 overflow-hidden">
-            {src ? (
-              <img
-                src={src}
-                alt={displayName}
-                className="w-full h-full object-cover max-h-72 md:max-h-full"
-                onError={() => {
-                  setImgError(true);
-                  setResolvedImg(null);
-                }}
-              />
-            ) : (
-              <div className="flex items-center justify-center w-full h-64">
-                {fetching
-                  ? <div className="w-8 h-8 border-3 border-gray-200 border-t-orange-400 rounded-full animate-spin" />
-                  : <span className="text-8xl opacity-15">{CAT_EMOJI[product.category] ?? '🐱'}</span>
-                }
-              </div>
-            )}
-
+          <div className="shop-detail-image relative bg-gray-50 flex items-center justify-center min-h-64 overflow-hidden">
+            <ShoppingImage key={product.image_url} url={product.image_url} name={displayName} />
             {/* Grade badge overlay */}
             {gradeStyle && (
               <div className={`absolute top-3 left-3 w-9 h-9 rounded-xl flex items-center justify-center font-black text-[17px] ${gradeStyle.bg} ${gradeStyle.text} shadow-md`}>
@@ -332,12 +234,7 @@ export default function ProductDetailView({ product }: Props) {
               </div>
             )}
 
-            {/* Halal dot */}
-            {product.is_halal && (
-              <span className="absolute top-3 right-3 bg-emerald-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-full shadow-sm">
-                HALAL
-              </span>
-            )}
+            {/* Legacy brand-wide halal flag is deliberately not displayed. */}
           </div>
 
           {/* Info */}
@@ -393,29 +290,8 @@ export default function ProductDetailView({ product }: Props) {
               {tr('detail.priceDisclaimer')}
             </p>
 
-            {/* Buy buttons */}
-            <div className="flex gap-2" ref={buyRef}>
-              {(product.affiliate_shopee || product.shopee_url) ? (
-                <a href={product.affiliate_shopee || product.shopee_url!} target="_blank" rel="noopener noreferrer"
-                  className="flex-1 bg-[#EE4D2D] text-white text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5">
-                  🛍️ Shopee
-                </a>
-              ) : (
-                <div className="flex-1 bg-gray-100 text-gray-300 text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center flex items-center justify-center gap-1.5 cursor-not-allowed">
-                  🛍️ Shopee
-                </div>
-              )}
-              {(product.affiliate_lazada || product.lazada_url) ? (
-                <a href={product.affiliate_lazada || product.lazada_url!} target="_blank" rel="noopener noreferrer"
-                  className="flex-1 bg-[#0F146D] text-white text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5">
-                  🏪 Lazada
-                </a>
-              ) : (
-                <div className="flex-1 bg-gray-100 text-gray-300 text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center flex items-center justify-center gap-1.5 cursor-not-allowed">
-                  🏪 Lazada (N/A)
-                </div>
-              )}
-            </div>
+            <div className="shop-detail-intro">{purpose(product, lang)}<br />{w('Check the packaging for life stage and feeding instructions before choosing.', '购买前核对包装上的适用年龄和喂食说明。', 'Semak umur dan arahan pemakanan pada pembungkusan.')}</div>
+            <a href="#buying-options" className="shop-primary">{w('View buying options', '查看购买选项', 'Lihat pilihan membeli')} ↗</a>
 
             {/* Stats row */}
             <div className="grid grid-cols-2 gap-2">
@@ -436,6 +312,14 @@ export default function ProductDetailView({ product }: Props) {
         </div>
       </div>
 
+      <MarketEvidence id={product.id} />
+      <div ref={buyRef}><BuyingOptions product={product} /></div>
+      <details className="bg-white rounded-2xl p-5 text-sm text-gray-600">
+        <summary className="cursor-pointer font-semibold">{w('About this data & score', '数据与评分依据', 'Tentang data & skor')}</summary>
+        <p className="mt-3">{w('Source recorded in catalogue:', '商品资料记录的来源：', 'Sumber dalam katalog:')} {nutrition?.source || w('Not provided', '暂未提供', 'Tidak diberikan')}</p>
+        <p className="mt-2">{w('Score calculated:', '评分计算时间：', 'Skor dikira:')} {score?.computed_at && Number.isFinite(Date.parse(score.computed_at)) ? new Date(score.computed_at).toISOString().slice(0,10) : '—'}</p>
+        <p className="mt-2">{w('The score summarises available nutrition data. It does not establish suitability for every cat or verify the current merchant listing.', '评分概括现有营养资料，不代表适合每只猫，也不等于已核验商家的当前商品。', 'Skor merumuskan data nutrisi yang ada, bukan jaminan kesesuaian untuk setiap kucing atau pengesahan penyenaraian penjual.')}</p>
+      </details>
       {/* ── Score Card ── */}
       {score ? (
         <div className="bg-white rounded-2xl p-5" style={{ boxShadow: '0 1px 6px rgba(0,0,0,0.08)' }}>
@@ -631,73 +515,7 @@ export default function ProductDetailView({ product }: Props) {
         </div>
       )}
 
-      {/* ── MeowLah 总结 (Recommendation) Card ── */}
-      {(rec.pros.length > 0 || rec.cons.length > 0) && (
-        <div className="bg-white rounded-2xl p-5" style={{ boxShadow: '0 1px 6px rgba(0,0,0,0.08)' }}>
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-[18px]">🎯</span>
-            <h2 className="text-[15px] font-bold text-gray-800">{tr('detail.summary')}</h2>
-          </div>
-
-          <div className="space-y-3">
-            {/* Pros */}
-            <div>
-              <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1.5">{tr('detail.summaryPros')}</p>
-              <div className="space-y-1">
-                {rec.pros.map((p, i) => (
-                  <p key={i} className="text-[13px] text-gray-700">{p}</p>
-                ))}
-              </div>
-            </div>
-
-            {/* Cons */}
-            <div className="pt-2.5 border-t border-gray-50">
-              <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1.5">{tr('detail.summaryCons')}</p>
-              <div className="space-y-1">
-                {rec.cons.map((c, i) => (
-                  <p key={i} className="text-[13px] text-gray-700">{c}</p>
-                ))}
-              </div>
-            </div>
-
-            {/* Uses */}
-            <div className="pt-2.5 border-t border-gray-50">
-              <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1.5">{tr('detail.summaryUses')}</p>
-              <div className="space-y-1">
-                {rec.uses.map((u, i) => (
-                  <p key={i} className="text-[13px] text-gray-700">{u}</p>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ── Sticky buy bar (mobile only, appears when buttons scroll out of view) ── */}
-      {showStickyBuy && (
-        <div className="sm:hidden fixed bottom-14 left-0 right-0 z-40 bg-white/95 backdrop-blur-sm border-t border-gray-100 px-4 py-2.5 flex gap-2 shadow-lg">
-          {(product.affiliate_shopee || product.shopee_url) ? (
-            <a href={product.affiliate_shopee || product.shopee_url!} target="_blank" rel="noopener noreferrer"
-              className="flex-1 bg-[#EE4D2D] text-white text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5">
-              🛍️ Shopee
-            </a>
-          ) : (
-            <div className="flex-1 bg-gray-100 text-gray-300 text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center flex items-center justify-center cursor-not-allowed">
-              🛍️ Shopee
-            </div>
-          )}
-          {(product.affiliate_lazada || product.lazada_url) ? (
-            <a href={product.affiliate_lazada || product.lazada_url!} target="_blank" rel="noopener noreferrer"
-              className="flex-1 bg-[#0F146D] text-white text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center hover:opacity-90 transition-opacity flex items-center justify-center gap-1.5">
-              🏪 Lazada
-            </a>
-          ) : (
-            <div className="flex-1 bg-gray-100 text-gray-300 text-[13px] font-semibold py-2.5 px-4 rounded-xl text-center flex items-center justify-center cursor-not-allowed">
-              🏪 Lazada
-            </div>
-          )}
-        </div>
-      )}
+      {showStickyBuy && <div className="shop-detail-sticky"><span className="text-xs text-gray-500">{w('Check pack & seller', '核对规格与商家', 'Semak pek & penjual')}</span><a href="#buying-options">{w('Buying options', '查看购买选项', 'Pilihan membeli')} ↗</a></div>}
 
     </div>
   );

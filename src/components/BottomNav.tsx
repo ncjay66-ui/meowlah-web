@@ -21,7 +21,7 @@ export default function BottomNav() {
         </button>
 
         {/* Products — always active on product detail page */}
-        <button onClick={() => go('#product')} className="flex-1 flex flex-col items-center justify-center gap-[3px] transition-colors text-[10px] font-bold" style={{ color: '#FF6B35' }}>
+        <button onClick={() => { window.location.href = '/products'; }} className="flex-1 flex flex-col items-center justify-center gap-[3px] transition-colors text-[10px] font-bold" style={{ color: '#FF6B35' }}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none">
             <rect x="3" y="3" width="8" height="8" rx="2"/>
             <rect x="13" y="3" width="8" height="8" rx="2"/>

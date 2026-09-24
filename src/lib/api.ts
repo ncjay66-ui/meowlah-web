@@ -1,8 +1,9 @@
 ﻿const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://meowlah-production.up.railway.app';
 
-export type Category = 'wet' | 'dry' | 'freeze_dried' | 'treat' | 'supplement';
+export type Category = 'wet' | 'dry' | 'freeze_dried' | 'treat' | 'supplement' | 'toys' | 'litter' | 'litter_box' | 'scratchers';
 
 export interface Product {
+  species?: 'cat'; specification?: string;
   id: string; name_en: string; name_zh: string | null; name_bm: string | null;
   brand: string; category: Category; weight_g: number | null;
   is_halal: boolean; is_local_brand: boolean; country_origin: string | null;
@@ -49,7 +50,7 @@ export interface ProductDetail extends Product {
   prices: ProductPriceDetail[];
 }
 
-export interface ProductListResponse { total: number; page: number; page_size: number; items: Product[]; }
+export interface ProductListResponse { total: number; page: number; page_size: number; items: Product[]; searchLimited?: boolean; }
 
 export type SortBy = 'score_desc' | 'score_asc' | 'price_asc' | 'price_desc' | 'value_asc';
 
@@ -61,20 +62,32 @@ export interface ProductFilters {
   sort_by?: SortBy;         // v2.1: sort order
 }
 
-export async function getProducts(filters: ProductFilters = {}): Promise<ProductListResponse> {
+export async function getProducts(filters: ProductFilters = {}, signal?: AbortSignal): Promise<ProductListResponse> {
   const params = new URLSearchParams({ active_only: 'true' });
   Object.entries(filters).forEach(([key, value]) => { if (value !== undefined && value !== null && value !== '') params.set(key, String(value)); });
-  const res = await fetch(`${API_URL}/products?${params}`, { cache: 'no-store' });
+  const res = await fetch(`${API_URL}/products?${params}`, { cache: 'no-store', signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(15000)]) : AbortSignal.timeout(15000) });
   if (!res.ok) throw new Error('Failed to fetch products');
   return res.json();
 }
 
-export async function searchProducts(query: string, filters: ProductFilters = {}): Promise<ProductListResponse> {
+export async function searchProducts(query: string, filters: ProductFilters = {}, signal?: AbortSignal): Promise<ProductListResponse> {
   const params = new URLSearchParams({ q: query, active_only: 'true' });
   Object.entries(filters).forEach(([key, value]) => { if (value !== undefined && value !== null && value !== '') params.set(key, String(value)); });
-  const res = await fetch(`${API_URL}/products/search?${params}`, { cache: 'no-store' });
+  const res = await fetch(`${API_URL}/products/search?${params}`, { cache: 'no-store', signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(15000)]) : AbortSignal.timeout(15000) });
   if (!res.ok) throw new Error('Failed to search products');
-  return res.json();
+  const data = await res.json();
+  if (Number.isFinite(data.total) && Number.isFinite(data.page)) return data;
+  // Legacy API returns at most 30 matches without filtering or pagination.
+  const items: Product[] = (data.items || []).filter((p: Product) =>
+    (!filters.category || p.category === filters.category) &&
+    (!filters.is_local_brand || p.is_local_brand) && (!filters.is_halal || p.is_halal) &&
+    (!filters.grade || p.grade === filters.grade) &&
+    (!filters.max_price || (p.price_myr != null && Number(p.price_myr) <= filters.max_price)));
+  const field = filters.sort_by?.startsWith('price') ? 'price_myr' : filters.sort_by === 'value_asc' ? 'price_per_protein_g' : 'final_score';
+  const ascending = filters.sort_by?.endsWith('asc');
+  items.sort((a, b) => a[field] == null ? b[field] == null ? 0 : 1 : b[field] == null ? -1 : (Number(a[field]) - Number(b[field])) * (ascending ? 1 : -1));
+  const page = filters.page || 1, size = filters.page_size || 20;
+  return { total: items.length, page, page_size: size, items: items.slice((page - 1) * size, page * size), searchLimited: true };
 }
 
 export class ApiNotFoundError extends Error { constructor() { super('not_found'); } }
@@ -89,14 +102,29 @@ export async function getProduct(id: string): Promise<ProductDetail> {
   }
   if (res.status === 404) throw new ApiNotFoundError();
   if (!res.ok) throw new ApiUnavailableError();
-  return res.json();
+  const detail: ProductDetail = await res.json();
+  // The legacy detail response omits summary fields used by the catalogue.
+  // Merge only an exact ID match, never a similarly named flavour or pack.
+  if (detail.price_myr === undefined || detail.food_purpose === undefined) {
+    try {
+      const summaryResponse = await fetch(`${API_URL}/products/search?q=${encodeURIComponent(detail.name_en)}`, { cache: 'no-store', signal: AbortSignal.timeout(8000) });
+      if (summaryResponse.ok) {
+        const summaryData = await summaryResponse.json();
+        const summary = (summaryData.items as Product[] | undefined)?.find(item => item.id === id);
+        if (summary) return { ...summary, ...detail, price_myr: detail.price_myr ?? summary.price_myr, food_purpose: detail.food_purpose ?? summary.food_purpose, is_prescription: detail.is_prescription ?? summary.is_prescription };
+      }
+    } catch { /* Recorded detail data remains usable if summary lookup is unavailable. */ }
+  }
+  return detail;
 }
 
 export const CATEGORY_LABELS: Record<Category, string> = {
+  toys: 'Cat Toys', litter: 'Cat Litter', litter_box: 'Litter Boxes', scratchers: 'Scratchers',
   wet: 'Wet', dry: 'Dry', freeze_dried: 'Freeze-Dried', treat: 'Treat', supplement: 'Supplement',
 };
 
 export const CATEGORY_COLORS: Record<Category, string> = {
+  toys: 'bg-orange-100 text-orange-700', litter: 'bg-green-100 text-green-700', litter_box: 'bg-blue-100 text-blue-700', scratchers: 'bg-amber-100 text-amber-700',
   wet: 'bg-blue-100 text-blue-700', dry: 'bg-amber-100 text-amber-700',
   freeze_dried: 'bg-purple-100 text-purple-700', treat: 'bg-pink-100 text-pink-700', supplement: 'bg-green-100 text-green-700',
 };
