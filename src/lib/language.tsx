@@ -51,7 +51,7 @@ const T: Record<string, Record<Lang, string>> = {
   'cat.litter_box': {en:'Litter boxes',zh:'猫砂盆',bm:'Tandas kucing'},
   'cat.scratchers': {en:'Scratchers',zh:'猫抓板',bm:'Papan cakar'},
   // Bottom Nav
-  'nav.home':       { en: 'Home',     zh: '首页',   bm: 'Utama'    },
+  'nav.home':       { en: 'Share',    zh: '分享区', bm: 'Kongsi'   },
   'nav.products':   { en: 'Products', zh: '产品',   bm: 'Produk'   },
   'nav.cats':       { en: 'Cats',     zh: '猫咪',   bm: 'Kucing'   },
   'nav.me':         { en: 'Me',       zh: '我',     bm: 'Saya'     },
