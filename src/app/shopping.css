@@ -221,6 +221,13 @@
 .shop-card-body>small{font-size:10px;
   color:#858c7e;
   margin-top:3px}
+.shop-seller-proof{font-size:9px;
+  color:#66735f;
+  line-height:1.45;
+  margin-top:6px;
+  min-height:26px}
+.shop-seller-proof strong{color:#3f6544;
+  font-weight:700}
 .shop-card-actions{display:flex;
   align-items:center;
   justify-content:space-between;

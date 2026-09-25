@@ -6,6 +6,7 @@ export type HalalStatus = 'verified' | 'brand_claim' | 'pork_free_claim' | 'expi
 export interface MarketReview {
   checked_at: string; market: string; availability: string; region: string;
   merchant: string; buy_url: string; product_source: string; buy_kind?: string;
+  sales_evidence?: { sold?: string; rating?: number; reviews?: number; ships_from?: string; source?: string; note?: string };
   halal_status: HalalStatus; halal_source: string | null; certificate_expires: string | null;
   certificate_image?: string; certifier?: string; certificate_number?: string; certificate_scope?: string; variant_required?: boolean;
   life_stage: string;
@@ -13,6 +14,12 @@ export interface MarketReview {
 export type MalaysiaProduct = ProductDetail & { review: MarketReview };
 export const malaysiaProducts = [...data, ...supplies] as MalaysiaProduct[];
 export function marketReview(id: string) { return malaysiaProducts.find(p => p.id === id)?.review; }
+export function marketSalesEvidence(id: string) {
+  const review = marketReview(id);
+  const evidence = review?.sales_evidence;
+  if (!evidence || (!evidence.sold && evidence.rating == null)) return null;
+  return { ...evidence, checked_at: review.checked_at, merchant: review.merchant };
+}
 export function halalStatus(review?: MarketReview, now = new Date()): HalalStatus {
   if (!review) return 'unverified';
   if (review.halal_status === 'verified') {
