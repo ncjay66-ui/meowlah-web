@@ -1,8 +1,8 @@
 'use client';
 import { useTrans } from '@/lib/language';
 
-// Navigate back to community.html with the right tab open
-const go = (hash: string) => { window.location.href = `/${hash}`; };
+// Community features remain available at /community after the root becomes the product page.
+const go = (hash: string) => { window.location.href = `/community${hash}`; };
 
 export default function BottomNav() {
   const tr = useTrans();
@@ -11,16 +11,7 @@ export default function BottomNav() {
     <nav className="fixed bottom-0 left-0 right-0 bg-white z-50" style={{ boxShadow: '0 -1px 0 rgba(0,0,0,0.08)', height: 56 }}>
       <div className="max-w-4xl mx-auto flex h-full">
 
-        {/* Home */}
-        <button onClick={() => go('#home')} className="flex-1 flex flex-col items-center justify-center gap-[3px] text-gray-400 hover:text-gray-600 transition-colors text-[10px] font-bold">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/>
-            <path d="M9 21V12h6v9"/>
-          </svg>
-          {tr('nav.home')}
-        </button>
-
-        {/* Products — always active on product detail page */}
+        {/* Products — primary landing page */}
         <button onClick={() => { window.location.href = '/products'; }} className="flex-1 flex flex-col items-center justify-center gap-[3px] transition-colors text-[10px] font-bold" style={{ color: '#FF6B35' }}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none">
             <rect x="3" y="3" width="8" height="8" rx="2"/>
@@ -29,6 +20,15 @@ export default function BottomNav() {
             <rect x="13" y="13" width="8" height="8" rx="2"/>
           </svg>
           {tr('nav.products')}
+        </button>
+
+        {/* Community forum */}
+        <button onClick={() => go('#home')} className="flex-1 flex flex-col items-center justify-center gap-[3px] text-gray-400 hover:text-gray-600 transition-colors text-[10px] font-bold">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9.5z"/>
+            <path d="M9 21V12h6v9"/>
+          </svg>
+          {tr('nav.home')}
         </button>
 
         {/* Create (centre FAB) */}
