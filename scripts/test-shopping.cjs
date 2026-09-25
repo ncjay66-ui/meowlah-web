@@ -7,9 +7,12 @@ const p={affiliate_shopee:'https://shopee.com.my/search?keyword=food&mmp_pid=kee
 assert.equal(s.merchantLink(p,'shopee').kind,'search');
 assert.equal(s.merchantLink(p,'shopee').url,p.affiliate_shopee);
 assert.equal(s.merchantLink(p,'lazada').kind,'unverified');
+assert.equal(s.merchantLink({...p,affiliate_lazada:'https://www.lazada.com.my/products/pdp-i123456789.html'},'lazada').affiliate,false);
+assert.equal(s.merchantLink({...p,affiliate_shopee:'https://shopee.com.my/item-i.123.456'},'shopee').affiliate,false);
+assert.equal(s.merchantLink({...p,affiliate_shopee:'https://shopee.com.my/search?keyword=food&mmp_pid=an_12345'},'shopee').affiliate,true);
+assert.equal(s.merchantLink({...p,affiliate_shopee:'https://s.shopee.com.my/8KphXkv23B'},'shopee').affiliate,true);
 assert.equal(s.merchantLink({...p,affiliate_shopee:'javascript:alert(1)'},'shopee'),null);
 assert.equal(s.merchantLink({...p,affiliate_shopee:'https://shopee.com.my.evil.test/x'},'shopee'),null);
-assert.equal(s.merchantLink({...p,affiliate_shopee:'https://shopee.com.my/item-i.123.456'},'shopee').kind,'product');
 const prices=[{platform:'shopee',price_myr:1,scraped_at:'2025-01-01',in_stock:true},{platform:'shopee',price_myr:15,scraped_at:'2026-01-01',in_stock:true},{platform:'lazada',price_myr:2,scraped_at:'2026-01-02',in_stock:false}];
 assert.equal(s.referencePrice({prices}),15);
 assert.equal(s.referencePrice({prices,price_myr:13.5}),13.5);

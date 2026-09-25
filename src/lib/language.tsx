@@ -62,6 +62,7 @@ const T: Record<string, Record<Lang, string>> = {
   'cat.freeze_dried': { en: 'Freeze-Dried', zh: '冻干', bm: 'Beku Kering'     },
   'cat.treat':        { en: 'Treats',       zh: '零食', bm: 'Makanan Ringan'  },
   'cat.supplement':   { en: 'Supplement',   zh: '保健品',bm: 'Suplemen'       },
+  'filter.localBrand': { en: 'Malaysia brand', zh: '马来西亚品牌', bm: 'Jenama Malaysia' },
   // Product detail — info
   'detail.weight': { en: 'Weight', zh: '重量', bm: 'Berat' },
   'detail.origin': { en: 'Origin', zh: '产地', bm: 'Asal'  },
@@ -69,9 +70,9 @@ const T: Record<string, Record<Lang, string>> = {
   'detail.score':          { en: 'MeowLah Score',   zh: 'MeowLah 评分', bm: 'Skor MeowLah'      },
   'detail.scoreBreakdown': { en: 'Score Breakdown',  zh: '评分细则',     bm: 'Pecahan Skor'      },
   'detail.scorePending':   {
-    en: 'Score not yet computed for this product.',
-    zh: '此产品评分尚未计算。',
-    bm: 'Skor produk ini belum dikira.',
+    en: 'Not scored yet: complete nutrition-label and ingredient data is not available. Missing information is not treated as a zero score.',
+    zh: '暂未评分：完整的营养标签或成分资料不足。缺少资料不会被当作零分。',
+    bm: 'Belum dinilai: maklumat label nutrisi dan ramuan belum lengkap. Maklumat yang tiada tidak dikira sebagai skor sifar.',
   },
   'detail.gradeCap': { en: 'Grade capped at', zh: '评级限制于', bm: 'Gred dihadkan kepada' },
   // Product detail — nutrition
