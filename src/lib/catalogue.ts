@@ -15,7 +15,7 @@ export function selectCatalogue(filters: ProductFilters, query: string, halal: s
     (!filters.category || p.category === filters.category) && (!filters.is_local_brand || p.is_local_brand) &&
     (!halal || (!isCatSupply(p) && halalStatus(marketReview(p.id)) === halal)) &&
     (filters.max_price == null || (p.price_myr != null && p.price_myr <= filters.max_price)));
-  if (scope === 'recommended' && !q) items = items.filter(p => {
+  if (scope === 'recommended') items = items.filter(p => {
     const r = marketReview(p.id); if (!r) return false;
     return lang !== 'bm' || isCatSupply(p) || ['verified','brand_claim','pork_free_claim'].includes(halalStatus(r));
   });
