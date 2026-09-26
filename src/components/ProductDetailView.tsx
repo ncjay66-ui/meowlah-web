@@ -197,7 +197,9 @@ export default function ProductDetailView({ product }: Props) {
     return () => observer.disconnect();
   }, []);
 
-  const { score, nutrition } = product;
+  const nutrition = product.nutrition;
+  const score = product.score_status === 'current' && product.score_version &&
+    product.score?.engine_version === product.score_version ? product.score : null;
   const gradeStyle = score?.grade ? (GRADE_STYLES[score.grade] ?? GRADE_STYLES['C']) : null;
   const paws = score ? scoreToPaws(score.final_score) : 0;
 
@@ -412,9 +414,13 @@ export default function ProductDetailView({ product }: Props) {
           </div>
           <p className="text-[13px] text-gray-500">{isCatSupply(product)
             ? tr('detail.scoreNotApplicable')
-            : product.food_purpose === 'complementary'
-              ? tr('detail.scoreSnackPending')
-              : tr('detail.scorePending')}</p>
+            : product.score_status === 'stale' || (!product.score_status && product.final_score != null)
+              ? tr('detail.scoreStale')
+              : product.score_status === 'unverified'
+                ? tr('detail.scoreNeedsVerification')
+              : product.food_purpose === 'complementary'
+                ? tr('detail.scoreSnackPending')
+                : tr('detail.scorePending')}</p>
         </div>
       )}
 

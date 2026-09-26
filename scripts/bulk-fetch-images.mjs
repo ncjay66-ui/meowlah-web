@@ -14,7 +14,8 @@
  */
 
 const RAILWAY_URL = 'https://meowlah-production.up.railway.app';
-const ADMIN_KEY   = 'meowlah-admin-secret-2024';
+const ADMIN_KEY = process.env.ADMIN_API_KEY;
+if (!ADMIN_KEY) throw new Error('Set ADMIN_API_KEY in your environment before running this script.');
 const PAGE_SIZE   = 100;
 const DELAY_MS    = parseInt(process.env.DELAY_MS ?? '1500');
 const DRY_RUN     = process.env.DRY_RUN === '1';
@@ -81,6 +82,12 @@ const NON_PET_DOMAINS = [
   'facebook', 'twitter', 'instagram', 'youtube', 'tiktok', 'reddit',
 ];
 
+// Phrases that indicate a dog-specific product (reject these for cat food)
+const DOG_ONLY_PHRASES = [
+  'fresh dog food', 'dog food', 'dog treat', 'dog supplement',
+  'for dogs', 'puppy food', 'canine food',
+];
+
 /** Returns true if a DDG result looks like it's actually about pet food */
 function isRelevantResult(item) {
   const combined = [
@@ -91,6 +98,9 @@ function isRelevantResult(item) {
 
   // Reject if source domain looks non-pet
   if (NON_PET_DOMAINS.some(kw => combined.includes(kw))) return false;
+
+  // Reject images explicitly labelled as dog food
+  if (DOG_ONLY_PHRASES.some(kw => combined.includes(kw))) return false;
 
   // Accept if any pet keyword found
   return PET_KEYWORDS.some(kw => combined.includes(kw));

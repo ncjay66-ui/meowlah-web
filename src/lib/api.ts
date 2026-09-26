@@ -10,6 +10,8 @@ export interface Product {
   image_url: string | null; shopee_url: string | null; lazada_url: string | null;
   affiliate_shopee: string | null; affiliate_lazada: string | null;
   grade: string | null; final_score: number | null; price_myr: number | null; price_per_protein_g: number | null;
+  score_status?: 'current' | 'stale' | 'unverified' | 'missing_data' | 'pending' | 'not_applicable';
+  score_version?: string | null;
   // v2.1 双轨评价
   food_purpose: 'complete' | 'complementary' | null;
   is_prescription: boolean | null;
@@ -30,6 +32,7 @@ export interface ProductScoreDetail {
   dimension_scores: Record<string, number>;
   deductions: Record<string, number> | null;
   vfm_index: number | null; computed_at: string;
+  engine_version?: string | null;
   // v2.1 双轨评价附加字段（complementary 专属）
   food_purpose: 'complete' | 'complementary' | null;
   hydration_score: number | null;

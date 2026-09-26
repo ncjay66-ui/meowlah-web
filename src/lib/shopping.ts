@@ -3,9 +3,25 @@ import type { Lang } from './language';
 
 export const words = (lang: Lang, en: string, zh: string, bm: string) => ({ en, zh, bm })[lang];
 export const money = (value: number | null | undefined) => value != null && Number.isFinite(Number(value)) && Number(value) > 0 ? `RM ${Number(value).toFixed(2)}` : '—';
-export function hasPublishedScore(product: Pick<Product, 'grade' | 'final_score'>) {
-  return Number.isFinite(product.final_score) && product.final_score != null && product.final_score > 0 && product.final_score <= 100 &&
+type ScoreCard = Pick<Product, 'grade' | 'final_score'> & Partial<Pick<Product, 'score_status' | 'score_version'>>;
+
+export function scorePublicationStatus(product: ScoreCard) {
+  if (product.score_status) return product.score_status;
+  // Legacy static scores have no engine/data-verification provenance; keep them visible as unreviewed, never as current.
+  return product.final_score != null || product.grade ? 'stale' : 'missing_data';
+}
+
+export function hasPublishedScore(product: ScoreCard) {
+  return product.score_status === 'current' && !!product.score_version &&
+    Number.isFinite(product.final_score) && product.final_score != null && product.final_score > 0 && product.final_score <= 100 &&
     ['S', 'A', 'B', 'C', 'D', 'F'].includes(product.grade ?? '');
+}
+
+export function scorePendingLabel(product: ScoreCard, lang: Lang) {
+  const status = scorePublicationStatus(product);
+  if (status === 'stale') return words(lang, 'Old score · review pending', '旧版评分待复核', 'Skor lama · semakan');
+  if (status === 'unverified') return words(lang, 'Nutrition data unverified', '营养资料待核验', 'Data nutrisi belum sah');
+  return words(lang, 'Score pending', '评分待完善', 'Skor belum tersedia');
 }
 
 export function purpose(product: Product, lang: Lang) {

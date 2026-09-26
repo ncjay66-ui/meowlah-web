@@ -13,7 +13,7 @@ assert.ok(catalogue.catalogueProducts.length < library.length+market.length+supp
 assert.ok(catalogue.catalogueProducts.every(p=>p.image_url && fs.existsSync(`public${p.image_url}`)), 'every displayed product image must exist locally');
 assert.ok(catalogue.catalogueProducts.every(p=>shopping.merchantLink(p,'shopee')?.affiliate || shopping.merchantLink(p,'lazada')?.affiliate), 'every displayed product must have at least one valid affiliate offer');
 assert.ok(supplies.every(p=>p.species==='cat'),'non-food supplies must be explicitly cat-only');
-assert.ok(catalogue.catalogueProducts.every(p=>['wet','dry','freeze_dried','treat','supplement','toys','litter','litter_box','scratchers'].includes(p.category)));
+assert.ok(catalogue.catalogueProducts.every(p=>['wet','dry','freeze_dried','treat','supplement','toys','litter','litter_box','scratchers','carrier'].includes(p.category)));
 assert.ok(!catalogue.catalogueProducts.some(p=>p.id==='my-catit-magic-blue'),'observed out-of-stock listings must be held out');
 const noAffiliate=market.filter(p=>!shopping.merchantLink(p,'shopee')?.affiliate&&!shopping.merchantLink(p,'lazada')?.affiliate);
 console.log(`PASS: ${catalogue.catalogueProducts.length} displayed products all have local images and valid affiliate offers; ${noAffiliate.length} direct-only MY products plus observed out-of-stock items are held out; ${supplies.length} cat-only supplies checked.`);

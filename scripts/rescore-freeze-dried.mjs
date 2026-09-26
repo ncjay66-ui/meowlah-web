@@ -7,7 +7,8 @@
  */
 
 const RAILWAY_URL = 'https://meowlah-production.up.railway.app';
-const ADMIN_KEY   = 'meowlah-admin-secret-2024';
+const ADMIN_KEY = process.env.ADMIN_API_KEY;
+if (!ADMIN_KEY) throw new Error('Set ADMIN_API_KEY in your environment before running this script.');
 const PAGE_SIZE   = 200;
 const DELAY_MS    = 300;
 
@@ -35,7 +36,7 @@ async function main() {
       const res = await fetch(
         `${RAILWAY_URL}/score/${p.id}?force=true`,
         {
-          method: 'GET',
+          method: 'POST',
           headers: { 'X-Admin-Key': ADMIN_KEY },
           signal: AbortSignal.timeout(15000),
         }

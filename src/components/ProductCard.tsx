@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Product } from '@/lib/api';
 import { useTrans } from '@/lib/language';
 
@@ -29,36 +29,13 @@ interface Props { product: Product; rank?: number; }
 export default function ProductCard({ product, rank }: Props) {
   const tr = useTrans();
   const [imgError, setImgError] = useState(false);
-  const [resolvedImg, setResolvedImg] = useState<string | null>(null);
-  const [fetching, setFetching] = useState(false);
   // Product names always stay in English
   const displayName = product.name_en;
 
-  useEffect(() => {
-    // Fetch DDG fallback only when: proxy failed (imgError) OR no image_url at all
-    if (resolvedImg !== null) return;
-    if (!isPlaceholder(product.image_url) && !imgError) return;
-    let alive = true;
-    setFetching(true);
-    const brand = encodeURIComponent(product.brand || '');
-    const name  = encodeURIComponent(product.name_en || '');
-    const id    = encodeURIComponent(product.id || '');
-    fetch(`/api/product-image?brand=${brand}&name=${name}&id=${id}`)
-      .then(r => r.json())
-      .then(d => { if (alive) { setResolvedImg(d.url || ''); setFetching(false); } })
-      .catch(() => { if (alive) setFetching(false); });
-    return () => { alive = false; };
-  }, [product.id, product.brand, product.name_en, product.image_url, imgError]); // eslint-disable-line
-
-  // Build the src to display:
-  // 1. image_url via proxy (always — proxy adds correct Referer/UA to beat hotlink protection)
-  // 2. DDG resolved image (if proxy failed or image_url is placeholder/null)
+  // Only show the catalogue image linked to this exact SKU; do not guess with a web-image search.
   const primaryUrl = !isPlaceholder(product.image_url) ? product.image_url : null;
   const proxyUrl   = primaryUrl ? `/api/proxy-image?url=${encodeURIComponent(primaryUrl)}` : null;
-
-  const src = proxyUrl && !imgError
-    ? proxyUrl
-    : (resolvedImg || null);
+  const src = proxyUrl && !imgError ? proxyUrl : null;
 
   const top3 = rank && rank <= 3;
   const rankColors = [
@@ -78,22 +55,19 @@ export default function ProductCard({ product, rank }: Props) {
         {/* ── Image ── */}
         <div className="relative aspect-square bg-gray-50 overflow-hidden">
           {src ? (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={src}
               alt={displayName}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               onError={() => {
-                // Proxy failed → fall through to DDG search
+                // Keep the failure visible; a guessed image could belong to another SKU.
                 setImgError(true);
-                setResolvedImg(null);
               }}
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              {fetching
-                ? <div className="w-6 h-6 border-2 border-gray-200 border-t-orange-400 rounded-full animate-spin" />
-                : <span className="text-4xl opacity-20">{CAT_EMOJI[product.category] ?? '🐱'}</span>
-              }
+              <span className="text-4xl opacity-20">{CAT_EMOJI[product.category] ?? '🐱'}</span>
             </div>
           )}
 

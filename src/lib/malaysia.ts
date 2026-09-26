@@ -111,9 +111,11 @@ export function halalLabel(status: HalalStatus, lang: Lang) {
 }
 export function curatedProducts(filters: ProductFilters = {}, query = '', status = '') {
   const q=query.trim().toLowerCase();
+  const halalApplicable = (p: MalaysiaProduct) => !['toys','litter','litter_box','scratchers','carrier'].includes(p.category);
   let items=malaysiaProducts.filter(p => (!q || `${p.name_en} ${p.brand} ${p.name_zh || ''} ${p.name_bm || ''}`.toLowerCase().includes(q)) &&
     (!filters.category || p.category===filters.category) && (!filters.is_local_brand || p.is_local_brand) &&
-    (!filters.is_halal || halalStatus(p.review)==='verified') && (!status || halalStatus(p.review)===status) &&
+    (!filters.is_halal || (halalApplicable(p) && halalStatus(p.review)==='verified')) &&
+    (!status || (halalApplicable(p) && halalStatus(p.review)===status)) &&
     (filters.max_price == null || (p.price_myr != null && p.price_myr<=filters.max_price)));
   if(filters.sort_by?.startsWith('price')) items=[...items].sort((a,b)=>a.price_myr==null?b.price_myr==null?0:1:b.price_myr==null?-1:(a.price_myr-b.price_myr)*(filters.sort_by==='price_asc'?1:-1));
   const page=filters.page || 1, size=filters.page_size || 12;

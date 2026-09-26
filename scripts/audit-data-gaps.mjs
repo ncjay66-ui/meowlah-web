@@ -18,7 +18,8 @@
  */
 
 const RAILWAY_URL = 'https://meowlah-production.up.railway.app';
-const ADMIN_KEY   = 'meowlah-admin-secret-2024';
+const ADMIN_KEY = process.env.ADMIN_API_KEY;
+if (!ADMIN_KEY) throw new Error('Set ADMIN_API_KEY in your environment before running this script.');
 const PAGE_SIZE   = 100;
 const DRY_RUN     = process.env.DRY_RUN === '1';
 const FIX_IMAGES  = process.env.FIX_IMAGES === '1';

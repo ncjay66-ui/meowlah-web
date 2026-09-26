@@ -1,9 +1,28 @@
 'use client';
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useSyncExternalStore, ReactNode } from 'react';
 
 export type Lang = 'en' | 'zh' | 'bm';
 
 const STORAGE_KEY = 'ml_lang'; // same key as community.html
+
+function getLanguage(): Lang {
+  if (typeof window === 'undefined') return 'en';
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored === 'zh' || stored === 'bm' || stored === 'en') return stored;
+  const nav = (navigator.language || '').toLowerCase();
+  return nav.startsWith('zh') ? 'zh' : nav.startsWith('ms') || nav.startsWith('bm') ? 'bm' : 'en';
+}
+
+function subscribeLanguage(callback: () => void) {
+  window.addEventListener('storage', callback);
+  window.addEventListener('meowlah:language-change', callback);
+  return () => {
+    window.removeEventListener('storage', callback);
+    window.removeEventListener('meowlah:language-change', callback);
+  };
+}
+
+const getServerLanguage = () => 'en' as const;
 
 const LangContext = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({
   lang: 'en',
@@ -11,22 +30,11 @@ const LangContext = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({
 });
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>('en');
-
-  useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === 'zh' || stored === 'bm' || stored === 'en') {
-      setLangState(stored);
-    } else {
-      const nav = (navigator.language || '').toLowerCase();
-      if (nav.startsWith('zh')) setLangState('zh');
-      else if (nav.startsWith('ms') || nav.startsWith('bm')) setLangState('bm');
-    }
-  }, []);
+  const lang = useSyncExternalStore(subscribeLanguage, getLanguage, getServerLanguage);
 
   const setLang = (l: Lang) => {
-    setLangState(l);
     localStorage.setItem(STORAGE_KEY, l);
+    window.dispatchEvent(new Event('meowlah:language-change'));
   };
 
   return <LangContext.Provider value={{ lang, setLang }}>{children}</LangContext.Provider>;
@@ -74,6 +82,16 @@ const T: Record<string, Record<Lang, string>> = {
     en: 'No MeowLah Score yet because the available nutrition label and ingredient data are not complete or reliable enough for this food’s scoring track. Missing information is never treated as zero.',
     zh: '暂未提供 MeowLah 评分：目前可查的营养标签或成分资料尚不完整或可靠度不足，无法按相应食品规则计算。缺少资料不会被当作零分。',
     bm: 'Skor MeowLah belum tersedia kerana maklumat label nutrisi atau ramuan yang boleh dipercayai masih belum mencukupi untuk kaedah penilaian makanan ini. Maklumat yang tiada tidak dianggap sifar.',
+  },
+  'detail.scoreStale': {
+    en: 'This product has an older score that has not been rechecked against the current scoring rules and verified label data. It is temporarily hidden; this does not mean the food received a low score.',
+    zh: '这款商品曾有旧版评分，但尚未依据现行规则和已核验的标签资料重新检查，因此暂时隐藏。这不代表它得分低。',
+    bm: 'Produk ini mempunyai skor lama yang belum disemak semula mengikut kaedah terkini dan data label yang disahkan. Skor disembunyikan buat sementara; ini tidak bermaksud skornya rendah.',
+  },
+  'detail.scoreNeedsVerification': {
+    en: 'No score is published until the nutrition label and complete ingredient list have been verified. Missing information is not treated as zero.',
+    zh: '营养标签与完整成分表完成核验前，不会发布评分。缺失资料不会被当作零分。',
+    bm: 'Skor tidak diterbitkan sehingga label nutrisi dan senarai ramuan lengkap disahkan. Maklumat yang tiada tidak dianggap sifar.',
   },
   'detail.scoreSnackPending': {
     en: 'No MeowLah Score yet because complementary foods use a separate scoring track, and this product’s nutrition label or ingredient details are not complete enough to assess it. Missing information is never treated as zero.',
