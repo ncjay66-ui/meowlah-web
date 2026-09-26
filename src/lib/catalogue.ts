@@ -4,7 +4,7 @@ import { malaysiaProducts, halalStatus, marketReview } from './malaysia';
 import type { Lang } from './language';
 import { merchantLink } from './shopping';
 
-export const isCatSupply = (p: Product) => ['toys','litter','litter_box','scratchers'].includes(p.category);
+export const isCatSupply = (p: Product) => ['toys','litter','litter_box','scratchers','carrier'].includes(p.category);
 const hasAffiliateOffer = (p: Product) => !!(merchantLink(p, 'shopee')?.affiliate || merchantLink(p, 'lazada')?.affiliate);
 export const catalogueProducts: Product[] = [...malaysiaProducts, ...(library as Product[]).filter(p => !malaysiaProducts.some(m => m.id === p.id))]
   .filter((p,index,items)=>items.findIndex(other=>other.id===p.id)===index)

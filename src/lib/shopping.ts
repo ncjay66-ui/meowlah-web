@@ -9,7 +9,7 @@ export function hasPublishedScore(product: Pick<Product, 'grade' | 'final_score'
 }
 
 export function purpose(product: Product, lang: Lang) {
-  if (['toys','litter','litter_box','scratchers'].includes(product.category)) return words(lang,'For cats · non-food','猫专用 · 非食品','Khas untuk kucing · bukan makanan');
+  if (['toys','litter','litter_box','scratchers','carrier'].includes(product.category)) return words(lang,'For cats · non-food','猫专用 · 非食品','Khas untuk kucing · bukan makanan');
   if (product.is_prescription) return words(lang, 'Prescription diet · ask your vet', '处方饮食 · 请咨询兽医', 'Diet preskripsi · rujuk doktor haiwan');
   if (product.food_purpose === 'complementary') return words(lang, 'Complementary food', '辅食 / 零食', 'Makanan pelengkap');
   if (product.food_purpose === 'complete') return words(lang, 'Listed as complete food', '资料标记为主食', 'Disenaraikan sebagai makanan lengkap');

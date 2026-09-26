@@ -1,6 +1,6 @@
 ﻿const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://meowlah-production.up.railway.app';
 
-export type Category = 'wet' | 'dry' | 'freeze_dried' | 'treat' | 'supplement' | 'toys' | 'litter' | 'litter_box' | 'scratchers';
+export type Category = 'wet' | 'dry' | 'freeze_dried' | 'treat' | 'supplement' | 'toys' | 'litter' | 'litter_box' | 'scratchers' | 'carrier';
 
 export interface Product {
   species?: 'cat'; specification?: string;
@@ -119,12 +119,12 @@ export async function getProduct(id: string): Promise<ProductDetail> {
 }
 
 export const CATEGORY_LABELS: Record<Category, string> = {
-  toys: 'Cat Toys', litter: 'Cat Litter', litter_box: 'Litter Boxes', scratchers: 'Scratchers',
+  toys: 'Cat Toys', litter: 'Cat Litter', litter_box: 'Litter Boxes', scratchers: 'Scratchers', carrier: 'Cat Carriers',
   wet: 'Wet', dry: 'Dry', freeze_dried: 'Freeze-Dried', treat: 'Treat', supplement: 'Supplement',
 };
 
 export const CATEGORY_COLORS: Record<Category, string> = {
-  toys: 'bg-orange-100 text-orange-700', litter: 'bg-green-100 text-green-700', litter_box: 'bg-blue-100 text-blue-700', scratchers: 'bg-amber-100 text-amber-700',
+  toys: 'bg-orange-100 text-orange-700', litter: 'bg-green-100 text-green-700', litter_box: 'bg-blue-100 text-blue-700', scratchers: 'bg-amber-100 text-amber-700', carrier: 'bg-sky-100 text-sky-700',
   wet: 'bg-blue-100 text-blue-700', dry: 'bg-amber-100 text-amber-700',
   freeze_dried: 'bg-purple-100 text-purple-700', treat: 'bg-pink-100 text-pink-700', supplement: 'bg-green-100 text-green-700',
 };

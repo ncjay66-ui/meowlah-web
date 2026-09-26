@@ -9,7 +9,7 @@ import ShoppingImage from './ShoppingImage';
 import { halalLabel, halalStatus, marketReview, marketSalesEvidence, lifeStage, marketDeliveryNote } from '@/lib/malaysia';
 
 import { catalogueProducts, selectCatalogue, isCatSupply } from '@/lib/catalogue';
-const categories = ['', 'wet', 'dry', 'freeze_dried', 'treat', 'supplement', 'toys', 'litter', 'litter_box', 'scratchers'];
+const categories = ['', 'wet', 'dry', 'freeze_dried', 'treat', 'supplement', 'toys', 'litter', 'litter_box', 'scratchers', 'carrier'];
 const sorts: SortBy[] = ['score_desc', 'price_asc', 'price_desc'];
 export default function ProductCatalogue() {
   return <Suspense fallback={<div className="shop-state" role="status">MeowLah · …</div>}><Catalogue /></Suspense>;
