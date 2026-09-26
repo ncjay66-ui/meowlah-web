@@ -152,6 +152,15 @@
 .shop-note{font-size:12px;
   color:#73796f;
   line-height:1.7}
+.shop-score-help{margin:0 0 12px;
+  padding:10px 12px;
+  background:#fff;
+  border:1px solid #e5e6df;
+  border-radius:10px}
+.shop-score-help summary{cursor:pointer;
+  color:#42633d;
+  font-weight:700}
+.shop-score-help p{margin-top:6px}
 .shop-catalog-note{margin:0 0 16px;
   font-size:11px}
 .shop-grid{display:grid;

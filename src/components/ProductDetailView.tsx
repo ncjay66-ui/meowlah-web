@@ -5,6 +5,7 @@ import MarketEvidence from './MarketEvidence';
 import ShoppingImage from './ShoppingImage';
 import { referencePrice, purpose, words } from '@/lib/shopping';
 import { ProductDetail, CATEGORY_COLORS } from '@/lib/api';
+import { isCatSupply } from '@/lib/catalogue';
 import { useLang, useTrans, getCategoryLabel, getDimLabel, Lang } from '@/lib/language';
 
 const CAT_EMOJI: Record<string, string> = {
@@ -409,7 +410,11 @@ export default function ProductDetailView({ product }: Props) {
           <div className="flex gap-0.5 mb-2">
             {[1, 2, 3, 4, 5].map(i => <PawIcon key={i} filled={false} />)}
           </div>
-          <p className="text-[13px] text-gray-400">{tr('detail.scorePending')}</p>
+          <p className="text-[13px] text-gray-500">{isCatSupply(product)
+            ? tr('detail.scoreNotApplicable')
+            : product.food_purpose === 'complementary'
+              ? tr('detail.scoreSnackPending')
+              : tr('detail.scorePending')}</p>
         </div>
       )}
 

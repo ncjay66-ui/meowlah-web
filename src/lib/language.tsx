@@ -71,9 +71,19 @@ const T: Record<string, Record<Lang, string>> = {
   'detail.score':          { en: 'MeowLah Score',   zh: 'MeowLah 评分', bm: 'Skor MeowLah'      },
   'detail.scoreBreakdown': { en: 'Score Breakdown',  zh: '评分细则',     bm: 'Pecahan Skor'      },
   'detail.scorePending':   {
-    en: 'Not scored yet: complete nutrition-label and ingredient data is not available. Missing information is not treated as a zero score.',
-    zh: '暂未评分：完整的营养标签或成分资料不足。缺少资料不会被当作零分。',
-    bm: 'Belum dinilai: maklumat label nutrisi dan ramuan belum lengkap. Maklumat yang tiada tidak dikira sebagai skor sifar.',
+    en: 'No MeowLah Score yet because the available nutrition label and ingredient data are not complete or reliable enough for this food’s scoring track. Missing information is never treated as zero.',
+    zh: '暂未提供 MeowLah 评分：目前可查的营养标签或成分资料尚不完整或可靠度不足，无法按相应食品规则计算。缺少资料不会被当作零分。',
+    bm: 'Skor MeowLah belum tersedia kerana maklumat label nutrisi atau ramuan yang boleh dipercayai masih belum mencukupi untuk kaedah penilaian makanan ini. Maklumat yang tiada tidak dianggap sifar.',
+  },
+  'detail.scoreSnackPending': {
+    en: 'No MeowLah Score yet because complementary foods use a separate scoring track, and this product’s nutrition label or ingredient details are not complete enough to assess it. Missing information is never treated as zero.',
+    zh: '暂未提供 MeowLah 评分：辅食采用独立评分规则，目前这款商品的营养标签或成分资料不足以完成评估。缺少资料不会被当作零分。',
+    bm: 'Skor MeowLah belum tersedia kerana makanan pelengkap menggunakan kaedah penilaian berasingan dan butiran nutrisi atau ramuan produk ini belum mencukupi. Maklumat yang tiada tidak dianggap sifar.',
+  },
+  'detail.scoreNotApplicable': {
+    en: 'Not applicable: MeowLah Scores assess cat-food nutrition. Toys and supplies are not nutrition-rated.',
+    zh: '不适用：MeowLah 评分评估猫粮营养；玩具和日用品不进行营养评分。',
+    bm: 'Tidak berkenaan: Skor MeowLah menilai nutrisi makanan kucing. Mainan dan kelengkapan tidak dinilai dari segi nutrisi.',
   },
   'detail.gradeCap': { en: 'Grade capped at', zh: '评级限制于', bm: 'Gred dihadkan kepada' },
   // Product detail — nutrition
