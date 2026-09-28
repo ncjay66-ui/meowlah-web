@@ -72,6 +72,12 @@ const T: Record<string, Record<Lang, string>> = {
   'cat.treat':        { en: 'Treats',       zh: '零食', bm: 'Makanan Ringan'  },
   'cat.supplement':   { en: 'Supplement',   zh: '保健品',bm: 'Suplemen'       },
   'filter.localBrand': { en: 'Malaysia brand', zh: '马来西亚品牌', bm: 'Jenama Malaysia' },
+  'home.searchResults': { en: 'Search results', zh: '搜索结果', bm: 'Hasil carian' },
+  'home.topPicks': { en: 'Cat picks', zh: '猫咪好物', bm: 'Pilihan kucing' },
+  'home.noProducts': { en: 'No products found', zh: '没有找到商品', bm: 'Produk tidak ditemui' },
+  'home.tryFilter': { en: 'Try changing your search or filters.', zh: '试试更换搜索词或筛选条件。', bm: 'Cuba ubah carian atau penapis anda.' },
+  'home.loadError': { en: 'We couldn’t load products. Check your connection and try again.', zh: '商品暂时无法加载，请检查网络后重试。', bm: 'Produk tidak dapat dimuatkan. Semak sambungan dan cuba lagi.' },
+  'home.retry': { en: 'Try again', zh: '重试', bm: 'Cuba lagi' },
   // Product detail — info
   'detail.weight': { en: 'Weight', zh: '重量', bm: 'Berat' },
   'detail.origin': { en: 'Origin', zh: '产地', bm: 'Asal'  },

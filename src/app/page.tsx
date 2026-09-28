@@ -74,6 +74,8 @@ function HomePageContent() {
   const [products, setProducts]       = useState<Product[]>([]);
   const [total, setTotal]             = useState(0);
   const [loading, setLoading]         = useState(true);
+  const [loadError, setLoadError]     = useState(false);
+  const [retry, setRetry]             = useState(0);
   const [showFilters, setShowFilters] = useState(false);
 
   const tr = useTrans();
@@ -115,8 +117,9 @@ function HomePageContent() {
   const toggleFilterPanel = () => setShowFilters(f => !f);
 
   // ── Fetch whenever URL params change ─────────────────────────────────────
-  const fetchProducts = useCallback(async () => {
+  const fetchProducts = useCallback(async (signal: AbortSignal) => {
     setLoading(true);
+    setLoadError(false);
     try {
       const filters = {
         page,
@@ -128,16 +131,23 @@ function HomePageContent() {
         ...(grade ? { grade } : {}),
       };
       const result = search
-        ? await searchProducts(search, filters)
-        : await getProducts(filters);
+        ? await searchProducts(search, filters, signal)
+        : await getProducts(filters, signal);
+      if (signal.aborted) return;
       setProducts(result.items);
       setTotal(result.total);
+    } catch {
+      if (!signal.aborted) setLoadError(true);
     } finally {
-      setLoading(false);
+      if (!signal.aborted) setLoading(false);
     }
   }, [category, halalOnly, localOnly, grade, sortBy, page, search]);
 
-  useEffect(() => { fetchProducts(); }, [fetchProducts]);
+  useEffect(() => {
+    const controller = new AbortController();
+    void fetchProducts(controller.signal);
+    return () => controller.abort();
+  }, [fetchProducts, retry]);
 
   // Count active non-sort filters for badge
   const activeFilterCount = (halalOnly ? 1 : 0) + (localOnly ? 1 : 0) + (grade ? 1 : 0);
@@ -359,6 +369,17 @@ function HomePageContent() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)}
           </div>
+        ) : loadError ? (
+          <div className="flex flex-col items-center py-16 gap-3 text-center" role="alert">
+            <span className="text-4xl" aria-hidden="true">📡</span>
+            <p className="text-[15px] font-semibold text-gray-700">{tr('home.loadError')}</p>
+            <button
+              onClick={() => setRetry(value => value + 1)}
+              className="px-4 py-2 rounded-full bg-orange-500 text-white text-[13px] font-semibold hover:bg-orange-600"
+            >
+              {tr('home.retry')}
+            </button>
+          </div>
         ) : products.length === 0 ? (
           <div className="flex flex-col items-center py-20 gap-3">
             <span className="text-5xl">🐱</span>
@@ -367,17 +388,7 @@ function HomePageContent() {
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {[...products]
-              .sort((a, b) => {
-                // Primary: score descending (preserve API order)
-                const scoreDiff = (b.final_score ?? 0) - (a.final_score ?? 0);
-                if (scoreDiff !== 0) return scoreDiff;
-                // Secondary: products with images come first
-                return (b.image_url ? 1 : 0) - (a.image_url ? 1 : 0);
-              })
-              .map((product, i) => (
-              <ProductCard key={product.id} product={product} rank={(page - 1) * PAGE_SIZE + i + 1} />
-            ))}
+            {products.map(product => <ProductCard key={product.id} product={product} />)}
           </div>
         )}
 

@@ -2,7 +2,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { Product } from '@/lib/api';
-import { useTrans } from '@/lib/language';
+import { useLang, useTrans } from '@/lib/language';
+import { hasPublishedScore, scorePendingLabel } from '@/lib/shopping';
 
 const CAT_EMOJI: Record<string, string> = {
   wet: '🐟', dry: '🌾', freeze_dried: '❄️', treat: '🍬', supplement: '💊',
@@ -24,10 +25,11 @@ function isPlaceholder(url: string | null | undefined) {
   return url.includes('placehold.co') || url.includes('via.placeholder');
 }
 
-interface Props { product: Product; rank?: number; }
+interface Props { product: Product; }
 
-export default function ProductCard({ product, rank }: Props) {
+export default function ProductCard({ product }: Props) {
   const tr = useTrans();
+  const { lang } = useLang();
   const [imgError, setImgError] = useState(false);
   // Product names always stay in English
   const displayName = product.name_en;
@@ -37,14 +39,9 @@ export default function ProductCard({ product, rank }: Props) {
   const proxyUrl   = primaryUrl ? `/api/proxy-image?url=${encodeURIComponent(primaryUrl)}` : null;
   const src = proxyUrl && !imgError ? proxyUrl : null;
 
-  const top3 = rank && rank <= 3;
-  const rankColors = [
-    'bg-amber-400 text-white',   // 1
-    'bg-gray-400 text-white',    // 2
-    'bg-orange-600 text-white',  // 3
-  ];
-
-  const gradeBg = product.grade ? GRADE_BG[product.grade] : null;
+  const hasScore = hasPublishedScore(product);
+  const gradeBg = hasScore ? GRADE_BG[product.grade!] : null;
+  const isFood = ['wet', 'dry', 'freeze_dried', 'treat', 'supplement'].includes(product.category);
 
   return (
     <Link href={`/products/${product.id}`} className="block group">
@@ -69,17 +66,6 @@ export default function ProductCard({ product, rank }: Props) {
             <div className="w-full h-full flex items-center justify-center">
               <span className="text-4xl opacity-20">{CAT_EMOJI[product.category] ?? '🐱'}</span>
             </div>
-          )}
-
-          {/* Rank pill — top-left, only top 10 */}
-          {rank && rank <= 10 && (
-            <span
-              className={`absolute top-2 left-2 text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center ${
-                top3 ? rankColors[rank - 1] : 'bg-black/30 text-white'
-              }`}
-            >
-              {rank}
-            </span>
           )}
 
           {/* Halal dot — top-right */}
@@ -109,6 +95,12 @@ export default function ProductCard({ product, rank }: Props) {
           <h3 className="text-[12.5px] font-semibold text-gray-900 leading-snug line-clamp-2 mb-2.5" style={{ minHeight: '2.8em' }}>
             {displayName}
           </h3>
+
+          {isFood && !hasScore && (
+            <p className="text-[10px] leading-snug text-amber-700 mb-2" title={scorePendingLabel(product, lang)}>
+              {scorePendingLabel(product, lang)}
+            </p>
+          )}
 
           {/* Price + weight */}
           <div className="flex items-baseline justify-between gap-1">
