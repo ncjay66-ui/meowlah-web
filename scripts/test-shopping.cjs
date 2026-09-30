@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const ts=require('typescript');
-function load(file){const module={exports:{}};const code=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;new Function('module','exports','require',code)(module,module.exports,require);return module.exports;}
+function load(file){const mod={exports:{}};const code=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;new Function('module','exports','require',code)(mod,mod.exports,require);return mod.exports;}
 const s=load('src/lib/shopping.ts');
 const p={affiliate_shopee:'https://shopee.com.my/search?keyword=food&mmp_pid=keep',shopee_url:null,affiliate_lazada:'https://s.lazada.com.my/s.AAqGX',lazada_url:null};
 assert.equal(s.merchantLink(p,'shopee').kind,'search');

@@ -4,7 +4,7 @@
  * then updates the Railway database via the backend PATCH API.
  * Runs entirely in Node.js — no Python/psycopg2 needed.
  */
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,6 +20,11 @@ const SHOPEE_HEADERS = {
   'X-Requested-With': 'XMLHttpRequest',
 };
 
+type ShopeeSearchItem = { image?: string; item_basic?: { image?: string } | null };
+type ShopeeSearchResponse = { items?: ShopeeSearchItem[] };
+type ProductRecord = { id: string; brand?: string; name_en?: string };
+type ProductsPage = { items?: ProductRecord[]; total?: number };
+
 async function shopeeImage(brand: string, nameEn: string): Promise<string | null> {
   const keyword = `${brand} ${nameEn}`;
   const params = new URLSearchParams({
@@ -33,33 +38,39 @@ async function shopeeImage(brand: string, nameEn: string): Promise<string | null
       signal: AbortSignal.timeout(12000),
     });
     if (!r.ok) return null;
-    const data = await r.json() as any;
-    const items: any[] = data.items || [];
+    const data = await r.json() as ShopeeSearchResponse;
+    const items = data.items || [];
     for (const item of items) {
       const basics = item.item_basic ?? item;
-      const img: string = basics.image;
-      if (img) return SHOPEE_CDN + img;
+      const img = basics.image;
+      if (typeof img === 'string' && img) return SHOPEE_CDN + img;
     }
   } catch { /* timeout or parse error */ }
   return null;
 }
 
 // Fetch ALL products (paginated)
-async function getAllProducts() {
-  const products: any[] = [];
+async function getAllProducts(): Promise<ProductRecord[]> {
+  const products: ProductRecord[] = [];
   let page = 1;
   while (true) {
     const r = await fetch(`${RAILWAY}/products?page=${page}&page_size=50`);
-    const d = await r.json() as any;
+    const d = await r.json() as ProductsPage;
     products.push(...(d.items || []));
-    if (products.length >= d.total || (d.items || []).length === 0) break;
+    if ((d.total != null && products.length >= d.total) || (d.items || []).length === 0) break;
     page++;
   }
   return products;
 }
 
 // Stream response so browser shows live progress
-export async function GET() {
+export async function POST(req: NextRequest) {
+  const adminKey = process.env.ADMIN_API_KEY;
+  if (!adminKey) return NextResponse.json({ error: 'Image maintenance is not configured' }, { status: 503 });
+  if (req.headers.get('x-admin-key') !== adminKey) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   const encoder = new TextEncoder();
 
   const stream = new ReadableStream({
@@ -68,7 +79,7 @@ export async function GET() {
 
       try {
         send('Fetching product list from Railway...');
-        const products = await getAllProducts();
+    const products = await getAllProducts();
         send(`Found ${products.length} products. Searching Shopee for images...`);
         send('');
 
@@ -76,13 +87,19 @@ export async function GET() {
 
         for (let i = 0; i < products.length; i++) {
           const p = products[i];
-          const label = `[${i + 1}/${products.length}] ${p.brand} – ${p.name_en?.slice(0, 40)}`;
+          const label = `[${i + 1}/${products.length}] ${p.brand ?? ''} – ${p.name_en?.slice(0, 40) ?? ''}`;
 
-          const imgUrl = await shopeeImage(p.brand, p.name_en);
+          if (!p.name_en) {
+            send(`- ${label} (missing product name)`);
+            failed++;
+            continue;
+          }
+
+          const imgUrl = await shopeeImage(p.brand ?? '', p.name_en);
 
           if (imgUrl) {
             // Update via Railway PATCH (admin key if set, skip if not)
-            const patchRes = await fetch(`${RAILWAY}/products/${p.id}`, {
+            const patchRes = await fetch(`${RAILWAY}/products/${encodeURIComponent(p.id)}`, {
               method: 'PATCH',
               headers: {
                 'Content-Type': 'application/json',
@@ -111,8 +128,8 @@ export async function GET() {
         send('');
         send(`Done! Updated=${updated} Failed=${failed} Total=${products.length}`);
         send('Refresh localhost:3000 to see images (if admin key is set on Railway).');
-      } catch (err: any) {
-        send('ERROR: ' + err.message);
+      } catch (err: unknown) {
+        send('ERROR: ' + (err instanceof Error ? err.message : String(err)));
       }
 
       controller.close();
@@ -120,6 +137,6 @@ export async function GET() {
   });
 
   return new Response(stream, {
-    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-store' },
   });
 }

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Product } from '@/lib/api';
 import { useLang, useTrans } from '@/lib/language';
 import { hasPublishedScore, scorePendingLabel } from '@/lib/shopping';
+import { parseApprovedImageUrl } from '@/lib/image-url';
 
 const CAT_EMOJI: Record<string, string> = {
   wet: '🐟', dry: '🌾', freeze_dried: '❄️', treat: '🍬', supplement: '💊',
@@ -35,8 +36,8 @@ export default function ProductCard({ product }: Props) {
   const displayName = product.name_en;
 
   // Only show the catalogue image linked to this exact SKU; do not guess with a web-image search.
-  const primaryUrl = !isPlaceholder(product.image_url) ? product.image_url : null;
-  const proxyUrl   = primaryUrl ? `/api/proxy-image?url=${encodeURIComponent(primaryUrl)}` : null;
+  const primaryUrl = !isPlaceholder(product.image_url) ? parseApprovedImageUrl(product.image_url ?? '') : null;
+  const proxyUrl   = primaryUrl ? `/api/proxy-image?url=${encodeURIComponent(primaryUrl.toString())}` : null;
   const src = proxyUrl && !imgError ? proxyUrl : null;
 
   const hasScore = hasPublishedScore(product);
@@ -52,7 +53,7 @@ export default function ProductCard({ product }: Props) {
         {/* ── Image ── */}
         <div className="relative aspect-square bg-gray-50 overflow-hidden">
           {src ? (
-            // eslint-disable-next-line @next/next/no-img-element
+            // eslint-disable-next-line @next/next/no-img-element -- preserve exact product image through the allowlisted proxy.
             <img
               src={src}
               alt={displayName}
