@@ -1,7 +1,15 @@
 'use client';
-import { createContext, useContext, useSyncExternalStore, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useSyncExternalStore, ReactNode } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
-export type Lang = 'en' | 'zh' | 'bm';
+/**
+ * 语言常量统一来自 @/lib/locale（那是个无 'use client' 的纯模块）。
+ * ⚠️ 不要把这些常量搬回本文件：服务端组件从 client 模块读普通对象会得到
+ *    代理（undefined），我们因此让 /ms/* 全部 404 过一次。
+ */
+import { localePath, pathLocale, type Lang } from './locale';
+export type { Lang } from './locale';
+export { LANG_TO_PREFIX, PREFIX_TO_LANG, HREFLANG, OG_LOCALE, localePath, pathLocale } from './locale';
 
 const STORAGE_KEY = 'ml_lang'; // same key as community.html
 
@@ -29,12 +37,51 @@ const LangContext = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({
   setLang: () => {},
 });
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const lang = useSyncExternalStore(subscribeLanguage, getLanguage, getServerLanguage);
+/**
+ * forcedLang：由 /ms 或 /zh 路由的 layout 从服务端传入。
+ * 传了就以它为准（服务端和客户端都是），这样 Google 爬 /ms/... 时
+ * 拿到的就是真正的马来文 HTML，而不是英文。
+ * 不传则维持原有行为（localStorage + 浏览器语言），完全向后兼容。
+ */
+export function LanguageProvider({
+  children,
+  forcedLang,
+}: {
+  children: ReactNode;
+  forcedLang?: Lang;
+}) {
+  const stored = useSyncExternalStore(subscribeLanguage, getLanguage, getServerLanguage);
+  const router = useRouter();
+  const pathname = usePathname();
+  const lang = forcedLang ?? stored;
+
+  // 用户直接打开 /ms/... 时，把该语言同步进 localStorage，
+  // 这样他之后点到无前缀页面也还是马来文，体验连贯。
+  useEffect(() => {
+    if (!forcedLang) return;
+    try {
+      if (localStorage.getItem(STORAGE_KEY) !== forcedLang) {
+        localStorage.setItem(STORAGE_KEY, forcedLang);
+        window.dispatchEvent(new Event('meowlah:language-change'));
+      }
+    } catch {
+      // localStorage 可能被隐私模式禁用，忽略即可
+    }
+  }, [forcedLang]);
 
   const setLang = (l: Lang) => {
-    localStorage.setItem(STORAGE_KEY, l);
-    window.dispatchEvent(new Event('meowlah:language-change'));
+    try {
+      localStorage.setItem(STORAGE_KEY, l);
+      window.dispatchEvent(new Event('meowlah:language-change'));
+    } catch {
+      /* 同上 */
+    }
+    // 只有当前已经在带前缀的 URL 上时才跳转 —— 否则 forcedLang 会把切换覆盖掉。
+    // 无前缀页面维持原行为（仅切 localStorage），不改变既有 UX。
+    if (pathLocale(pathname)) {
+      const next = localePath(pathname, l);
+      if (next !== pathname) router.push(next);
+    }
   };
 
   return <LangContext.Provider value={{ lang, setLang }}>{children}</LangContext.Provider>;
@@ -78,6 +125,23 @@ const T: Record<string, Record<Lang, string>> = {
   'home.tryFilter': { en: 'Try changing your search or filters.', zh: '试试更换搜索词或筛选条件。', bm: 'Cuba ubah carian atau penapis anda.' },
   'home.loadError': { en: 'We couldn’t load products. Check your connection and try again.', zh: '商品暂时无法加载，请检查网络后重试。', bm: 'Produk tidak dapat dimuatkan. Semak sambungan dan cuba lagi.' },
   'home.retry': { en: 'Try again', zh: '重试', bm: 'Cuba lagi' },
+  // Error states (used by localised product pages)
+  'error.unavailableTitle': {
+    en: 'Service temporarily unavailable',
+    zh: '服务暂时不可用',
+    bm: 'Perkhidmatan tidak tersedia buat sementara',
+  },
+  'error.unavailableBody': {
+    en: 'Our scoring engine is warming up. Please try again in a moment.',
+    zh: '评分服务正在启动，请稍后重试。',
+    bm: 'Enjin pemarkahan kami sedang dimulakan. Sila cuba sebentar lagi.',
+  },
+  'error.retry': { en: 'Try again', zh: '重试', bm: 'Cuba lagi' },
+  'error.backToAll': {
+    en: 'Back to all products',
+    zh: '返回全部产品',
+    bm: 'Kembali ke semua produk',
+  },
   // Product detail — info
   'detail.weight': { en: 'Weight', zh: '重量', bm: 'Berat' },
   'detail.origin': { en: 'Origin', zh: '产地', bm: 'Asal'  },

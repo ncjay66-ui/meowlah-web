@@ -1,3 +1,5 @@
+import { cache } from 'react';
+import type { Metadata } from 'next';
 import { getProduct, ApiNotFoundError } from '@/lib/api';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -6,18 +8,49 @@ import { catalogueProducts, isCatSupply } from '@/lib/catalogue';
 import CatSupplyDetail from '@/components/CatSupplyDetail';
 import ProductDetailView from '@/components/ProductDetailView';
 import BackButton from '@/components/BackButton';
+import { buildProductMetadata, buildProductJsonLd } from '@/lib/seo';
+
+/**
+ * 产品加载逻辑抽出来 + 用 React cache() 包住。
+ * 这样 generateMetadata 和页面组件在同一次请求里共用结果，不会重复打 API。
+ * 合并逻辑与原先完全一致，没有改动行为。
+ */
+const loadProduct = cache(async (id: string) => {
+  const summary = catalogueProducts.find((p) => p.id === id);
+  let product =
+    malaysiaProducts.find((p) => p.id === id) ??
+    (await getProduct(id).catch((err) => {
+      if (!summary || err instanceof ApiNotFoundError) throw err;
+      return { ...summary, nutrition: null, score: null, prices: [], halal_cert_no: null };
+    }));
+  if (summary) product = { ...product, ...summary };
+  return product;
+});
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  try {
+    const product = await loadProduct(id);
+    return buildProductMetadata(product);
+  } catch {
+    // 产品不存在或后端挂了 —— 不要让这一页被索引
+    return {
+      title: 'Product not found',
+      robots: { index: false, follow: true },
+    };
+  }
+}
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
   let product;
   try {
-    const summary = catalogueProducts.find(p => p.id === id);
-    product = malaysiaProducts.find(p => p.id === id) ?? await getProduct(id).catch(err => {
-      if (!summary || err instanceof ApiNotFoundError) throw err;
-      return {...summary,nutrition:null,score:null,prices:[],halal_cert_no:null};
-    });
-    if (summary) product = {...product,...summary};
+    product = await loadProduct(id);
   } catch (err) {
     if (err instanceof ApiNotFoundError) {
       // Product genuinely doesn't exist → true 404
@@ -47,8 +80,15 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     );
   }
 
+  const jsonLd = buildProductJsonLd(product);
+
   return (
     <div className="shop-detail max-w-3xl mx-auto px-4 py-5 pb-28">
+      {/* 结构化数据：帮助搜索结果展示价格/评分富摘要 */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <BackButton />
       {isCatSupply(product) ? <CatSupplyDetail product={product} /> : <ProductDetailView product={product} />}
     </div>
