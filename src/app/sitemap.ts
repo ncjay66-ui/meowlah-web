@@ -35,6 +35,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       ),
     },
     {
+      // 清真证据页 —— 这是我们唯一有独家数据、且别人抄不走的内容页
+      url: `${SITE}/halal`,
+      lastModified,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+      alternates: langAlternates((l) =>
+        l === 'en' ? `${SITE}/halal` : `${SITE}/${l === 'bm' ? 'ms' : 'zh'}/halal`,
+      ),
+    },
+    {
       url: `${SITE}/community`,
       lastModified,
       changeFrequency: 'weekly',
