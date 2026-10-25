@@ -27,9 +27,9 @@ export const halalCopy = {
   } as L<string>,
 
   metaDescription: {
-    en: 'We check halal evidence for cat food sold in Malaysia and publish exactly what we found, tier by tier. Pork-free is not the same as halal certified.',
-    bm: 'Kami semak bukti halal makanan kucing di Malaysia dan terbitkan apa yang kami jumpa, mengikut tahap bukti. Tanpa babi bukan bermakna bersijil halal.',
-    zh: '我们查核马来西亚在售猫粮的清真证据，按证据等级如实公开结果。无猪肉成分不等于已获清真认证。',
+    en: 'JAKIM halal certification does not cover animal feed. So what does halal cat food mean in Malaysia? We check the evidence and publish what we found.',
+    bm: 'Pensijilan halal JAKIM tidak meliputi makanan haiwan. Jadi apa maksud makanan kucing halal di Malaysia? Kami semak bukti dan terbitkan hasilnya.',
+    zh: 'JAKIM 的清真认证不涵盖动物饲料。那「清真猫粮」在马来西亚到底意味着什么？我们查核证据，如实公开结果。',
   } as L<string>,
 
   intro: {
@@ -49,6 +49,46 @@ export const halalCopy = {
     en: 'A brand saying "no pork" tells you about one ingredient. Halal certification covers much more: how animals were slaughtered, whether the line is free of cross-contamination, and whether the whole supply chain was audited by a recognised body. A pork-free declaration is useful information, but it is not a certificate, and we do not record it as one.',
     bm: 'Jenama yang menyatakan "tiada babi" hanya memberitahu anda tentang satu bahan. Pensijilan halal merangkumi lebih banyak perkara: cara haiwan disembelih, sama ada barisan pengeluaran bebas daripada pencemaran silang, dan sama ada seluruh rantaian bekalan diaudit oleh badan yang diiktiraf. Pernyataan tanpa babi ialah maklumat berguna, tetapi ia bukan sijil, dan kami tidak merekodkannya sebagai sijil.',
     zh: '品牌说「不含猪肉」，讲的只是一种原料。清真认证涵盖的范围大得多：动物如何屠宰、生产线是否存在交叉污染、整条供应链是否经过认可机构审核。「无猪肉」是有用的信息，但它不是认证，我们也不会把它记录成认证。',
+  } as L<string>,
+
+  // ── 监管现实：JAKIM 不认证宠物食品 ──────────────────────────
+  // 这是全页最重要的一节。它同时解释了「为什么没有一款有 JAKIM 标志」
+  // 和「品牌声称清真不等于在撒谎」。所有陈述都有公开来源，改动前请核对。
+  regulatoryHeading: {
+    en: 'Why you will not find a JAKIM halal logo on cat food',
+    bm: 'Mengapa anda tidak akan jumpa logo halal JAKIM pada makanan kucing',
+    zh: '为什么猫粮上找不到 JAKIM 清真标志',
+  } as L<string>,
+
+  regulatoryBody: {
+    en: 'In June 2023 the Department of Veterinary Services stated that JAKIM halal certification is focused on food for human consumption and does not cover animal feed, and that the halal logo cannot be used on animal feed labels. Animal feed is regulated instead under the Feed Act 2009. A major Malaysian pet retailer applies that same position to pet food. So the absence of a JAKIM logo on a bag of cat food is not a mark against the brand — that certificate is not available for this category.',
+    bm: 'Pada Jun 2023, Jabatan Perkhidmatan Veterinar menyatakan bahawa pensijilan halal JAKIM tertumpu kepada makanan untuk kegunaan manusia dan tidak meliputi makanan haiwan, serta logo halal tidak boleh digunakan pada label makanan haiwan. Makanan haiwan dikawal selia di bawah Akta Makanan Haiwan 2009 sebaliknya. Sebuah peruncit haiwan peliharaan utama di Malaysia menerapkan pendirian yang sama kepada makanan haiwan peliharaan. Jadi ketiadaan logo JAKIM pada sebeg makanan kucing bukanlah satu kelemahan jenama — sijil itu memang tidak tersedia untuk kategori ini.',
+    zh: '2023 年 6 月，兽医局（DVS）声明 JAKIM 的清真认证聚焦于人类食用的食品，不涵盖动物饲料，清真标志亦不得用于动物饲料的标签。动物饲料改由《Feed Act 2009》管辖。马来西亚一家主要宠物连锁零售商也以同样立场对待宠物食品。所以猫粮包装上没有 JAKIM 标志，并不是品牌的问题 —— 这个类别本来就拿不到那张证书。',
+  } as L<string>,
+
+  regulatoryCaveat: {
+    en: 'The DVS statement was issued about animal feed in general, prompted by a question on poultry feed. Whether pet food falls under exactly the same definition is how the industry reads it, not something the statement spells out. If this changes, we will update this page.',
+    bm: 'Kenyataan JPV dikeluarkan mengenai makanan haiwan secara umum, berikutan persoalan tentang makanan ayam. Sama ada makanan haiwan peliharaan termasuk dalam definisi yang sama adalah tafsiran industri, bukan sesuatu yang dinyatakan secara jelas. Jika ini berubah, kami akan kemas kini halaman ini.',
+    zh: '需要说明：DVS 那份声明针对的是「动物饲料」这个大类，起因是一个关于家禽饲料的问题。宠物食品是否完全适用同一定义，是业界的理解，声明本身并未逐字写明。若情况有变，我们会更新本页。',
+  } as L<string>,
+
+  // ── 那该看什么？────────────────────────────────────────────
+  lookForHeading: {
+    en: 'So what should you look for instead?',
+    bm: 'Jadi apa yang patut anda cari?',
+    zh: '那应该看什么？',
+  } as L<string>,
+
+  lookForBody: {
+    en: 'Brands that want halal credentials for pet food go to bodies outside the JAKIM scheme. The ones we have seen cited include Indonesia\'s MUI, which does have a pet food category, Hong Kong\'s IFRC-Asia, and certificates issued against the OIC/SMIIC 1:2019 standard. These are real schemes, but they are not JAKIM, and a brand describing its certificate as "on par with JAKIM" is telling you it is not a JAKIM certificate. Ask which body issued it, the certificate number, the expiry date, and which flavours and pack sizes it actually covers.',
+    bm: 'Jenama yang mahukan kredibiliti halal untuk makanan haiwan peliharaan merujuk badan di luar skim JAKIM. Antara yang pernah kami lihat disebut ialah MUI Indonesia, yang memang mempunyai kategori makanan haiwan peliharaan, IFRC-Asia Hong Kong, dan sijil yang dikeluarkan mengikut standard OIC/SMIIC 1:2019. Ini skim yang wujud, tetapi ia bukan JAKIM, dan jenama yang menyifatkan sijilnya "setaraf JAKIM" sebenarnya memberitahu anda ia bukan sijil JAKIM. Tanya badan mana yang mengeluarkannya, nombor sijil, tarikh luput, dan perisa serta saiz pek yang sebenarnya dilindungi.',
+    zh: '想为宠物食品取得清真资质的品牌，会转向 JAKIM 体系之外的机构。我们见过被引用的包括：印尼 MUI（确实设有宠物食品类别）、香港 IFRC-Asia，以及依据 OIC/SMIIC 1:2019 标准签发的证书。这些都是真实存在的体系，但它们不是 JAKIM —— 一个品牌把自己的证书描述成「与 JAKIM 同等水准」，其实是在告诉你那不是 JAKIM 证书。要问清楚：哪个机构签发、证书编号、有效期，以及实际覆盖哪些口味和包装规格。',
+  } as L<string>,
+
+  sourcesHeading: {
+    en: 'Sources for this section',
+    bm: 'Sumber untuk bahagian ini',
+    zh: '本节来源',
   } as L<string>,
 
   // ── 证据等级说明 ───────────────────────────────────────────
@@ -178,3 +218,42 @@ export const halalCopy = {
 
   viewProduct: { en: 'View product', bm: 'Lihat produk', zh: '查看产品' } as L<string>,
 };
+
+/**
+ * 监管一节的引用来源 —— 每条都是可点开核对的公开报道/官方页面。
+ * 这是整页可信度的支点，不要删，也不要加没亲自核对过的链接。
+ */
+export const regulatorySources: { label: Record<Lang, string>; url: string }[] = [
+  {
+    label: {
+      en: 'Dept. of Veterinary Services via Bernama, 2 June 2023 — "Halal certification by Jakim does not cover animal feed"',
+      bm: 'Jabatan Perkhidmatan Veterinar melalui Bernama, 2 Jun 2023 — "Pensijilan halal JAKIM tidak meliputi makanan haiwan"',
+      zh: '兽医局（DVS）via Bernama，2023 年 6 月 2 日 —— 「JAKIM 清真认证不涵盖动物饲料」',
+    },
+    url: 'https://www.themalaysianinsight.com/s/445735',
+  },
+  {
+    label: {
+      en: 'Sinar Daily, 2 June 2023 — same DVS statement, English report',
+      bm: 'Sinar Daily, 2 Jun 2023 — kenyataan JPV yang sama',
+      zh: 'Sinar Daily，2023 年 6 月 2 日 —— 同一份 DVS 声明',
+    },
+    url: 'https://www.sinardaily.my/article/197565/focus/national/halal-certification-by-jakim-does-not-cover-animal-feed---dvs',
+  },
+  {
+    label: {
+      en: 'Pet Lovers Centre Malaysia help centre — halal certification and animal feed',
+      bm: 'Pusat bantuan Pet Lovers Centre Malaysia — pensijilan halal dan makanan haiwan',
+      zh: 'Pet Lovers Centre Malaysia 帮助中心 —— 清真认证与动物饲料',
+    },
+    url: 'https://customercare.petloverscentre.com.my/hc/en-us/articles/33337589973913-Halal-Certification-for-Animal-Feed',
+  },
+  {
+    label: {
+      en: 'South China Morning Post — halal pet food demand in Malaysia, Indonesia and Thailand',
+      bm: 'South China Morning Post — permintaan makanan haiwan peliharaan halal di Malaysia, Indonesia dan Thailand',
+      zh: '南华早报 —— 马来西亚、印尼、泰国的清真宠物食品需求',
+    },
+    url: 'https://www.scmp.com/week-asia/lifestyle-culture/article/3285812/malaysias-muslim-pawrents-halal-pet-food-must-indonesia-and-thailand-too',
+  },
+];

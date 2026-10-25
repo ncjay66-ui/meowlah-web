@@ -3,7 +3,7 @@ import type { Lang } from '@/lib/locale';
 import { LANG_TO_PREFIX } from '@/lib/locale';
 import { halalLabel, type HalalStatus } from '@/lib/malaysia';
 import { buildHalalReport, type HalalEntry } from '@/lib/halal-report';
-import { halalCopy as C } from '@/lib/halal-copy';
+import { halalCopy as C, regulatorySources } from '@/lib/halal-copy';
 
 /**
  * 服务端组件（没有 'use client'）—— 内容必须出现在 HTML 里，
@@ -63,6 +63,35 @@ export default function HalalReport({ lang }: { lang: Lang }) {
         <Stat value={r.counts.verified ?? 0} label={C.statVerified[lang]} accent={(r.counts.verified ?? 0) > 0} />
         <Stat value={r.uncheckedCount} label={C.statUnchecked[lang]} />
       </div>
+
+      {/* 监管现实 —— 放最前面，因为它是理解下面一切的前提 */}
+      <Section title={C.regulatoryHeading[lang]}>
+        <div className="bg-sky-50 border border-sky-200 rounded-2xl p-4 space-y-3">
+          <p>{C.regulatoryBody[lang]}</p>
+          <p className="text-[13px] text-sky-900/70 leading-relaxed">{C.regulatoryCaveat[lang]}</p>
+        </div>
+
+        <div className="mt-3">
+          <p className="text-[12px] font-semibold text-gray-500 mb-1.5">{C.sourcesHeading[lang]}</p>
+          <ul className="space-y-1">
+            {regulatorySources.map((s) => (
+              <li key={s.url} className="text-[12px] leading-relaxed">
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="nofollow noopener noreferrer"
+                  className="text-sky-700 hover:underline"
+                >
+                  {s.label[lang]}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+
+      {/* 那该看什么 */}
+      <Section title={C.lookForHeading[lang]}>{C.lookForBody[lang]}</Section>
 
       {/* 核心科普：无猪肉 ≠ 清真 */}
       <Section title={C.porkFreeHeading[lang]}>
