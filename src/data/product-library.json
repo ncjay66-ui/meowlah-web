@@ -23,7 +23,7 @@
     "price_per_protein_g": 0.136,
     "name": "Rawz 96% Tuna & Chicken Liver",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "5b155f0b-5052-4e43-82e5-d4944433a17a",
@@ -74,7 +74,7 @@
     "price_per_protein_g": 0.1368,
     "name": "Tiki Cat Puka Puka Luau Succulent Chicken",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "88dbda29-22bd-4547-b37e-d351a142534e",
@@ -100,7 +100,7 @@
     "price_per_protein_g": 1.3089,
     "name": "Stella & Chewy's Freeze-Dried Raw Salmon Dinner",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "db37b6ea-40c0-40d5-aee0-69eb17165323",
@@ -126,7 +126,7 @@
     "price_per_protein_g": 0.1569,
     "name": "Catz Finefood No. 9 Tuna & Chicken",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "c63f3550-fec2-42a7-8b0e-4895ea189f12",
@@ -177,7 +177,7 @@
     "price_per_protein_g": 0.0965,
     "name": "Fussie Cat Market Fresh Salmon",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "965ce78b-03ab-43be-b6b4-bf530592e806",
@@ -328,7 +328,7 @@
     "price_per_protein_g": null,
     "name": "Kit Cat Creamy Treats Tuna & Scallop",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "a3903673-69c1-439a-9d5f-4388066dfa10",
@@ -379,7 +379,7 @@
     "price_per_protein_g": null,
     "name": "Kit Cat Creamy Treats Tuna & Liver",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "b451c286-f2ac-4aee-a2bb-4531ca73235a",
@@ -505,7 +505,7 @@
     "price_per_protein_g": 0.084,
     "name": "Petcubes Salmon & Pumpkin Gently Cooked",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "1b4b4bf4-27e5-4385-8e2f-68d21fc224b7",
@@ -531,7 +531,7 @@
     "price_per_protein_g": 0.1302,
     "name": "Hound & Gatos Chicken & Chicken Liver",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "9d325f3c-f15c-4515-b7e3-18693f8960dc",
@@ -732,7 +732,7 @@
     "price_per_protein_g": 0.0228,
     "name": "Smoliv Tuna & Pumpkin Grain-Free",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "e8522aba-d41c-4e71-912c-59434c1e6e40",
@@ -908,7 +908,7 @@
     "price_per_protein_g": 0.11,
     "name": "Smoliv Chicken & Sweet Potato Grain-Free",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "51306cec-8c9e-4142-ad9c-ae93c2badb2c",
@@ -959,7 +959,7 @@
     "price_per_protein_g": 0.1269,
     "name": "Petcubes Cooked Chicken & Fish",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "7a1f74ce-7201-4265-b5fb-aeada546ced6",
@@ -1135,7 +1135,7 @@
     "price_per_protein_g": 0.1467,
     "name": "Hound & Gatos 98% Chicken Pate",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "dbeba690-3d41-4733-8e3a-b380d181549a",
@@ -1436,7 +1436,7 @@
     "price_per_protein_g": 0.1619,
     "name": "Catz Finefood No. 507 Duck & Chicken",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "e4dc020e-f013-4e79-9839-13436d13cb78",
@@ -1462,7 +1462,7 @@
     "price_per_protein_g": 0.0805,
     "name": "Fancy Feast Grilled Tuna in Gravy",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "4ea7233d-cd14-4b18-9b8f-cdc652e05e90",
@@ -1538,7 +1538,7 @@
     "price_per_protein_g": 0.1787,
     "name": "Nature's Variety Instinct Grain-Free Chicken",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "0e0c6af0-3ba3-4a86-a6d6-76df3b2fc964",
@@ -1664,7 +1664,7 @@
     "price_per_protein_g": null,
     "name": "Applaws Tuna Fillet in Broth",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "f38b202e-2762-4c6e-a894-fc0e60305fe7",
@@ -1815,7 +1815,7 @@
     "price_per_protein_g": 0.0729,
     "name": "Sheba Premium Tuna in Jelly",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "b6e2368f-1c50-4a75-ad97-ce9f7de9ef0c",
@@ -1866,7 +1866,7 @@
     "price_per_protein_g": 0.1432,
     "name": "Nutripe Pure Salmon & Green Tripe",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "9b5dde05-bce4-4df0-a0c7-352b6b130681",
@@ -1942,7 +1942,7 @@
     "price_per_protein_g": 0.2476,
     "name": "Nekko Tuna Puree Treat",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "45ad9848-ff5e-4c4e-ba7b-ffe0bea2da27",
@@ -2343,7 +2343,7 @@
     "price_per_protein_g": 0.1247,
     "name": "Purina Pro Plan Adult Salmon & Rice",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "8f6531c9-c54e-40aa-b4c4-993fc557a891",
@@ -3469,7 +3469,7 @@
     "price_per_protein_g": 0.1733,
     "name": "Hill's Science Diet Kitten Chicken & Barley",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "7cb1a2e0-a55b-4adf-afcb-14d7f3c42c3f",
@@ -3595,7 +3595,7 @@
     "price_per_protein_g": 0.175,
     "name": "Hill's Science Diet Adult Chicken",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "c8d48484-3714-4b33-9b5f-5e685c5b2def",
@@ -3621,7 +3621,7 @@
     "price_per_protein_g": 0.0753,
     "name": "Monge Grill Tuna with Anchovy in Jelly",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "aabcbeba-4da5-42a7-86cc-a4575f42ea00",
@@ -4422,7 +4422,7 @@
     "price_per_protein_g": 0.1174,
     "name": "Go! Solutions Carnivore Grain Free Chicken, Turkey & Duck",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "393c59cd-6845-4caa-b618-aeca41a84440",
@@ -4548,7 +4548,7 @@
     "price_per_protein_g": 0.1875,
     "name": "Blue Buffalo Wilderness Chicken",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "766a2a78-1606-46e9-9d6a-9d86e24e04cf",
@@ -4574,7 +4574,7 @@
     "price_per_protein_g": 0.2444,
     "name": "Acana Wild Prairie Cat & Kitten",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "f7227e6c-3ac1-435e-84f7-38c940c138e9",
@@ -4625,7 +4625,7 @@
     "price_per_protein_g": 0.8732,
     "name": "Addiction Grain-Free Wild Kangaroo & Apples",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "b67fe682-b737-45ed-a098-a1584b3f7ba0",
@@ -4701,7 +4701,7 @@
     "price_per_protein_g": 0.1626,
     "name": "Wellness CORE Grain-Free Indoor",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "2ef24a7d-4d76-4d4d-b92b-129b185b3410",
@@ -4727,7 +4727,7 @@
     "price_per_protein_g": 0.9317,
     "name": "Addiction Grain-Free New Zealand Salmon & Potato",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "af4b6486-0e86-4f09-bff9-1bfeca1e1e9e",
@@ -4753,7 +4753,7 @@
     "price_per_protein_g": 0.2738,
     "name": "Orijen Cat & Kitten",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "2a8779ce-d992-4455-a154-a7abcc8fa17b",
@@ -4779,7 +4779,7 @@
     "price_per_protein_g": 0.1179,
     "name": "Solid Gold Indigo Moon Chicken & Egg",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "af92e449-4d43-45fb-a9d1-3ac5015bb089",
@@ -4930,7 +4930,7 @@
     "price_per_protein_g": 0.1225,
     "name": "Carnilove Adult Salmon for Cats",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "d02142c7-69a8-44a1-acac-f8c34216f818",
@@ -5106,7 +5106,7 @@
     "price_per_protein_g": 0.1909,
     "name": "Farmina N&D Grain-Free Chicken & Pomegranate",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "d8c78fee-697a-4abc-9042-544c29035140",
@@ -5282,7 +5282,7 @@
     "price_per_protein_g": 0.0676,
     "name": "Whiskas Adult Tuna in Gravy",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "d8181fd4-3330-4917-a9b7-348ceb795248",
@@ -5308,7 +5308,7 @@
     "price_per_protein_g": 0.1147,
     "name": "Iams ProActive Health Adult Original",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "1ed438f7-aea1-4eef-b38e-21d970bb8465",
@@ -5334,7 +5334,7 @@
     "price_per_protein_g": 0.0516,
     "name": "Nekko Tuna in Jelly",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "d83f4efe-711a-4fe4-89ea-5a5ec9694cc3",
@@ -5360,7 +5360,7 @@
     "price_per_protein_g": 0.0582,
     "name": "Whiskas Adult Ocean Fish in Jelly",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "83d8efaf-394a-4eff-8801-eb3347ec28ea",
@@ -5386,7 +5386,7 @@
     "price_per_protein_g": null,
     "name": "Kit Cat Tuna in Jelly",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "d4947b91-4969-4350-bba5-bd9421b9cf6a",
@@ -5462,7 +5462,7 @@
     "price_per_protein_g": 0.051,
     "name": "Me-O Tuna & Whitebait in Jelly",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "8c9de8ea-fca1-4c3b-a7d2-6532fbb820a1",
@@ -5988,7 +5988,7 @@
     "price_per_protein_g": null,
     "name": "Applaws Chicken Breast with Seaweed",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "a1a374dd-f2d0-4095-a38a-55b3f75aebf0",
@@ -6008,12 +6008,13 @@
     "lazada_url": "https://s.lazada.com.my/s.CCWPD",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Kitten%20Dry%20Cat%20Food%202kg&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAqCy",
-    "grade": null,
-    "final_score": null,
+    "grade": "B",
+    "final_score": 77,
     "price_myr": 91,
     "price_per_protein_g": null,
     "name": "Royal Canin Kitten Dry Cat Food 2kg",
-    "score_status": "unverified"
+    "score_status": "current",
+    "score_version": "4.3.0"
   },
   {
     "id": "b769cc7b-adff-4e07-8778-a2b369a558bb",
@@ -6114,7 +6115,7 @@
     "price_per_protein_g": 0.09,
     "name": "Fussie Cat Premium Tuna with Chicken",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "e5db640a-e3b7-470e-8b91-598207a303eb",
@@ -6185,12 +6186,12 @@
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Josera%20Josicat%20Poultry&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAqye",
     "grade": "B",
-    "final_score": 70.9,
+    "final_score": 79,
     "price_myr": 78,
     "price_per_protein_g": 0.1064,
     "name": "Josera Josicat Poultry",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "cfa90f42-973d-4725-ab45-d3292c2bc928",
@@ -6216,7 +6217,7 @@
     "price_per_protein_g": 0.0875,
     "name": "Growling Tummy Kitten Salmon",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "db61ae26-f4f4-4140-8bf3-8b363eb03c73",
@@ -6292,7 +6293,7 @@
     "price_per_protein_g": null,
     "name": "Inaba Churu Tuna & Shrimp Purée",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "cd6eeb65-c1ed-4e53-88ed-253f024a420c",
@@ -6443,7 +6444,7 @@
     "price_per_protein_g": 0.1837,
     "name": "Ciao Churu Tuna & Clam Puree",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "de3fd7f9-6769-404d-afa8-6d979bdac046",
@@ -6494,7 +6495,7 @@
     "price_per_protein_g": null,
     "name": "Kit Cat Signature Grain-Free Tuna & Chicken",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "1442d5b1-841f-4019-94c0-b84cfa0315da",
@@ -6545,7 +6546,7 @@
     "price_per_protein_g": 0.1389,
     "name": "Brit Care Grain-Free Salmon & Potato",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "7750ad92-f6ad-4c9a-907b-afe4f7799654",
@@ -6596,7 +6597,7 @@
     "price_per_protein_g": null,
     "name": "Inaba Churu Chicken & Scallop Purée",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "247c89dc-016a-4e1a-9748-6f83981a89aa",
@@ -6622,7 +6623,7 @@
     "price_per_protein_g": 0.0611,
     "name": "Me-O Adult Tuna in Jelly",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "cd43a1bb-b724-417b-a97e-0ccb15edeefd",
@@ -6698,7 +6699,7 @@
     "price_per_protein_g": 8.1961,
     "name": "Purina Pro Plan FortiFlora Cat Probiotic Supplement",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "acde8955-b4bb-4854-a44f-fe8746390123",
@@ -7199,7 +7200,7 @@
     "price_per_protein_g": 0.0686,
     "name": "Aixia Miaw Miaw Tuna with Shrimp",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "b696187c-236e-45ff-a496-75232b8ae7a7",
@@ -7670,12 +7671,12 @@
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Purina%20Cat%20Chow%20Complete&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAqBA",
     "grade": "B",
-    "final_score": 73.3,
+    "final_score": 73.8,
     "price_myr": 40,
     "price_per_protein_g": 0.0782,
     "name": "Purina Cat Chow Complete",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "19c04baf-94f9-4e53-b081-a413b10b9f91",
@@ -8077,7 +8078,7 @@
     "price_per_protein_g": 0.1353,
     "name": "Wellness Complete Health Adult Chicken & Salmon",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "337a0cfc-fdb5-4e56-b0a4-1865b2f70ad2",
@@ -8147,12 +8148,13 @@
     "lazada_url": "https://s.lazada.com.my/s.CCWEi",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Persian%20Adult%20Dry%20Cat%20Food&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAqzO",
-    "grade": null,
-    "final_score": null,
+    "grade": "B",
+    "final_score": 77,
     "price_myr": 91,
     "price_per_protein_g": null,
     "name": "Royal Canin Persian Adult Dry Cat Food",
-    "score_status": "unverified"
+    "score_status": "current",
+    "score_version": "4.3.0"
   },
   {
     "id": "c12e5e80-e429-43f1-bca1-e6591563e3e8",
@@ -8178,7 +8180,7 @@
     "price_per_protein_g": 0.475,
     "name": "Dreamies Cat Treats Salmon",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "a899914e-15ff-4384-a8e8-42d3ecfef996",
@@ -8204,7 +8206,7 @@
     "price_per_protein_g": 0.5,
     "name": "Dreamies Cat Treats Chicken",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "d979ac7b-7813-4c17-a337-2f3513953370",
@@ -8299,12 +8301,13 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i481108870.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Instinctive%20Adult%20Wet%20(85g%20x%2012%20Pouches)%20Cat%20Food%20Makanan%20Kucing%20-%20Feline%20Health%20Nutrition&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAraA",
-    "grade": null,
-    "final_score": null,
+    "grade": "A",
+    "final_score": 85.7,
     "price_myr": 54.6,
     "price_per_protein_g": null,
     "name": "Royal Canin Instinctive Adult Wet (85g x 12 Pouches) Cat Food Makanan Kucing - Feline Health Nutrition",
-    "score_status": "unverified"
+    "score_status": "current",
+    "score_version": "4.3.0"
   },
   {
     "id": "0bc1a0c9-699d-4d5b-87fa-4138d8d185a6",
@@ -8580,7 +8583,7 @@
     "price_per_protein_g": 0.0923,
     "name": "Aixia Miaw Miaw Tuna & Crab",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "702164b3-3274-42c7-90cf-e6293c05cb66",
@@ -9406,7 +9409,7 @@
     "price_per_protein_g": 0.1076,
     "name": "Smoliv Tuna & Pumpkin",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "a6135cb6-327c-4a9f-91ec-8deded0e637e",
@@ -9557,7 +9560,7 @@
     "price_per_protein_g": 3.7281,
     "name": "Zesty Paws Urinary Tract Support Bites for Cats",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "2eff0e46-83f1-499f-a9fc-8d3170a614e0",
@@ -9583,7 +9586,7 @@
     "price_per_protein_g": 6.6909,
     "name": "VetriScience Probiotic Everyday Bite-Sized Cat Supplement",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "04e7f8ee-e073-4f90-b2b5-64b5b18e669f",
@@ -9609,7 +9612,7 @@
     "price_per_protein_g": 0.3882,
     "name": "Temptations Classic Treats Chicken",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "f6d7f03c-3ea6-4c1a-8405-6a2f243b4ee5",
@@ -9635,7 +9638,7 @@
     "price_per_protein_g": 3.3455,
     "name": "Zesty Paws Senior Advanced Mobility Bites for Cats",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "e0222749-2aa4-4047-aa5a-850e96b3fb33",
@@ -9686,7 +9689,7 @@
     "price_per_protein_g": 2.8552,
     "name": "NaturVet All-in-One Cat Multivitamin Soft Chew",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "4ad42b9e-b3dd-497e-8c02-d1452f88fd92",
@@ -9712,7 +9715,7 @@
     "price_per_protein_g": 1.9,
     "name": "Missing Link Feline Skin & Coat Formula",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "cd62c4ce-51b7-4011-bd77-19f5ba62a74d",
@@ -9738,7 +9741,7 @@
     "price_per_protein_g": 1.5,
     "name": "Greenies Feline Dental Treats Chicken",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "ea702bcb-bfa4-4e9f-906e-82b5b6849845",
@@ -9764,7 +9767,7 @@
     "price_per_protein_g": 3.3553,
     "name": "Zesty Paws 8-in-1 Immune Defense Bites for Cats",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "ee9217f0-b285-4560-aab7-27d0fca3b7f5",
@@ -9815,7 +9818,7 @@
     "price_per_protein_g": 1.3727,
     "name": "Nupro All Natural Cat Supplement",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "32ed5281-07d7-49d6-831d-4c3101556136",
@@ -10060,12 +10063,13 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i4197862711.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=ROYAL%20CANIN%20Cat%20Dry%20Food%20Complete%20Nutrition%20Urinary%20Tract%20Care%20for%20All%20Breeds%20Ad",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAJOQ",
-    "grade": null,
-    "final_score": null,
+    "grade": "C",
+    "final_score": 69.5,
     "price_myr": 519,
     "price_per_protein_g": null,
     "name": "ROYAL CANIN Cat Dry Food Complete Nutrition Urinary Tract Care for All Breeds Adult Cats 1.5kg/3.5kg/6kg",
-    "score_status": "unverified"
+    "score_status": "current",
+    "score_version": "4.3.0"
   },
   {
     "id": "856a8682-c01e-47ba-958b-7a476b74f3d8",
@@ -10091,7 +10095,7 @@
     "price_per_protein_g": 0.0893,
     "name": "Monge Grill Tuna with Shrimp",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "35fad215-d2dc-455e-a671-e0157ba9bbaf",
@@ -10342,7 +10346,7 @@
     "price_per_protein_g": 79.54,
     "name": "Nutramax Cosequin for Cats (30 Capsules)",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "83280f27-e55a-446e-8c17-ad31819e110f",
@@ -10368,7 +10372,7 @@
     "price_per_protein_g": 25.4545,
     "name": "Hartz Hairball Remedy Plus Paste for Cats",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "ff8dc46c-f514-4f68-9fe1-f537b3b3fc95",
@@ -10394,7 +10398,7 @@
     "price_per_protein_g": 26.2857,
     "name": "Tomlyn Laxatone Tuna Flavor Hairball Remedy for Cats",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "26bd8f91-a9e0-420c-8c92-e3197516b4ad",
@@ -10420,7 +10424,7 @@
     "price_per_protein_g": 0.7174,
     "name": "NaturVet L-Lysine Powder Cat Supplement (8 oz)",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "7771efee-51f7-471a-b5ed-b30a7ed34c54",
@@ -10446,7 +10450,7 @@
     "price_per_protein_g": 4.1528,
     "name": "VetriScience Vetri Lysine Plus Cat Supplement",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "589f6685-032c-4eea-b518-02f3da300428",
@@ -10472,7 +10476,7 @@
     "price_per_protein_g": 7.8857,
     "name": "Vetri-Mega Probiotic Cat Skin & Coat Supplement",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "3aa0c1c3-7bd9-4f03-a27a-110234ce5ca9",
@@ -10498,7 +10502,7 @@
     "price_per_protein_g": 18.2083,
     "name": "Rx Vitamins Rx Biotic Probiotic & Prebiotic Powder for Cats",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "df69efec-6c08-4f6b-9967-f1e3600815dd",
@@ -10524,7 +10528,7 @@
     "price_per_protein_g": 8.8889,
     "name": "Vet's Best Dental Gel Toothpaste for Cats",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "a8082c5d-7a19-4079-a175-6d197fd49433",
@@ -10550,7 +10554,7 @@
     "price_per_protein_g": 28.175,
     "name": "ProDen PlaqueOff Powder for Cats",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "f6230d01-65e8-43b5-8878-dab69aeef4aa",
@@ -10576,7 +10580,7 @@
     "price_per_protein_g": 2.7977,
     "name": "NaturVet Digestive Enzymes Cat Supplement",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "cb5a8ae1-27ae-4a0b-ab2b-5e87a57d2a94",
@@ -10602,7 +10606,7 @@
     "price_per_protein_g": 7.36,
     "name": "VetriScience Bladder Strength Cat Urinary Supplement",
     "score_status": "current",
-    "score_version": "4.2.0"
+    "score_version": "4.3.0"
   },
   {
     "id": "0d22bbbf-5755-468f-ae2e-ebc32855fe75",
@@ -10747,12 +10751,13 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i4469109236.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Indoor%2027%20Twin%20Pack%200.4kg%20x%202%20Dry%20Cat%20Food&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AArVD",
-    "grade": null,
-    "final_score": null,
+    "grade": "B",
+    "final_score": 77,
     "price_myr": 110.2,
     "price_per_protein_g": null,
     "name": "Royal Canin Indoor 27 Twin Pack 0.4kg x 2 Dry Cat Food",
-    "score_status": "unverified"
+    "score_status": "current",
+    "score_version": "4.3.0"
   },
   {
     "id": "04d54011-7ea3-4f76-8333-baf66dadc0c2",
@@ -11847,12 +11852,13 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i4047281792.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Cat%20-%20Indoor%2027%20(2kg)&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": null,
-    "grade": null,
-    "final_score": null,
+    "grade": "B",
+    "final_score": 77,
     "price_myr": 81,
     "price_per_protein_g": null,
     "name": "Royal Canin Cat - Indoor 27 (2kg)",
-    "score_status": "unverified"
+    "score_status": "current",
+    "score_version": "4.3.0"
   },
   {
     "id": "286dc404-4aa9-4dc9-b876-4891ba7ba5e7",
@@ -15672,12 +15678,13 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i4674595638.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Hairball%20Intense%20Care%20Cat%20Dry%20Food%204kg&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAJ73",
-    "grade": null,
-    "final_score": null,
+    "grade": "B",
+    "final_score": 77,
     "price_myr": 169,
     "price_per_protein_g": null,
     "name": "Royal Canin Hairball Intense Care Cat Dry Food 4kg",
-    "score_status": "unverified"
+    "score_status": "current",
+    "score_version": "4.3.0"
   },
   {
     "id": "c1e82da5-80bc-41f3-a363-5702ef94bcc0",
@@ -16572,12 +16579,13 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i2995190355.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Fit%2032%20Adult%20Cats%20Food%204kg&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": null,
-    "grade": null,
-    "final_score": null,
+    "grade": "B",
+    "final_score": 77,
     "price_myr": 133,
     "price_per_protein_g": null,
     "name": "Royal Canin Fit 32 Adult Cats Food 4kg",
-    "score_status": "unverified"
+    "score_status": "current",
+    "score_version": "4.3.0"
   },
   {
     "id": "ec31a233-405a-4f60-8987-d8f93bdbfd6e",
@@ -16597,12 +16605,13 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i4746612181.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Fit%2032%20Adult%20(10kg)%20Dry%20Cat%20Food%20Makanan%20Kucing%20-%20Feline%20Health%20Nutrition&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAJ7U",
-    "grade": null,
-    "final_score": null,
+    "grade": "B",
+    "final_score": 77,
     "price_myr": 330,
     "price_per_protein_g": null,
     "name": "Royal Canin Fit 32 Adult (10kg) Dry Cat Food Makanan Kucing - Feline Health Nutrition",
-    "score_status": "unverified"
+    "score_status": "current",
+    "score_version": "4.3.0"
   },
   {
     "id": "edb8c69d-2e1c-4e22-a565-b280b0914285",
@@ -17147,12 +17156,13 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i4586423283.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=ROYAL%20CANIN%204kg%20Indoor%2027%20Cat%20Food%204KG%20Makanan%20Kucing%20Royal%20Canin%20RC%204kg%20Cat%20Food&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": null,
-    "grade": null,
-    "final_score": null,
+    "grade": "B",
+    "final_score": 77,
     "price_myr": 235.85,
     "price_per_protein_g": null,
     "name": "ROYAL CANIN 4kg Indoor 27 Cat Food 4KG Makanan Kucing Royal Canin RC 4kg Cat Food",
-    "score_status": "unverified"
+    "score_status": "current",
+    "score_version": "4.3.0"
   },
   {
     "id": "fc16c5e2-ddb8-40ef-bce1-e25141fbcdd6",
