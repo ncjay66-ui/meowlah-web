@@ -32,8 +32,12 @@ const DRY = process.argv.includes('--dry');
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const FILE = path.join(ROOT, 'src', 'data', 'product-library.json');
 
-/** 只有这 4 个字段会被覆盖 */
-const SCORE_FIELDS = ['final_score', 'grade', 'score_status', 'score_version'];
+/**
+ * 只有这些字段会被覆盖。
+ * is_prescription 也在内：处方粮标记直接决定前端是否显示评分和「🩺 处方粮」标记，
+ * 不同步的话静态目录会一直停留在旧值（踩过这个坑）。
+ */
+const SCORE_FIELDS = ['final_score', 'grade', 'score_status', 'score_version', 'is_prescription'];
 
 async function fetchAll() {
   const out = [];

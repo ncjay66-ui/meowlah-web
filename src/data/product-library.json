@@ -7085,7 +7085,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-af083695fbf23ebc7706.webp",
@@ -7093,12 +7093,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i4580467638.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Purina%20Pro%20Plan%20Veterinary%20Diets%20EN%20Gastroenteric%20Feline%20UR%20Urinary%20Formula%20Dry%20",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAJPH",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 299.38,
     "price_per_protein_g": null,
     "name": "Purina Pro Plan Veterinary Diets EN Gastroenteric Feline UR Urinary Formula Dry Cat Food 1.5kg Bag",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "3dcd4d00-5d3d-4f7a-a7c0-9adb767c44fb",
@@ -7862,7 +7862,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-0bcb07e2509ffd7a9d1e.webp",
@@ -7870,12 +7870,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i2491721634.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Brit%20Grain-Free%20VETERINARY%20DIETS%20CAT%20STRUVITE%20(5KG)&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": null,
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 193,
     "price_per_protein_g": null,
     "name": "Brit Grain-Free VETERINARY DIETS CAT STRUVITE (5KG)",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "99502113-1ebe-458a-b003-232ad191d7bd",
@@ -7987,7 +7987,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-7d57cc68f8842f8c2a23.webp",
@@ -7995,12 +7995,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i892148376.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Urinary%20S%2FO%20Wet%20pouch%20Cat%20Food%2012%20x%2085%20g&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AArW4",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 110.2,
     "price_per_protein_g": null,
     "name": "Royal Canin Urinary S/O Wet pouch Cat Food 12 x 85 g",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "2ba0ab84-a564-4141-8707-e34696549e52",
@@ -8012,7 +8012,7 @@
     "weight_g": 1500,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": "France",
     "image_url": "/products/media/library-fd9fe6e1d21ca5360a7a.webp",
@@ -8020,13 +8020,13 @@
     "lazada_url": "https://s.lazada.com.my/s.CCWGO",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Urinary%20S%2FO%20Dry&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAqz1",
-    "grade": "B",
-    "final_score": 75.2,
+    "grade": "N/A",
+    "final_score": null,
     "price_myr": 25,
     "price_per_protein_g": 0.0451,
     "name": "Royal Canin Urinary S/O Dry",
-    "score_status": "current",
-    "score_version": "4.2.0"
+    "score_status": "not_applicable",
+    "score_version": null
   },
   {
     "id": "b9a10834-18c6-4c8e-84fb-b395b741f345",
@@ -9468,7 +9468,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-7df0cdd04265f9bb3a30.webp",
@@ -9476,12 +9476,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i1671188367.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Hills%20Prescription%20Diet%20W%2FD%201.5kg%20for%20cat&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAJCS",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 120,
     "price_per_protein_g": null,
     "name": "Hills Prescription Diet W/D 1.5kg for cat",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "321c30fd-f97b-4356-868b-665120282a8f",
@@ -9493,7 +9493,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-4ee0b19b21ef7df59935.webp",
@@ -9501,12 +9501,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i4816455228.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Hill's%20Cat%20-%20z%2Fd%20Food%20Sensitivities%20Hydrolyzed%20Chicken%20Flavor%20156g%20x%203%20cans&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAJAG",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 60,
     "price_per_protein_g": null,
     "name": "Hill's Cat - z/d Food Sensitivities Hydrolyzed Chicken Flavor 156g x 3 cans",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "c557594b-c29b-4788-9901-d32f60cd5a93",
@@ -10027,7 +10027,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-159948c85e3eaef8bab1.webp",
@@ -10035,12 +10035,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i2646556115.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Vet%20Care%20Feline%20Nutrition%20Urinary%20S%2FO%20Cat%20Kucing%20Dry%20Food%203.5kg&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAraM",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 110.2,
     "price_per_protein_g": null,
     "name": "Royal Canin Vet Care Feline Nutrition Urinary S/O Cat Kucing Dry Food 3.5kg",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "70dd12e9-2ff1-40bb-9ade-f6e1b11e0a42",
@@ -10178,7 +10178,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-ddea840f0f621a3e7835.webp",
@@ -10186,12 +10186,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i4798336446.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Kitten%20-%20Gastrointestinal%20(2kg%2F400g)&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAr2v",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 28,
     "price_per_protein_g": null,
     "name": "Royal Canin Kitten - Gastrointestinal (2kg/400g)",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "7cb92a93-411d-4fd5-a6cf-8473dae36695",
@@ -10303,7 +10303,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-180d4d9073f5901b5043.webp",
@@ -10311,12 +10311,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i2849312333.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Vet%20Care%20Feline%20Gastro%20Intestinal%20Kitten%20Cat%20Kucing%20Dry%20Food%202kg&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAJ7X",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 130,
     "price_per_protein_g": null,
     "name": "Royal Canin Vet Care Feline Gastro Intestinal Kitten Cat Kucing Dry Food 2kg",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "f4e2a1cd-187d-42bf-8a84-2192a9404470",
@@ -10614,7 +10614,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-54619ec2cd107aeb968f.webp",
@@ -10622,12 +10622,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i4696808807.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Advance%20Veterinary%20Diets%20Cat%20Feline%20Kucing%20Hypoallergenic%20Makanan%20Kering%201.25kg&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AArfP",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 155.33,
     "price_per_protein_g": null,
     "name": "Advance Veterinary Diets Cat Feline Kucing Hypoallergenic Makanan Kering 1.25kg",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "00b67415-42e0-4c10-99fb-62b2fc361014",
@@ -11214,7 +11214,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-145eaee9fa4e8eddd0a6.webp",
@@ -11222,12 +11222,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i1328484877.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Veterinary%20Exclusive%20Royal%20Canin%20Satiety%203.5kg&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAJOE",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 174,
     "price_per_protein_g": null,
     "name": "Veterinary Exclusive Royal Canin Satiety 3.5kg",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "18a82e4b-8e79-4c72-a4dc-fde9a2d339e9",
@@ -12864,7 +12864,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-bebdba47debacb7e138d.webp",
@@ -12872,12 +12872,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i2853225162.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Vet%20Care%20Feline%20Diabetic%20Kucing%20Cat%20Dry%20Food%203.5kg&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AArZa",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 110.2,
     "price_per_protein_g": null,
     "name": "Royal Canin Vet Care Feline Diabetic Kucing Cat Dry Food 3.5kg",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "5766e8a1-8996-42f0-a05c-d8416d5c3833",
@@ -13139,7 +13139,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-81fada0b08b9af839105.webp",
@@ -13147,12 +13147,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i2646474569.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Vet%20Care%20Feline%20Renal%20Kucing%20Cat%20Dry%20Food%202kg&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAJzC",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 110.2,
     "price_per_protein_g": null,
     "name": "Royal Canin Vet Care Feline Renal Kucing Cat Dry Food 2kg",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "60970eb7-4c5d-43c9-919b-5cb33fcb4a29",
@@ -13489,7 +13489,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-1b0c2ddfa662281c5462.webp",
@@ -13497,12 +13497,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i4492904498.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Veterinary%20Diet%20Cat%20Fibre%20Response%204kg%20kucing%20Feline%20FIBER&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAJz8",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 220,
     "price_per_protein_g": null,
     "name": "Royal Canin Veterinary Diet Cat Fibre Response 4kg kucing Feline FIBER",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "71643dba-0beb-40bf-aa92-5a60976911d2",
@@ -14489,7 +14489,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-0ee766631584fd83cc2a.webp",
@@ -14497,12 +14497,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i3971163131.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Doggy%20%E2%99%A8Royal%20Canin%20Urinary%20SO%20Cat%20Dry%20Food%207kg%E2%99%AD&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AArdI",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 400.7,
     "price_per_protein_g": null,
     "name": "Doggy ♨Royal Canin Urinary SO Cat Dry Food 7kg♭",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "965fa3cb-c7bd-4a70-9c0b-942603f62b12",
@@ -15789,7 +15789,7 @@
     "weight_g": null,
     "is_halal": false,
     "is_local_brand": false,
-    "is_prescription": false,
+    "is_prescription": true,
     "food_purpose": "complete",
     "country_origin": null,
     "image_url": "/products/media/library-3681c2b6e1e9d007d51f.webp",
@@ -15797,12 +15797,12 @@
     "lazada_url": "https://www.lazada.com.my/products/pdp-i3056252187.html",
     "affiliate_shopee": "https://shopee.com.my/search?keyword=Royal%20Canin%20Gastrointestinal%20Hairball%20400g%2F2kg%20for%20cat&mmp_pid=an_12354800147&utm_medium=affiliates&utm_source=an_12354800147",
     "affiliate_lazada": "https://s.lazada.com.my/s.AAr3M",
-    "grade": null,
+    "grade": "N/A",
     "final_score": null,
     "price_myr": 28,
     "price_per_protein_g": null,
     "name": "Royal Canin Gastrointestinal Hairball 400g/2kg for cat",
-    "score_status": "unverified"
+    "score_status": "not_applicable"
   },
   {
     "id": "c6f23cd6-3309-4774-9d51-fd65751bae3b",

@@ -1,5 +1,7 @@
 'use client';
+import Link from 'next/link';
 import { useLang } from '@/lib/language';
+import { LANG_TO_PREFIX } from '@/lib/locale';
 import { merchantLink, words } from '@/lib/shopping';
 import { halalLabel, halalStatus, marketReview, lifeStage, marketAvailabilityNote, marketDeliveryNote, malaysiaProducts } from '@/lib/malaysia';
 export default function MarketEvidence({id}: {id:string}) {
@@ -11,6 +13,13 @@ export default function MarketEvidence({id}: {id:string}) {
     <span className="shop-eyebrow">{w('MALAYSIA · SOURCE CHECK', '马来西亚 · 资料核查', 'MALAYSIA · SEMAKAN SUMBER')}</span>
     <h2>{halalLabel(halalStatus(review),lang)}</h2>
     <p>{w('Pork-free is not halal certification. Unverified does not mean non-halal.', '无猪成分不等于清真认证；待核实也不等于非清真。', 'Tanpa babi bukan pensijilan halal. Belum disahkan tidak bermaksud tidak halal.')}</p>
+    {/* 指向清真证据页 —— 每个产品页都有，是 /halal 的主要内链来源。
+        带语言前缀，否则马来语读者会被丢到英文版。 */}
+    <p><Link href={`${LANG_TO_PREFIX[lang] ? `/${LANG_TO_PREFIX[lang]}` : ''}/halal`} className="shop-evidence-guide">
+      {w('How we check halal evidence — and why JAKIM does not certify pet food',
+         '我们如何核查清真证据 —— 以及为什么 JAKIM 不认证宠物食品',
+         'Bagaimana kami semak bukti halal — dan mengapa JAKIM tidak mensijilkan makanan haiwan')} →
+    </Link></p>
     {review ? <>
       <p>{lifeStage(id,lang)} · {w('Checked', '查阅于', 'Disemak')}：{review.checked_at} · {marketAvailabilityNote(review,lang)}</p>
       <p>{marketDeliveryNote(review,lang)}</p>

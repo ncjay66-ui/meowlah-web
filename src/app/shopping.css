@@ -51,6 +51,19 @@
   cursor:pointer}
 .shop-primary:hover{background:#bb4522}
 .shop-hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-top:18px}
+/* 列表页的服务端导言 —— ProductCatalogue 是纯客户端渲染，
+   这段是该页唯一能被搜索引擎读到的内容，不要隐藏它 */
+.shop-seo-intro{max-width:760px;margin:0 auto;padding:22px 20px 4px}
+.shop-seo-intro h1{font-size:22px;line-height:1.35;font-weight:700;color:#1d2b24;margin:0 0 10px}
+.shop-seo-intro p{font-size:14px;line-height:1.75;color:#45544c;margin:8px 0}
+.shop-seo-intro a{color:#1f6b4d;text-decoration:underline;text-underline-offset:3px;font-weight:600}
+.shop-seo-intro a:hover{opacity:.78}
+@media(max-width:600px){.shop-seo-intro{padding:16px 16px 2px}.shop-seo-intro h1{font-size:19px}.shop-seo-intro p{font-size:13px}}
+
+/* 指向 /halal 的内链 —— /halal 的主要权重来源，样式刻意低调，不抢 CTA */
+.shop-hero-halal{margin-top:14px;font-size:13px;line-height:1.6}
+.shop-hero-halal a{color:#1f6b4d;text-decoration:underline;text-underline-offset:3px}
+.shop-hero-halal a:hover{opacity:.78}
 .shop-hero .shop-primary{margin-top:0}
 .shop-secondary{border:1px solid #cbd4c5;border-radius:9px;padding:12px 15px;color:#395642;font-size:13px;font-weight:600}
 .shop-secondary:hover{background:#e5e9dd}
@@ -526,4 +539,4 @@ html{scroll-behavior:auto}
 
 
 /* Malaysian catalogue evidence */
-.shop-evidence{background:#f1f5ee;border:1px solid #dbe5d5;border-radius:20px;padding:24px;margin:24px 0;color:#294a39}.shop-evidence h2{font-size:22px;margin:10px 0;font-weight:700}.shop-evidence p{font-size:14px;line-height:1.8;margin:8px 0}.shop-evidence-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:14px}.shop-evidence-links a{text-decoration:underline;font-size:13px}.shop-halal-status{display:block;font-size:11px;line-height:1.6;color:#655431;background:#f7f1e5;border-radius:7px;padding:6px 8px;margin:10px 0}.shop-toolbar{flex-wrap:wrap}.shop-toolbar select{max-width:280px}.shop-market-intro{margin:16px 0 22px;padding:17px 20px}.shop-market-intro h2{font-size:19px;margin:6px 0}.shop-market-intro p{font-size:12px;line-height:1.6;margin:5px 0}@media(max-width:600px){.shop-evidence{padding:18px}.shop-market-intro{padding:14px 16px;margin:12px 0 18px}.shop-market-intro h2{font-size:17px}.shop-market-intro p{font-size:11px}.shop-toolbar select{max-width:235px}}
+.shop-evidence{background:#f1f5ee;border:1px solid #dbe5d5;border-radius:20px;padding:24px;margin:24px 0;color:#294a39}.shop-evidence h2{font-size:22px;margin:10px 0;font-weight:700}.shop-evidence p{font-size:14px;line-height:1.8;margin:8px 0}.shop-evidence-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:14px}.shop-evidence-links a{text-decoration:underline;font-size:13px}.shop-evidence-guide{display:inline-block;font-size:13px;font-weight:600;color:#1f6b4d;text-decoration:underline;text-underline-offset:3px}.shop-evidence-guide:hover{opacity:.78}.shop-halal-status{display:block;font-size:11px;line-height:1.6;color:#655431;background:#f7f1e5;border-radius:7px;padding:6px 8px;margin:10px 0}.shop-toolbar{flex-wrap:wrap}.shop-toolbar select{max-width:280px}.shop-market-intro{margin:16px 0 22px;padding:17px 20px}.shop-market-intro h2{font-size:19px;margin:6px 0}.shop-market-intro p{font-size:12px;line-height:1.6;margin:5px 0}@media(max-width:600px){.shop-evidence{padding:18px}.shop-market-intro{padding:14px 16px;margin:12px 0 18px}.shop-market-intro h2{font-size:17px}.shop-market-intro p{font-size:11px}.shop-toolbar select{max-width:235px}}

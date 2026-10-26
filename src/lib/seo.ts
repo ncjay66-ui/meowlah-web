@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { Product } from './api';
 import { LANG_TO_PREFIX, HREFLANG, OG_LOCALE, type Lang } from './locale';
 import { halalStatus, marketReview, type HalalStatus } from './malaysia';
+import { hasPublishedScore } from './shopping';
 
 export const SITE = 'https://www.meowlah.com';
 export const SITE_NAME = 'MeowLah';
@@ -150,7 +151,11 @@ export function productTitle(p: Product, lang: Lang = 'en'): string {
 
   if (lang === 'en') {
     const parts = [name];
-    if (p.grade) parts.push(`Grade ${p.grade}`);
+    // ⚠️ 只在评分真正通过发布校验时才写进标题。
+    // 目前全部产品的 score_status 缺失 → 页面正文显示「旧版评分已暂时隐藏」，
+    // 元数据就绝不能对外宣称一个分数。详见 hasPublishedScore()。
+    if (hasPublishedScore(p) && p.grade) parts.push(`Grade ${p.grade}`);
+    else parts.push(categoryWord(p.category, 'en'));
     if (price) parts.push(price);
     return withBrand(clamp(parts.join(' — '), MAX_TITLE));
   }
@@ -174,7 +179,8 @@ export function productDescription(p: Product, lang: Lang = 'en'): string {
   const sentences: string[] = [];
   sentences.push(S.lead(name, p.brand, cat));
 
-  if (p.final_score != null && p.grade) {
+  // ⚠️ 同上：页面正文把未复核的旧评分隐藏了，描述里也不能宣称分数。
+  if (hasPublishedScore(p) && p.final_score != null && p.grade) {
     sentences.push(S.score(Math.round(p.final_score), p.grade));
   }
 
@@ -273,7 +279,11 @@ export function buildProductJsonLd(p: Product, lang: Lang = 'en') {
     };
   }
 
-  if (p.final_score != null) {
+  // ⚠️ 绝对不要在这里输出未通过发布校验的评分。
+  // reviewRating 会让 Google 在搜索结果里显示星级 —— 而页面正文此刻
+  // 明确写着「旧版评分已暂时隐藏」。两者不一致既误导用户，
+  // 也可能被 Google 判定为误导性结构化标记而受罚。
+  if (hasPublishedScore(p) && p.final_score != null) {
     data.review = {
       '@type': 'Review',
       author: { '@type': 'Organization', name: SITE_NAME },
@@ -291,7 +301,10 @@ export function buildProductJsonLd(p: Product, lang: Lang = 'en') {
   if (status === 'verified' && review?.certifier) {
     props.push({ '@type': 'PropertyValue', name: 'Halal certification', value: review.certifier });
   }
-  if (p.grade) props.push({ '@type': 'PropertyValue', name: 'MeowLah grade', value: p.grade });
+  // 同上：评分未通过发布校验就不对外输出分级
+  if (hasPublishedScore(p) && p.grade) {
+    props.push({ '@type': 'PropertyValue', name: 'MeowLah grade', value: p.grade });
+  }
   if (props.length) data.additionalProperty = props;
 
   return data;

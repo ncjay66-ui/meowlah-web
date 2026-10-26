@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ProductCatalogue from '@/components/ProductCatalogue';
 import { PREFIX_TO_LANG, PREFIXED_PARAMS, HREFLANG, OG_LOCALE, type Lang } from '@/lib/locale';
@@ -20,6 +21,22 @@ const LISTING: Record<Lang, { title: string; description: string }> = {
     title: '马来西亚猫粮榜 — 独立评分、价格与清真证据',
     description:
       '按独立营养评分、每 100 克价格和清真证据，比较马来西亚在售的 600+ 款猫粮。评分从不接受付费。',
+  },
+};
+
+/** 服务端渲染的导言 —— 这一页唯一能被搜索引擎读到的文字 */
+const SEO_INTRO: Record<Lang, { body: string; halalLink: string }> = {
+  en: {
+    body: 'We score cat food sold in Malaysia on nutrition, show the real price per 100g, and record what halal evidence we were actually able to verify. Ratings are never paid for.',
+    halalLink: 'Halal evidence: what we checked, and why JAKIM does not certify pet food',
+  },
+  bm: {
+    body: 'Kami menilai makanan kucing di Malaysia dari segi pemakanan, memaparkan harga sebenar per 100g, dan merekodkan bukti halal yang benar-benar dapat kami sahkan. Skor kami tidak pernah dibayar.',
+    halalLink: 'Bukti halal: apa yang kami semak, dan mengapa JAKIM tidak mensijilkan makanan haiwan',
+  },
+  zh: {
+    body: '我们按营养为马来西亚在售猫粮评分，列出每 100 克的真实价格，并如实记录我们能够核实的清真证据。评分从不接受付费。',
+    halalLink: '清真证据：我们查了什么，以及为什么 JAKIM 不认证宠物食品',
   },
 };
 
@@ -69,7 +86,26 @@ export default async function LocalisedProductsPage({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-  if (!PREFIX_TO_LANG[lang]) notFound();
-  // 语言由 [lang]/layout.tsx 的 LanguageProvider forcedLang 注入
-  return <ProductCatalogue />;
+  const internal = PREFIX_TO_LANG[lang];
+  if (!internal) notFound();
+
+  const copy = LISTING[internal];
+  const intro = SEO_INTRO[internal];
+
+  // ⚠️ ProductCatalogue 是客户端组件且用了 useSearchParams()，
+  // 整个 Suspense 边界会被推迟到客户端 —— 它的内容不会进服务端 HTML。
+  // 下面这段是这一页唯一能被 Google 读到的内容，同时是 /halal 的高权重内链。
+  return (
+    <>
+      <section className="shop-seo-intro">
+        <h1>{copy.title}</h1>
+        <p>{intro.body}</p>
+        <p>
+          <Link href={`/${lang}/halal`}>{intro.halalLink} →</Link>
+        </p>
+      </section>
+      {/* 语言由 [lang]/layout.tsx 的 LanguageProvider forcedLang 注入 */}
+      <ProductCatalogue />
+    </>
+  );
 }
