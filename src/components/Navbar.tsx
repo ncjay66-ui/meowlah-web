@@ -23,7 +23,15 @@ export default function Navbar() {
 
         {/* Logo */}
         <a href="/" className="flex items-center gap-1.5" style={{ textDecoration: 'none' }}>
-          <span className="text-xl leading-none">🐾</span>
+          {/* 用真实品牌图标替掉占位的 🐾 —— 同一枚猫头也是 favicon，
+              浏览器标签页和站内头部保持一致，辨识度才建立得起来 */}
+          <img
+            src="/icon.png"
+            alt=""
+            width={26}
+            height={26}
+            style={{ borderRadius: '50%', display: 'block' }}
+          />
           <span className="text-[17px] font-black tracking-tight leading-none">
             <span style={{ color: '#FF6B35' }}>Meow</span><span className="text-gray-900">Lah</span>
           </span>
